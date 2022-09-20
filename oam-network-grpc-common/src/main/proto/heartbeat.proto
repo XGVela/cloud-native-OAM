@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.heartbeat";
+option java_outer_classname = "HeartBeat";
+option objc_class_prefix = "HB";
+
+package heartbeat;
+
+service HeartBeatReportService{
+  rpc HeartBeatReport(HeartReq) returns (HeartRsp){}
+}
+
+message HeartReq{
+  string neType = 1;
+  string neId = 2;
+}
+
+message HeartRsp{
+  string result = 1;
+}

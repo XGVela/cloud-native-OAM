@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.tubevnf";
+option java_outer_classname = "TubeVnf";
+option objc_class_prefix = "tubevnf";
+
+package tubevnf;
+
+service TubeVnfService{
+  rpc TubeVnf(VnfReq) returns (VnfResp){}
+  rpc DeTubeVnf(VnfReq) returns (VnfResp){}
+}
+
+message VnfReq{
+  string neType = 1;
+  string neId = 2;
+  string systemId = 3;
+}
+
+message VnfResp{
+  string result = 1;
+}

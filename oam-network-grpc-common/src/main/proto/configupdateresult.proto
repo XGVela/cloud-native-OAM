@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.configupdateresult";
+option java_outer_classname = "ConfigUpdateResult";
+option objc_class_prefix = "CRN";
+
+package configupdateresult;
+
+service ConfigUpdateResultService {
+  rpc cfgUpdateResult(CfgResultNotifyReq) returns (CfgResultNotifyResp) {}
+}
+
+message CfgResultNotifyReq
+{
+  string NfType = 1;
+  string InstanceId = 2;
+  uint32 MsgId = 3;
+  string Result = 4;
+}
+
+message CfgResultNotifyResp
+{
+  string Result = 1; // 0 succ 1 failed 2 need reboot
+}

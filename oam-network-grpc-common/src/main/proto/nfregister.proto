@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.nfregister";
+option java_outer_classname = "NFRegister";
+option objc_class_prefix = "NFR";
+
+package nfregister;
+
+service NfRegisterService{
+  rpc NfRegister(RegisterReq) returns (RegisterRsp){}
+}
+
+message RegisterReq{
+  string neId = 1;
+  string vnfName = 2;
+  string neType = 3;
+  string vnfManageIp = 4;
+  string vnfManagePort = 5;
+  string vnfSignalPort = 6;
+}
+
+message RegisterRsp{
+  string result = 1;
+}

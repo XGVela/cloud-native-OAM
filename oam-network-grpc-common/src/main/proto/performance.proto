@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.performance";
+option java_outer_classname = "performance";
+option objc_class_prefix = "performance";
+
+package performance;
+
+service PerfStatisticsService {
+  rpc StatisticsReq(StatsInfoReq) returns (stream StatsInfoRsp){}
+}
+
+message StatsInfoReq
+{
+  map<string,double> statsResultInfo = 1;
+}
+
+message StatsInfoRsp
+{
+    string result = 1;          //0 succ, other fail
+}
