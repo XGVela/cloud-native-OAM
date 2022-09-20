@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.traceinfo";
+option java_outer_classname = "TraceInfo";
+option objc_class_prefix = "TI";
+
+package traceinfo;
+
+service TraceInfoService{
+  rpc InformTraceInfo(TraceInfoReq) returns (TraceInfoResp){}
+}
+
+message TraceInfoReq{
+  string taskId = 1;
+  bytes  data = 2;
+}
+
+message TraceInfoResp{
+  string result = 1;
+}

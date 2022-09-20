@@ -1,0 +1,7 @@
+package org.xgvela.oam.service.performance;
+
+public interface IMeterService {
+    void MetricData();
+
+    void MetricGrpcValue(String neId, String neType, String metric, Double value);
+}

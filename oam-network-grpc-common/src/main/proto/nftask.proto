@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.nftask";
+option java_outer_classname = "NFTask";
+option objc_class_prefix = "NT";
+
+package nftask;
+
+service NfTaskService{
+  rpc createNfTask(NfTaskReq) returns (NfTaskResp){}
+}
+
+message NfTaskReq{
+  uint32 taskId = 1;
+  string dataType = 2;
+  string userNumber = 3;
+  uint32 runNow = 4;
+  uint32 timeLength = 5;
+  uint64 startTime = 6;
+  uint64 endTime = 7;
+  uint32 status = 8;
+  repeated string interfaceType = 9;
+}
+
+message NfTaskResp{
+  string result = 1;
+}

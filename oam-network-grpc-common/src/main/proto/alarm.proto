@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.alarm";
+option java_outer_classname = "alarm";
+option objc_class_prefix = "alarm";
+
+package alarm;
+
+service AlarmReportService{
+  rpc AlarmReport(AlarmReq) returns (AlarmRsp){}
+}
+
+message AlarmReq{
+  string neType   = 1;
+  string neId = 2;
+  string alarmId = 3;
+  uint64 alarmCurrentTime = 4;
+  uint32 alarmLevel = 5;
+  uint32 alarmType = 6;
+  uint32 alarmStatusType = 7; //0-active alarm 1-clean alarm
+  string neName = 8;
+  string alarmName = 9;
+  string alarmObject = 10;
+  string alarmLocationInfo = 11;
+  string alarmObjectName = 12;
+  string specificProblem = 13;
+  string specificProblemId = 14;
+  string source = 15;
+  string rmUid = 16;
+  string alarmDeviceType = 17;
+
+}
+
+message AlarmRsp{
+  string result = 1; //0 succ, other fail
+}

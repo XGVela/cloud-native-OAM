@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: oam-network-alarm
+  cloud:
+    nacos:
+      config:
+        name: oam-network-alarm
+        namespace: 75975ef0-c6c1-44ee-a541-ee4334ad7a59
+        refresh-enabled: true
+        server-addr: 111.111.63.136:30430

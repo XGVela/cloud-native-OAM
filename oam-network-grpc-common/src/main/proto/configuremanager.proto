@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.configuremanager";
+option java_outer_classname = "ConfigureManager";
+option objc_class_prefix = "CM";
+
+package configuremanager;
+
+service ConfigureManagerService {
+  rpc updateConfigFile (stream UpdateCfgFileReq) returns (UpdateCfgFileRsps){}
+}
+
+message UpdateCfgFileReq
+{
+  string nfType = 1;
+  string neId = 2;
+  uint32 updateType = 3;
+  string fileName = 4;
+  bytes  fileData = 5; //file contents
+}
+message UpdateCfgFileRsps {
+  repeated UpdateCfgFileRsp updateRsp = 1;// 0 succ 1 failed 2 need reboot
+}
+
+message UpdateCfgFileRsp
+{
+  string updateRsp = 1;// 0 succ 1 failed 2 need reboot
+}

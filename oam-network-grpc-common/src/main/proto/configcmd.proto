@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.configcmd";
+option java_outer_classname = "ConfigCmd";
+option objc_class_prefix = "CC";
+
+package configcmd;
+
+service ConfigCmdService{
+  //when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+  rpc updateNFcfg(UpdateCfgReq)returns(UpdateCfgResp){}
+}
+
+message UpdateCfgReq
+{
+  string NfType = 1;
+  string InstanceId = 2;
+  uint32 UpdateType = 3;
+  uint32 MsgId = 4;
+  string FileName = 5;
+  bytes FileData = 6;//filecontents
+}
+
+message UpdateCfgResp
+{
+  string UpdateRsp = 1;//0succ1failed2needreboot
+}

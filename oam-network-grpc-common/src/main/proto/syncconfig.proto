@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.syncconfig";
+option java_outer_classname = "SyncConfig";
+option objc_class_prefix = "SC";
+
+package syncconfig;
+
+service SyncConfigService {
+  rpc GetConfigFile(GetFileReq) returns(stream GetFileResp){}
+}
+
+message GetFileReq
+{
+  string nfType = 1;
+  string neId = 2;
+  string fileName = 3;
+}
+
+message GetFileResp
+{
+  string result = 1;   //0 succ, other fail
+  bytes fileData = 2; //file contents,if success
+}
