@@ -1,0 +1,1 @@
+oam-network-nfregister/ci/oam-network-nfregister-1.0-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
