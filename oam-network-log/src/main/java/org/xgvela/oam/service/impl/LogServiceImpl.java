@@ -138,13 +138,13 @@ public class LogServiceImpl implements ILogService {
     }
 
     private static List<EsLog> getEntitys(SearchResponse sr) {
-        List<EsLog> entitys = new ArrayList<>();
+        List<EsLog> entities = new ArrayList<>();
         for (SearchHit item : sr.getHits().getHits()) {
             EsLog entity = JsonUtils.js2o(item.getSourceAsString(), EsLog.class);
             entity.setId(item.getId());
-            entitys.add(entity);
+            entities.add(entity);
         }
-        return entitys;
+        return entities;
     }
 
     private String date2time(Object o) throws Exception {
