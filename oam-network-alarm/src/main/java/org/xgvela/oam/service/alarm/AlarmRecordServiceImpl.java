@@ -7,11 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-/**
- * <p>
- *  AlarmRecordServiceImpl
- * </p>
- */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AlarmRecordServiceImpl extends ServiceImpl<AlarmRecordMapper, AlarmRecord> implements IAlarmRecordService {

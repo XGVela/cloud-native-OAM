@@ -542,6 +542,7 @@ public  final class NfTaskReq extends
               NfTaskReq.class, Builder.class);
     }
 
+    // Construct using NfTaskReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -16,46 +16,46 @@ public class OptLog implements Serializable {
 	@ApiModelProperty(value = "id")
 	private String id;
 
-	@ApiModelProperty(value = "username")
+	@ApiModelProperty(value = "Operator ")
 	private String username;
 
-	@ApiModelProperty(value = "requestIp")
+	@ApiModelProperty(value = "requested IP")
 	private String requestIp;
 
-	@ApiModelProperty(value = "description")
+	@ApiModelProperty(value = "details ")
 	private String description;
 
-	@ApiModelProperty(value = "method")
+	@ApiModelProperty(value = "request method ")
 	private String method;
 
-	@ApiModelProperty(value = "params")
+	@ApiModelProperty(value = "request parameter ")
 	private String params;
 
-	@ApiModelProperty(value = "result")
+	@ApiModelProperty(value = "result of request ")
 	private String result = "";
 
-	@ApiModelProperty(value = "logType")
+	@ApiModelProperty(value = "log type ")
 	private String logType;
 
-	@ApiModelProperty(value = "serverName")
+	@ApiModelProperty(value = "service name ")
 	private String serverName;
 
-	@ApiModelProperty(value = "level")
+	@ApiModelProperty(value = "log level ")
 	private String level;
 
-	@ApiModelProperty(value = "requestUri")
+	@ApiModelProperty(value = "request path ")
 	private String requestUri;
 
-	@ApiModelProperty(value = "responseTime")
+	@ApiModelProperty(value = "Response time (ms) ")
 	private Long responseTime;
 
-	@ApiModelProperty(value = "exceptionDetail")
+	@ApiModelProperty(value = "Exception details ")
 	private String exceptionDetail = "";
 
-	@ApiModelProperty(value = "developerId")
+	@ApiModelProperty(value = "Tenant number ")
 	private String developerId;
 
-	@ApiModelProperty(value = "createTime")
+	@ApiModelProperty(value = "created time ")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 

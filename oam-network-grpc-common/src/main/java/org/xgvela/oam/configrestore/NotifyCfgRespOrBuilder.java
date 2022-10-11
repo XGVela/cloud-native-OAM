@@ -8,10 +8,18 @@ public interface NotifyCfgRespOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
+   * <pre>
+   *0  成功  非0  失败
+   * </pre>
+   *
    * <code>string Result = 1;</code>
    */
   String getResult();
   /**
+   * <pre>
+   *0  成功  非0  失败
+   * </pre>
+   *
    * <code>string Result = 1;</code>
    */
   com.google.protobuf.ByteString

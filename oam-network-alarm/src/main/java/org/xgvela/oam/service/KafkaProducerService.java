@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * kafka
  * @author maopu
  * @since 2021/11/11
  */
@@ -50,8 +49,7 @@ public class KafkaProducerService<K, V> {
             record = new ProducerRecord<>(topic, message);
             producer.send(record);
         } catch (Exception e) {
-            log.error("KafkaProducerService to kafka error:{}, producer:{}, topic:{}, key{}, json:{}", e,
-                    producer, topic, message);
+            log.error("KafkaProducerService to kafka error:{}, producer:{}, topic:{}, key{}, json:{}", e, producer, topic, message);
         }
 
     }

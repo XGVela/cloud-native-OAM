@@ -8,12 +8,6 @@ import org.xgvela.oam.service.subscribe.IOamSubscribeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
-/**
- * <p>
- *  OamSubscribeServiceImpl
- * </p>
- */
 @Service
 @Slf4j
 public class OamSubscribeServiceImpl extends ServiceImpl<OamSubscribeMapper, OamSubscribe> implements IOamSubscribeService {

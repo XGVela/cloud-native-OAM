@@ -281,6 +281,7 @@ public  final class UpdateCfgFileRsp extends
               UpdateCfgFileRsp.class, Builder.class);
     }
 
+    // Construct using UpdateCfgFileRsp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -273,6 +273,7 @@ public  final class RegisterRsp extends
               RegisterRsp.class, Builder.class);
     }
 
+    // Construct using RegisterRsp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -1,5 +1,6 @@
 package org.xgvela.oam.service.alarm;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -9,16 +10,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.inspur.cnet.common.core.exception.ServiceException;
-import com.inspur.cnet.common.core.utils.DateUtil;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.alarm.statistics.ActiveAlarmStatisticsDTO;
+import org.xgvela.oam.exception.ServiceException;
 import org.xgvela.oam.mapper.alarm.active.ActiveAlarmMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     private static final Integer ALARM_CONFIRM = 1;
 
     /**
-     * create
      * @param activeAlarm
      * @return ActiveAlarm
      */
@@ -44,7 +42,6 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     }
 
     /**
-     * update
      * @param id
      * @param developerId
      * @param activeAlarm
@@ -53,7 +50,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     public Boolean update(Long id, String developerId, ActiveAlarm activeAlarm) {
         ActiveAlarm alarm = this.getById(id);
         if (ObjectUtils.isEmpty(alarm)) {
-            throw new ServiceException("Edit active alarm failed");
+            throw new ServiceException("Failed to edit real-time alarms. Procedure");
         }
         activeAlarm.setDeveloperId(developerId);
         LambdaUpdateWrapper<ActiveAlarm> updateWrapper = Wrappers.lambdaUpdate();
@@ -65,10 +62,10 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     public Boolean confirm(Long id, String developerId, Integer ackState, String userId, String userName) {
         ActiveAlarm activeAlarm = this.getById(id);
         if (ObjectUtils.isEmpty(activeAlarm)) {
-            throw new ServiceException("Alarm confirmation failed");
+            throw new ServiceException("Alarm confirmation failure");
         }
         if (ObjectUtils.isNotEmpty(activeAlarm.getAlarmConfirmUserid()) && !userId.equals(activeAlarm.getAlarmConfirmUserid()) && !"admin".equals(userName)) {
-            throw new ServiceException("Alarm confirmation failed");
+            throw new ServiceException("Alarm confirmation failure");
         }
         activeAlarm.setAlarmConfirmUserid(userId);
         activeAlarm.setAlarmConfirmUsername(userName);
@@ -88,7 +85,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     }
 
     /**
-     * delete
+     * Delete real-time alarms based on the tenant
      * @param id
      * @param developerId
      * @return
@@ -100,15 +97,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     }
 
     /**
-     * listActiveAlarm
-     * @param alarmId
-     * @param alarmObjectUid
-     * @param alarmObjectName
-     * @param alarmName
-     * @param alarmType
-     * @param alarmLevel
-     * @param developerId
-     * @return
+     * List Querying real-time alarms
      */
     public List<ActiveAlarm> listActiveAlarm(String alarmId, String alarmObjectUid, String alarmObjectName, String alarmName, Integer alarmType, Integer alarmLevel,
                                              String startTime, String endTime, String neId, String neType, String alarmDeviceType, String source, String developerId, String columnName, String sortOrder) {
@@ -117,22 +106,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     }
 
     /**
-     * pageActiveAlarm
-     * @param alarmId
-     * @param alarmObjectUid
-     * @param alarmObjectName
-     * @param alarmName
-     * @param alarmType
-     * @param alarmLevel
-     * @param developerId
-     * @param startTime
-     * @param endTime
-     * @param neId
-     * @param pageNum
-     * @param pageSize
-     * @param columnName
-     * @param sortOrder
-     * @return
+     * Paging query real-time alarms
      */
     public IPage<ActiveAlarm> pageActiveAlarm(String alarmId, String alarmObjectUid, String alarmObjectName, String alarmName, Integer alarmType, Integer alarmLevel,
                                               String developerId, String startTime, String endTime, String neId, String neType, String alarmDeviceType, String source, int pageNum, int pageSize, String columnName, String sortOrder) {
@@ -160,11 +134,10 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
                 Date endDate = DateUtil.parse(endTime, ActiveAlarm.ALARM_DATE_PARAM_PATTERN);
                 queryWrapper.ge(ActiveAlarm::getAlarmEventTime, startDate);
                 queryWrapper.le(ActiveAlarm::getAlarmEventTime, endDate);
-            } catch (ParseException e) {
-                throw new ServiceException("The time format is incorrect");
+            } catch (Exception e) {
+                throw new ServiceException("Wrong time format");
             }
         }
-
         String lastSql = String.format("ORDER BY %s %s", columnName, sortOrder);
         if (StringUtils.isNotEmpty(columnName)) {
             queryWrapper.last(lastSql);
@@ -184,7 +157,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     }
 
     /**
-     * getStatisticsInfo
+     * Collect the number of real-time alarms based on the fields in the dictionary
      * @param developerId
      * @param label
      * @return
@@ -192,7 +165,7 @@ public class ActiveAlarmServiceImpl extends ServiceImpl<ActiveAlarmMapper, Activ
     public List<ActiveAlarmStatisticsDTO> getStatisticsInfo(String developerId, String label) {
         List<ActiveAlarmStatisticsDTO> statisticsList = this.baseMapper.getCountByLabel(developerId, label);
         ActiveAlarmStatisticsDTO statisticsDTO = ActiveAlarmStatisticsDTO.builder()
-                .type("count")
+                .type("total count")
                 .count(count(Wrappers.<ActiveAlarm>lambdaQuery()
                         .eq(StringUtils.isNotBlank(developerId), ActiveAlarm::getDeveloperId, developerId)))
                 .build();

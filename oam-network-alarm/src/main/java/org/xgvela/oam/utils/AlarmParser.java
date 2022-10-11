@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class AlarmParser {
 	
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
 	
     public static AlarmDto parse(Map<String, String> dbAlarm) {
         AlarmDto alarmDto = new AlarmDto();

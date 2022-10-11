@@ -28,17 +28,12 @@ public interface CfgResultNotifyReqOrBuilder extends
       getInstanceIdBytes();
 
   /**
-   * <code>uint32 MsgId = 3;</code>
+   * <code>string TaskId = 3;</code>
    */
-  int getMsgId();
-
+  String getTaskId();
   /**
-   * <code>string Result = 4;</code>
-   */
-  String getResult();
-  /**
-   * <code>string Result = 4;</code>
+   * <code>string TaskId = 3;</code>
    */
   com.google.protobuf.ByteString
-      getResultBytes();
+      getTaskIdBytes();
 }

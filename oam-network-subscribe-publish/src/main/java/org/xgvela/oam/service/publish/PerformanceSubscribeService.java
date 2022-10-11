@@ -1,5 +1,6 @@
 package org.xgvela.oam.service.publish;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.xgvela.oam.entity.SubscribeInfo;
 import org.xgvela.oam.entity.subscribe.OamSubscribe;
@@ -11,6 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//The delivery in September does not include performance subscription push, and does not adapt to performance push events
 @Component
 @Slf4j
 public class PerformanceSubscribeService {
@@ -25,16 +32,23 @@ public class PerformanceSubscribeService {
 
     @KafkaListener(topics = {PerfSubscribeTopic}, groupId = "${oam.subscribe.consumerGroupId}")
     public void handleMessageAndSend(ConsumerRecord record){
-        log.info(PerfSubscribeTopic + " : " + record.value());
-        String neId = "";
+        Map<String,String> map = JSON.parseObject(record.value().toString(), HashMap.class);
+        String neId = map.get("neId");
         LambdaQueryWrapper<OamSubscribe> oamSubscribeLambdaQueryWrapper = new LambdaQueryWrapper<>();
         oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getNeId, neId);
         oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getDataType, PerfDataType);
         OamSubscribe oamSubscribe = iOamSubscribeService.getOne(oamSubscribeLambdaQueryWrapper);
-        String callBackUrl = oamSubscribe.getCallbackUrl();
-        SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(null).perf(null).register(null).build();
-        httpPostClient.send(callBackUrl, subscribeInfo);
-
+        if(oamSubscribe != null){
+            log.info(PerfSubscribeTopic + " : " + record.value());
+            String callBackUrl = oamSubscribe.getCallbackUrl();
+            log.info(PerfSubscribeTopic + " CallBackUrl: " + callBackUrl);
+            List<String> perfList = new ArrayList<>();
+            perfList.add(record.value().toString());
+            SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(null).perf(perfList).register(null).build();
+            String subscribeSendInfo = JSON.toJSONString(subscribeInfo);
+            log.info(PerfSubscribeTopic + " SubscribeInfo: " + subscribeSendInfo);
+            httpPostClient.send(callBackUrl, subscribeInfo);
+        }
     }
 
 }

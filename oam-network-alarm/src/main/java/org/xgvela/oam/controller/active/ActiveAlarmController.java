@@ -1,16 +1,13 @@
 package org.xgvela.oam.controller.active;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.inspur.cnet.common.core.entity.response.Response;
-import com.inspur.cnet.common.core.entity.response.ResponseFactory;
-import com.inspur.cnet.security.entity.Developer;
-import com.inspur.cnet.security.service.DeveloperServiceImpl;
-import com.inspur.cnet.security.service.UserServiceImpl;
 import org.xgvela.oam.controller.BaseResourceController;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarmClass;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarmSeverity;
 import org.xgvela.oam.entity.alarm.statistics.ActiveAlarmStatisticsDTO;
+import org.xgvela.oam.entity.response.Response;
+import org.xgvela.oam.entity.response.ResponseFactory;
 import org.xgvela.oam.service.alarm.AcitveAlarmClassServiceImpl;
 import org.xgvela.oam.service.alarm.AcitveAlarmSeverityServiceImpl;
 import org.xgvela.oam.service.alarm.ActiveAlarmServiceImpl;
@@ -23,16 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>
  * ActiveAlarmController
  * </p>
  */
-@Api(tags = "alarm manage-active alarm")
+@Api(tags = "Alarm Management - Real-time alarms")
 @RestController
 @RequestMapping("api/active-alarms")
 public class ActiveAlarmController extends BaseResourceController {
@@ -43,23 +38,23 @@ public class ActiveAlarmController extends BaseResourceController {
     private HistoryAlarmServiceImpl historyAlarmService;
     @Autowired
     private AlarmService alarmService;
-    @Autowired
+    /*@Autowired
     private UserServiceImpl userService;
     @Autowired
-    private DeveloperServiceImpl developerService;
+    private DeveloperServiceImpl developerService;*/
     @Autowired
     private AcitveAlarmSeverityServiceImpl activeAlarmSeverityService;
     @Autowired
     private AcitveAlarmClassServiceImpl activeAlarmClassService;
 
 
-    @ApiOperation(value = "create", notes = "create")
+    @ApiOperation(value = "Adding Real-time Alarms", notes = "Adding Real-time Alarms")
     @PostMapping
     public Response<ActiveAlarm> create(@RequestBody ActiveAlarm activeAlarm) {
         return resourceResponse(developerId ->activeAlarmService.create(activeAlarm,developerId));
     }
 
-    @ApiOperation(value = "update", notes = "update")
+    @ApiOperation(value = "Editing Real-time Alarms", notes = "Editing Real-time Alarms")
     @PutMapping("/{id}")
     public Response<Boolean> update(@PathVariable Long id,
                           @RequestBody ActiveAlarm activeAlarm) {
@@ -67,7 +62,7 @@ public class ActiveAlarmController extends BaseResourceController {
         return resourceResponse(developerId ->activeAlarmService.update(id, developerId, activeAlarm));
     }
 
-    @ApiOperation(value = "confirm", notes = "confirm")
+    @ApiOperation(value = "Real-time alarm Confirmation", notes = "Real-time alarm Confirmation")
     @PutMapping("/{id}/confirm")
     public Response<Boolean> confirm(@PathVariable Long id,
                            @RequestParam(value = "ackState") Integer ackState) {
@@ -78,19 +73,19 @@ public class ActiveAlarmController extends BaseResourceController {
         return resourceResponse(developerId ->activeAlarmService.confirm(id, developerId, ackState, String.valueOf(userId), String.valueOf(account)));
     }
 
-    @ApiOperation(value = "delete", notes = "delete")
+    @ApiOperation(value = "Deleting a Real-Time Alarm", notes = "Deleting a Real-Time Alarm")
     @DeleteMapping("/{id}")
     public Response<Boolean> delete(@PathVariable Long id) {
         return resourceResponse(developerId ->activeAlarmService.delete(id, developerId));
     }
 
-    @ApiOperation(value = "getActiveAlarm", notes = "getActiveAlarm")
+    @ApiOperation(value = "Querying Real-Time Alarms", notes = "Querying Real-Time Alarms")
     @GetMapping("/{id}")
     public Response<ActiveAlarm> getActiveAlarm(@PathVariable Long id) {
         return resourceResponse(developerId ->activeAlarmService.getById(id));
     }
 
-    @ApiOperation(value = "list", notes = "list")
+    @ApiOperation(value = "List Querying real-time alarms", notes = "List Querying real-time alarms")
     @GetMapping("/list")
     public Response<List<ActiveAlarm>> list(@RequestParam(value = "alarmId", required = false) String alarmId,
                      @RequestParam(value = "alarmObjectUid", required = false) String alarmObjectUid,
@@ -110,7 +105,7 @@ public class ActiveAlarmController extends BaseResourceController {
                 alarmLevel, startTime, endTime, neId, neType, alarmDeviceType, source, developerId, columnName, sortOrder));
     }
 
-    @ApiOperation(value = "page", notes = "page")
+    @ApiOperation(value = "Paging query real-time alarms", notes = "Paging query real-time alarms")
     @GetMapping("/page")
     public Response<IPage<ActiveAlarm>> page(@RequestParam(value = "alarmId", required = false) String alarmId,
                                              @RequestParam(value = "alarmObjectUid", required = false) String alarmObjectUid,
@@ -132,25 +127,25 @@ public class ActiveAlarmController extends BaseResourceController {
                 alarmLevel, developerId, startTime, endTime, neId, neType, alarmDeviceType, source, pageNum, pageSize, columnName, sortOrder));
     }
 
-    @ApiOperation(value = "manualClearedAlarm", notes = "manualClearedAlarm")
+    @ApiOperation(value = "Manually Clearing an Alarm", notes = "Manually Clearing an Alarm")
     @PostMapping(value = "/cleared")
     public Response<Boolean> manualClearedAlarm(@RequestBody ActiveAlarm activeAlarm) {
         return resourceResponse(developerId ->alarmService.manualDeleteAlarm(activeAlarm,developerId));
     }
 
-    @ApiOperation(value = "getActiveCountByAlarmId", notes = "getActiveCountByAlarmId")
+    @ApiOperation(value = "Query the number of real-time alarms based on alarmId", notes = "Query the number of real-time alarms based on alarmId")
     @GetMapping("/count")
     public Response<Integer> getActiveCountByAlarmId(@RequestParam(value = "alarmId", required = true) String alarmId){
         return resourceResponse(developerId ->activeAlarmService.getActiveCount(alarmId, developerId));
     }
 
-    @ApiOperation(value = "getStatisticsInfo", notes = "getStatisticsInfo")
+    @ApiOperation(value = "Collect the real-time alarms on different labels", notes = "Collect the real-time alarms on different labels")
     @GetMapping("/statistics/{label}")
     public Response<List<ActiveAlarmStatisticsDTO>> getStatisticsInfo(@PathVariable(value = "label") String label){
         return resourceResponse(developerId ->activeAlarmService.getStatisticsInfo(developerId, label));
     }
 
-    @ApiOperation(value = "severity")
+    @ApiOperation(value = "Example Query the number of active alarms of each severity")
     @GetMapping(value = "/active/severity")
     public Response<List<ActiveAlarmSeverity>> severity(
             @RequestParam(value = "neName", required = false) String neName,
@@ -166,7 +161,7 @@ public class ActiveAlarmController extends BaseResourceController {
         return resourceResponse(developerId -> activeAlarmSeverityService.countSeverity(neName, alarmNO, alarmObjectName, alarmName,alarmPvFlag, alarmLevel, alarmType, source, startTime,endTime,"active",developerId));
     }
 
-    @ApiOperation(value = "alarmClass")
+    @ApiOperation(value = "Query the number of active alarms of each type")
     @GetMapping(value = "/active/alarmClass")
     Response<List<ActiveAlarmClass>> alarmClass(
             @RequestParam(value = "neName", required = false) String neName,
@@ -183,7 +178,7 @@ public class ActiveAlarmController extends BaseResourceController {
                         endTime));
     }
 
-    @ApiOperation(value = "alarmCount")
+    @ApiOperation(value = "Querying the total number of alarms")
     @GetMapping(value = "/active/alarmCount")
     Response<Long> alarmCount(
             @RequestParam(value = "alarmId", required = false) String alarmId){
@@ -191,7 +186,7 @@ public class ActiveAlarmController extends BaseResourceController {
                 activeAlarmClassService.countAlarm(alarmId,developerId,"active"));
     }
 
-    @ApiOperation(value = "pushAlarm")
+    @ApiOperation(value = "Filtering and pushing alarms")
     @PostMapping(value = "/push")
     public Response<Boolean> pushAlarm(@RequestBody Object object){
         return ResponseFactory.getSuccessData(alarmService.createRestActiveAlarm(object));

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.xgvela.oam.alarm";
+option java_package = "com.inspur.oam.alarm";
 option java_outer_classname = "alarm";
 option objc_class_prefix = "alarm";
 
@@ -18,7 +18,7 @@ message AlarmReq{
   uint64 alarmCurrentTime = 4;
   uint32 alarmLevel = 5;
   uint32 alarmType = 6;
-  uint32 alarmStatusType = 7; //0-active alarm 1-clean alarm
+  uint32 alarmStatusType = 7; //0-代表活动告警 1-代表清除告警
   string neName = 8;
   string alarmName = 9;
   string alarmObject = 10;

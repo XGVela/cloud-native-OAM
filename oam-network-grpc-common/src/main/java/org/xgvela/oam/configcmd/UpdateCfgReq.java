@@ -457,6 +457,7 @@ public  final class UpdateCfgReq extends
               UpdateCfgReq.class, Builder.class);
     }
 
+    // Construct using UpdateCfgReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

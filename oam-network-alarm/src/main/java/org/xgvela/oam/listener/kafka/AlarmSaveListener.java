@@ -2,7 +2,6 @@ package org.xgvela.oam.listener.kafka;
 
 
 import com.alibaba.fastjson.JSON;
-import com.inspur.cnet.security.service.DeveloperServiceImpl;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.alarm.active.AlarmRecord;
 import org.xgvela.oam.entity.alarm.history.HistoryAlarm;
@@ -12,7 +11,6 @@ import org.xgvela.oam.service.alarm.AlarmRecordServiceImpl;
 import org.xgvela.oam.service.alarm.AlarmService;
 import org.xgvela.oam.service.history.HistoryAlarmServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.BeanUtils;
@@ -40,8 +38,8 @@ public class AlarmSaveListener {
     private AlarmService alarmService;
     @Autowired
     private RedisCacheServiceImpl redisCacheService;
-    @Autowired
-    private DeveloperServiceImpl developerService;
+    /*@Autowired
+    private DeveloperServiceImpl developerService;*/
     @Autowired
     private AlarmRecordServiceImpl alarmRecordService;
 
@@ -59,7 +57,7 @@ public class AlarmSaveListener {
     @KafkaListener(id = "save-alarm", clientIdPrefix = "${alarm.save.consumer.groupId}", topics = "${alarm.save.consumer.topic}", containerFactory = "batchHandleAlarmAndWebsocket",
             groupId = "${alarm.save.consumer.groupId}", idIsGroup = false, errorHandler = "saveOmcAlarmListenerErrorHandler")
     public void insertAlarmsToActiveAndHistory(List<ConsumerRecord<String, String>> records, Consumer consumer) {
-
+        //1.将获取到的数据进行转换为ActiveAlarm集合
         List<AlarmRecord> alarmRecordList = new ArrayList<>();
         try{
             List<ActiveAlarm> recordsLst = new ArrayList<>();
@@ -115,7 +113,6 @@ public class AlarmSaveListener {
                     }
                 } else {
                     if (alarmMap.get(keyList.get(i)).size() % 2 == 0) {
-
                         assembleActAndHistoryAlarm(alarmMap.get(keyList.get(i)), actList, hisList, alarmMap.get(keyList.get(i)).size(),
                                 true, listSet, voiceSet);
                     } else {

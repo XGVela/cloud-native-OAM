@@ -38,16 +38,16 @@ public final class performance {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\021performance.proto\022\013performance\"\217\001\n\014Sta" +
+      "\n\021performance.proto\022\013performance\"\235\001\n\014Sta" +
       "tsInfoReq\022G\n\017statsResultInfo\030\001 \003(\0132..per" +
       "formance.StatsInfoReq.StatsResultInfoEnt" +
-      "ry\0326\n\024StatsResultInfoEntry\022\013\n\003key\030\001 \001(\t\022" +
-      "\r\n\005value\030\002 \001(\001:\0028\001\"\036\n\014StatsInfoRsp\022\016\n\006re" +
-      "sult\030\001 \001(\t2b\n\025PerfStatisticsService\022I\n\rS" +
-      "tatisticsReq\022\031.performance.StatsInfoReq\032" +
-      "\031.performance.StatsInfoRsp\"\0000\001B9\n\032com.in" +
-      "spur.oam.performanceB\013performanceP\001\242\002\013pe" +
-      "rformanceb\006proto3"
+      "ry\022\014\n\004neId\030\002 \001(\t\0326\n\024StatsResultInfoEntry" +
+      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001\"\036\n\014Stat" +
+      "sInfoRsp\022\016\n\006result\030\001 \001(\t2b\n\025PerfStatisti" +
+      "csService\022I\n\rStatisticsReq\022\031.performance" +
+      ".StatsInfoReq\032\031.performance.StatsInfoRsp" +
+      "\"\0000\001B9\n\032com.inspur.oam.performanceB\013perf" +
+      "ormanceP\001\242\002\013performanceb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -66,7 +66,7 @@ public final class performance {
     internal_static_performance_StatsInfoReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_performance_StatsInfoReq_descriptor,
-        new String[] { "StatsResultInfo", });
+        new String[] { "StatsResultInfo", "NeId", });
     internal_static_performance_StatsInfoReq_StatsResultInfoEntry_descriptor =
       internal_static_performance_StatsInfoReq_descriptor.getNestedTypes().get(0);
     internal_static_performance_StatsInfoReq_StatsResultInfoEntry_fieldAccessorTable = new

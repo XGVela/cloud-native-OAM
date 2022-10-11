@@ -40,7 +40,7 @@ public final class ConfigCmd {
       "eCfgResp\022\021\n\tUpdateRsp\030\001 \001(\t2V\n\020ConfigCmd" +
       "Service\022B\n\013updateNFcfg\022\027.configcmd.Updat" +
       "eCfgReq\032\030.configcmd.UpdateCfgResp\"\000B,\n\030c" +
-      "org.xgvela.oam.configcmdB\tConfigCmdP\001\242\002\002C" +
+      "om.inspur.oam.configcmdB\tConfigCmdP\001\242\002\002C" +
       "Cb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

@@ -1,16 +1,23 @@
 package org.xgvela.oam.service.alarm;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.xgvela.oam.alarm.AlarmReportServiceGrpc;
+import org.xgvela.oam.alarm.AlarmReq;
 import org.xgvela.oam.alarm.AlarmRsp;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
+import org.xgvela.oam.entity.nftube.OamVnf;
+import org.xgvela.oam.mapper.nftube.OamVnfMapper;
 import org.xgvela.oam.service.kafkaclient.KafkaProducerService;
 import org.xgvela.oam.utils.JsonUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @GrpcService
 @AllArgsConstructor
@@ -22,9 +29,11 @@ public class AlarmService extends AlarmReportServiceGrpc.AlarmReportServiceImplB
     @Autowired
     private KafkaProducerService kafkaProducerService;
 
+    @Autowired
+    private OamVnfMapper oamVnfMapper;
+
     @Override
-    public void alarmReport(org.xgvela.oam.alarm.AlarmReq request,
-                            io.grpc.stub.StreamObserver<org.xgvela.oam.alarm.AlarmRsp> responseObserver) {
+    public void alarmReport(AlarmReq request, io.grpc.stub.StreamObserver<AlarmRsp> responseObserver) {
         log.info("Agent AlarmReportService : {}", request);
         AlarmRsp alarmRsp = AlarmRsp.newBuilder().setResult("0").build();
         ActiveAlarm activeAlarm = new ActiveAlarm();
@@ -50,8 +59,11 @@ public class AlarmService extends AlarmReportServiceGrpc.AlarmReportServiceImplB
         activeAlarm.setSyncType(0);
         activeAlarm.setOffLine(0);
         activeAlarm.setSource(request.getSource());
-        log.info("agent push alarm message: " + JsonUtils.o2js(activeAlarm));
-        Boolean sendResult = kafkaProducerService.send(AlarmTopicName,  JSON.toJSONStringWithDateFormat(activeAlarm, "yyyy-MM-dd HH:mm:ss"));
+        Set<String> vnfInstanceIdsSet = oamVnfMapper.selectList(new LambdaQueryWrapper<OamVnf>().eq(OamVnf::getVnfManageStatus, 1)).stream().map(OamVnf::getNeId).collect(Collectors.toSet());
+        if (vnfInstanceIdsSet.contains(activeAlarm.getNeId())) {
+            log.info("agent push alarm message: " + JsonUtils.o2js(activeAlarm));
+            Boolean sendResult = kafkaProducerService.send(AlarmTopicName,  JSON.toJSONStringWithDateFormat(activeAlarm, "yyyy-MM-dd HH:mm:ss"));
+        }
         responseObserver.onNext(alarmRsp);
         responseObserver.onCompleted();
     }

@@ -281,6 +281,7 @@ public  final class StatsInfoRsp extends
               StatsInfoRsp.class, StatsInfoRsp.Builder.class);
     }
 
+    // Construct using StatsInfoRsp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

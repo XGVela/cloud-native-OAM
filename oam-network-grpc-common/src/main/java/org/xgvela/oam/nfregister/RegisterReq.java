@@ -528,6 +528,7 @@ public  final class RegisterReq extends
               RegisterReq.class, Builder.class);
     }
 
+    // Construct using RegisterReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

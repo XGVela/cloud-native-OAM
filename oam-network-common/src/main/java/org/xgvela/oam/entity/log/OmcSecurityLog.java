@@ -22,102 +22,102 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "omc_security_log")
-@ApiModel(value = "OmcSecurityLog", description = "OmcSecurityLog")
+@ApiModel(value = "OmcSecurityLog", description = "Log Management - security log ")
 public class OmcSecurityLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "id")
-    @ExcelIgnore
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-	
-	@ApiModelProperty(value = "createTime")
-	@ExcelProperty(value = "createTime", index = 7)
+	@ApiModelProperty(value = "primary key ID")
+	@ExcelIgnore
+	@TableId(value = "id", type = IdType.AUTO)
+	private Integer id;
+
+	@ApiModelProperty(value = "created time ")
+	@ExcelProperty(value = "time ", index = 7)
 	@ColumnWidth(20)
 	@TableField("create_time")
 	private Date createTime;
-	
-	@ApiModelProperty(value = "description")
-	@ExcelProperty(value = "description", index = 1)
+
+	@ApiModelProperty(value = "description ")
+	@ExcelProperty(value = "action ", index = 1)
 	@ColumnWidth(15)
 	@TableField("description")
 	private String description;
-	
-	@ApiModelProperty(value = "exceptionDetail")
+
+	@ApiModelProperty(value = "Exception details ")
 	@ColumnWidth(30)
-    @ExcelProperty(value = "exceptionDetail", index = 9)
+	@ExcelProperty(value = "exception ", index = 9)
 	@TableField("exception_detail")
 	private String exceptionDetail;
-	
-	@ApiModelProperty(value = "logType")
+
+	@ApiModelProperty (value = "type: the INFO | ERROR")
 	@ColumnWidth(15)
-	@ExcelProperty(value = "logType", index = 6)
+	@ExcelProperty(value = "log level ", index = 6)
 	@TableField("log_type")
 	private String logType;
-	
-	@ApiModelProperty(value = "method")
+
+	@ApiModelProperty(value = "method ")
 	@ExcelIgnore
 	@TableField("method")
 	private String method;
-	
-	@ApiModelProperty(value = "params")
+
+	@ApiModelProperty(value = "parameter ")
 	@ColumnWidth(15)
-    @ExcelProperty(value = "params", index = 8)
+	@ExcelProperty(value = "parameter ", index = 8)
 	@TableField("params")
 	private String params;
-	
-	@ApiModelProperty(value = "requestIp")
-	@ExcelProperty(value = "requestIp", index = 4)
+
+	@ApiModelProperty(value = "ip address ")
+	@ExcelProperty(value = "source IP address ", index = 4)
 	@ColumnWidth(15)
 	@TableField("request_ip")
 	private String requestIp;
-	
-	@ApiModelProperty(value = "time")
-	@ExcelProperty(value = "time", index = 5)
+
+	@ApiModelProperty(value = "time consuming ")
+	@ExcelProperty(value = "time (ms)", index = 5)
 	@ColumnWidth(15)
 	@TableField("time")
 	private Long time;
-	
-	@ApiModelProperty(value = "username")
-	@ExcelProperty(value = "username", index = 3)
+
+	@ApiModelProperty(value = "user name ")
+	@ExcelProperty(value = "user ", index = 3)
 	@ColumnWidth(15)
 	@TableField("username")
 	private String username;
-	
-	@ApiModelProperty(value = "status")
-	@ExcelProperty(value = "status", index = 2)
+
+	@ApiModelProperty (value = "ERROR: | SUCCESS")
+	@ExcelProperty(value = "result ", index = 2)
 	@ColumnWidth(15)
 	@TableField("status")
 	private String status;
-	
-	@ApiModelProperty(value = "exceptionName")
+
+	@ApiModelProperty(value = "Exception name ")
 	@ExcelIgnore
 	@TableField("exception_name")
 	private String exceptionName;
-	
-	@ApiModelProperty(value = "action")
-	@ExcelProperty(value = "action", index = 0)
+
+	@ApiModelProperty(value = "action ")
+	@ExcelProperty(value = "operation name ", index = 0)
 	@ColumnWidth(15)
-    @TableField("action")
-    private String action;
-	
+	@TableField("action")
+	private String action;
+
 	public OmcSecurityLog(String logType, Long time) {
 		this.logType = logType;
 		this.time = time;
 	}
 
 	public enum ExportType {
-        XLSX, TXT
-    }
-	
+		XLSX, TXT
+	}
+
 	public String getLogStatus(String status){
-        if("ERROR".equals(status)){
-            return "failed";
-        }else if("SUCCESS".equals(status)){
-            return "success";
-        }else{
-            return "";
-        }
-    }
+		if("ERROR".equals(status)){
+			return "failed ";
+		}else if("SUCCESS".equals(status)){
+			return "success ";
+		}else{
+			return "";
+		}
+	}
 }

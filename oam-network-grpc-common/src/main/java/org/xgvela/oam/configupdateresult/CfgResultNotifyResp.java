@@ -281,6 +281,7 @@ public  final class CfgResultNotifyResp extends
               CfgResultNotifyResp.class, Builder.class);
     }
 
+    // Construct using CfgResultNotifyResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

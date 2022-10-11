@@ -16,51 +16,45 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * <p>
- * TransmitRuleCondition entity
- * </p>
- */
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("alarm_transmit_rule_condition")
-@ApiModel(value = "TransmitRuleCondition", description = "TransmitRuleCondition")
+@ApiModel(value = "TransmitRuleCondition", description = "Forward Rule execution Condition entity ")
 public class TransmitRuleCondition implements Serializable {
 
     private static final long serialVersionUID = -2675582708240368531L;
 
-    @ApiModelProperty(value = "id")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "developerId")
     @TableField("developer_id")
     private String developerId;
 
-    @ApiModelProperty(value = "ruleId")
+    @ApiModelProperty(value = "forwarding rule id")
     @TableField("rule_id")
     private Long ruleId;
 
-    @ApiModelProperty(value = "fieldEnName")
+    @ApiModelProperty(value = "Forward Event table field name ")
     @TableField("field_en_name")
     private String fieldEnName;
 
-    @ApiModelProperty(value = "operator")
+    @ApiModelProperty(value = "operator ")
     @TableField("operator")
     private String operator;
 
-    @ApiModelProperty(value = "fieldCnName")
+    @ApiModelProperty(value = "Chinese name of Forward Event Table field ")
     @TableField("field_cn_name")
     private String fieldCnName;
 
-    @ApiModelProperty(value = "fieldValue")
+    @ApiModelProperty(value = "Forward event Table field value ")
     @TableField("field_value")
     private String fieldValue;
 
-    @ApiModelProperty(value = "updateTime")
+    @ApiModelProperty(value = "update time ")
     @TableField("update_time")
     private Date updateTime;
 }

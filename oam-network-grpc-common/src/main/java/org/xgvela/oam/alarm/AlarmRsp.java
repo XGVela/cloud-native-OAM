@@ -281,6 +281,7 @@ public  final class AlarmRsp extends
               AlarmRsp.class, AlarmRsp.Builder.class);
     }
 
+    // Construct using AlarmRsp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

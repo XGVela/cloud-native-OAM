@@ -2,7 +2,6 @@ package org.xgvela.oam.entity.alarm.analysis;
 
 public enum DefaultAlarmFieldEnum {
 
-
     alarm_name("alarmName"),
     alarm_type("alarmType"),
     alarm_level("alarmLevel"),
@@ -27,5 +26,4 @@ public enum DefaultAlarmFieldEnum {
     public String getName() {
         return name;
     }
-
 }

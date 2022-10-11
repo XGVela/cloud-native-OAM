@@ -375,6 +375,7 @@ public  final class VnfReq extends
               VnfReq.class, Builder.class);
     }
 
+    // Construct using VnfReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -20,6 +20,5 @@ public class AlarmAnalysisResultTopo {
 
     public List<AlarmAnalysisResultTopo> childrens;
 
-    @ApiModelProperty(value = "status")
     private Integer status;
 }

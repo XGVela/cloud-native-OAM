@@ -1,19 +1,17 @@
 package org.xgvela.oam.service.alarm;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.inspur.cnet.common.core.exception.ServiceException;
-import com.inspur.cnet.common.core.utils.DateUtil;
-import com.inspur.cnet.security.service.utils.SecurityUtils;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
+import org.xgvela.oam.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -56,8 +54,6 @@ public abstract class AlarmBaseServiceImpl<M extends BaseMapper<T>, T> extends S
 		
 		QueryWrapper<T> entityWrapper = new QueryWrapper();
 
-		userId = SecurityUtils.getCurrentUserId().toString();
-		String userName = SecurityUtils.getCurrentUserAccount();
 
 		if(StringUtils.isNotEmpty(alarmNO)) {
 			alarmNO = sqlEncode(alarmNO);
@@ -99,8 +95,8 @@ public abstract class AlarmBaseServiceImpl<M extends BaseMapper<T>, T> extends S
 				Date endDate = DateUtil.parse(endTime, ActiveAlarm.ALARM_DATE_PARAM_PATTERN);
 				entityWrapper.ge("alarm_event_time", startDate);
 				entityWrapper.le("alarm_event_time", endDate);
-			} catch (ParseException e) {
-				throw new ServiceException("The time format is incorrect");
+			} catch (Exception e) {
+				throw new ServiceException(e);
 			}
 		}
 		if(alarmFlag.equals("active")) {
@@ -163,8 +159,8 @@ public abstract class AlarmBaseServiceImpl<M extends BaseMapper<T>, T> extends S
 					Date endDate = DateUtil.parse(endTime, ActiveAlarm.ALARM_DATE_PARAM_PATTERN);
 					queryWrapper.ge("alarm_event_time", startDate);
 					queryWrapper.le("alarm_event_time", endDate);
-				} catch (ParseException e) {
-					throw new ServiceException("The time format is incorrect");
+				} catch (Exception e) {
+					throw new ServiceException("时间格式有误");
 				}
 			}
 			return list(queryWrapper);
@@ -214,8 +210,8 @@ public abstract class AlarmBaseServiceImpl<M extends BaseMapper<T>, T> extends S
 					Date endDate = DateUtil.parse(endTime, ActiveAlarm.ALARM_DATE_PARAM_PATTERN);
 					queryWrapper.ge("alarm_event_time", startDate);
 					queryWrapper.le("alarm_event_time", endDate);
-				} catch (ParseException e) {
-					throw new ServiceException("The time format is incorrect");
+				} catch (Exception e) {
+					throw new ServiceException("时间格式有误");
 				}
 			}
 			return list(queryWrapper);

@@ -17,9 +17,8 @@ public  final class UpdateCfgFileReq extends
   private UpdateCfgFileReq() {
     nfType_ = "";
     neId_ = "";
-    updateType_ = 0;
+    taskId_ = "";
     fileName_ = "";
-    fileData_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   @Override
@@ -59,20 +58,16 @@ public  final class UpdateCfgFileReq extends
             neId_ = s;
             break;
           }
-          case 24: {
+          case 26: {
+            String s = input.readStringRequireUtf8();
 
-            updateType_ = input.readUInt32();
+            taskId_ = s;
             break;
           }
           case 34: {
             String s = input.readStringRequireUtf8();
 
             fileName_ = s;
-            break;
-          }
-          case 42: {
-
-            fileData_ = input.readBytes();
             break;
           }
         }
@@ -166,13 +161,38 @@ public  final class UpdateCfgFileReq extends
     }
   }
 
-  public static final int UPDATETYPE_FIELD_NUMBER = 3;
-  private int updateType_;
+  public static final int TASKID_FIELD_NUMBER = 3;
+  private volatile Object taskId_;
   /**
-   * <code>uint32 updateType = 3;</code>
+   * <code>string taskId = 3;</code>
    */
-  public int getUpdateType() {
-    return updateType_;
+  public String getTaskId() {
+    Object ref = taskId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      taskId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string taskId = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getTaskIdBytes() {
+    Object ref = taskId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      taskId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   public static final int FILENAME_FIELD_NUMBER = 4;
@@ -209,19 +229,6 @@ public  final class UpdateCfgFileReq extends
     }
   }
 
-  public static final int FILEDATA_FIELD_NUMBER = 5;
-  private com.google.protobuf.ByteString fileData_;
-  /**
-   * <pre>
-   *file contents
-   * </pre>
-   *
-   * <code>bytes fileData = 5;</code>
-   */
-  public com.google.protobuf.ByteString getFileData() {
-    return fileData_;
-  }
-
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -240,14 +247,11 @@ public  final class UpdateCfgFileReq extends
     if (!getNeIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, neId_);
     }
-    if (updateType_ != 0) {
-      output.writeUInt32(3, updateType_);
+    if (!getTaskIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, taskId_);
     }
     if (!getFileNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, fileName_);
-    }
-    if (!fileData_.isEmpty()) {
-      output.writeBytes(5, fileData_);
     }
   }
 
@@ -262,16 +266,11 @@ public  final class UpdateCfgFileReq extends
     if (!getNeIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, neId_);
     }
-    if (updateType_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(3, updateType_);
+    if (!getTaskIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, taskId_);
     }
     if (!getFileNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, fileName_);
-    }
-    if (!fileData_.isEmpty()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(5, fileData_);
     }
     memoizedSize = size;
     return size;
@@ -293,12 +292,10 @@ public  final class UpdateCfgFileReq extends
         .equals(other.getNfType());
     result = result && getNeId()
         .equals(other.getNeId());
-    result = result && (getUpdateType()
-        == other.getUpdateType());
+    result = result && getTaskId()
+        .equals(other.getTaskId());
     result = result && getFileName()
         .equals(other.getFileName());
-    result = result && getFileData()
-        .equals(other.getFileData());
     return result;
   }
 
@@ -313,12 +310,10 @@ public  final class UpdateCfgFileReq extends
     hash = (53 * hash) + getNfType().hashCode();
     hash = (37 * hash) + NEID_FIELD_NUMBER;
     hash = (53 * hash) + getNeId().hashCode();
-    hash = (37 * hash) + UPDATETYPE_FIELD_NUMBER;
-    hash = (53 * hash) + getUpdateType();
+    hash = (37 * hash) + TASKID_FIELD_NUMBER;
+    hash = (53 * hash) + getTaskId().hashCode();
     hash = (37 * hash) + FILENAME_FIELD_NUMBER;
     hash = (53 * hash) + getFileName().hashCode();
-    hash = (37 * hash) + FILEDATA_FIELD_NUMBER;
-    hash = (53 * hash) + getFileData().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -431,6 +426,7 @@ public  final class UpdateCfgFileReq extends
               UpdateCfgFileReq.class, Builder.class);
     }
 
+    // Construct using UpdateCfgFileReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -451,11 +447,9 @@ public  final class UpdateCfgFileReq extends
 
       neId_ = "";
 
-      updateType_ = 0;
+      taskId_ = "";
 
       fileName_ = "";
-
-      fileData_ = com.google.protobuf.ByteString.EMPTY;
 
       return this;
     }
@@ -481,9 +475,8 @@ public  final class UpdateCfgFileReq extends
       UpdateCfgFileReq result = new UpdateCfgFileReq(this);
       result.nfType_ = nfType_;
       result.neId_ = neId_;
-      result.updateType_ = updateType_;
+      result.taskId_ = taskId_;
       result.fileName_ = fileName_;
-      result.fileData_ = fileData_;
       onBuilt();
       return result;
     }
@@ -533,15 +526,13 @@ public  final class UpdateCfgFileReq extends
         neId_ = other.neId_;
         onChanged();
       }
-      if (other.getUpdateType() != 0) {
-        setUpdateType(other.getUpdateType());
+      if (!other.getTaskId().isEmpty()) {
+        taskId_ = other.taskId_;
+        onChanged();
       }
       if (!other.getFileName().isEmpty()) {
         fileName_ = other.fileName_;
         onChanged();
-      }
-      if (other.getFileData() != com.google.protobuf.ByteString.EMPTY) {
-        setFileData(other.getFileData());
       }
       onChanged();
       return this;
@@ -707,28 +698,71 @@ public  final class UpdateCfgFileReq extends
       return this;
     }
 
-    private int updateType_ ;
+    private Object taskId_ = "";
     /**
-     * <code>uint32 updateType = 3;</code>
+     * <code>string taskId = 3;</code>
      */
-    public int getUpdateType() {
-      return updateType_;
+    public String getTaskId() {
+      Object ref = taskId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        taskId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
     }
     /**
-     * <code>uint32 updateType = 3;</code>
+     * <code>string taskId = 3;</code>
      */
-    public Builder setUpdateType(int value) {
-      
-      updateType_ = value;
+    public com.google.protobuf.ByteString
+        getTaskIdBytes() {
+      Object ref = taskId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        taskId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string taskId = 3;</code>
+     */
+    public Builder setTaskId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      taskId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 updateType = 3;</code>
+     * <code>string taskId = 3;</code>
      */
-    public Builder clearUpdateType() {
+    public Builder clearTaskId() {
       
-      updateType_ = 0;
+      taskId_ = getDefaultInstance().getTaskId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string taskId = 3;</code>
+     */
+    public Builder setTaskIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      taskId_ = value;
       onChanged();
       return this;
     }
@@ -798,47 +832,6 @@ public  final class UpdateCfgFileReq extends
   checkByteStringIsUtf8(value);
       
       fileName_ = value;
-      onChanged();
-      return this;
-    }
-
-    private com.google.protobuf.ByteString fileData_ = com.google.protobuf.ByteString.EMPTY;
-    /**
-     * <pre>
-     *file contents
-     * </pre>
-     *
-     * <code>bytes fileData = 5;</code>
-     */
-    public com.google.protobuf.ByteString getFileData() {
-      return fileData_;
-    }
-    /**
-     * <pre>
-     *file contents
-     * </pre>
-     *
-     * <code>bytes fileData = 5;</code>
-     */
-    public Builder setFileData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      fileData_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     *file contents
-     * </pre>
-     *
-     * <code>bytes fileData = 5;</code>
-     */
-    public Builder clearFileData() {
-      
-      fileData_ = getDefaultInstance().getFileData();
       onChanged();
       return this;
     }

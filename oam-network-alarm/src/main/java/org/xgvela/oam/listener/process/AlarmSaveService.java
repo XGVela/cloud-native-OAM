@@ -27,7 +27,6 @@ public class AlarmSaveService {
     private RedisCacheServiceImpl redisCacheService;
 
     public void  saveAlarmToDatabase(List<ActiveAlarm> activeAlarms){
-
         try{
             List<ActiveAlarm> recordsLst = new ArrayList<>();
             Map<String, List<ActiveAlarm>> alarmMap = new HashMap<String, List<ActiveAlarm>>(8);
@@ -38,6 +37,7 @@ public class AlarmSaveService {
 
             List<String> keyList = new ArrayList<>();
             keyList.addAll(alarmMap.keySet());
+            // alarmId+SpecificProblemId-----id+alarmEventTime+alarmStorageTime
             List<String> idList = redisCacheService.getIdByCombineKey("ActiveAlarmDB",keyList);
 
             List<ActiveAlarm> actList = new ArrayList<>();
@@ -46,16 +46,12 @@ public class AlarmSaveService {
             List<ActiveAlarm> addRedisList = new ArrayList<>();
             List<Long> removeIds = new ArrayList<Long>();
 
-
             Set<String> listSet = new HashSet<String>();
-
             Set<String> voiceSet = new HashSet<String>();
 
             for (int i = 0; i < keyList.size(); i++) {
                 if (idList.get(i) != null) {
-
                     if (0 == (1 + alarmMap.get(keyList.get(i)).size()) % 2) {
-
                         ActiveAlarm zeroAlarm = assembleUpdateAlarmList(idList.get(i), alarmMap.get(keyList.get(i)).get(0));
                         removeIds.add(zeroAlarm.getId());
                         listSet.add(zeroAlarm.getDeveloperId());
@@ -79,7 +75,6 @@ public class AlarmSaveService {
                     }
                 } else {
                     if (alarmMap.get(keyList.get(i)).size() % 2 == 0) {
-
                         assembleActAndHistoryAlarm(alarmMap.get(keyList.get(i)), actList, hisList, alarmMap.get(keyList.get(i)).size(),
                                 true, listSet, voiceSet);
                     } else {
@@ -103,7 +98,6 @@ public class AlarmSaveService {
     }
 
     /**
-     * sendWebsocketMessage
      * @param listSet
      * @param voiceSet
      */
@@ -161,6 +155,4 @@ public class AlarmSaveService {
             }
         }
     }
-
-
 }

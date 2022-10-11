@@ -19,7 +19,7 @@ public class OKHttpUtils extends BaseHttpUtils{
     public static String get(String url, Map<String, Object> map){
         
         try{
-            log.debug("http get url: {}, parameter: {}", url, map.toString());
+            log.debug("http get Request address parameters: {}, parameters: {}", url, map.toString());
             
             if(!CollectionUtils.isEmpty(map)){
                 
@@ -43,7 +43,7 @@ public class OKHttpUtils extends BaseHttpUtils{
 
             return result;
         }catch (Exception e) {
-            log.error("http get request failed", e);
+            log.error("http get request fail", e);
         }
         return null;
     }
@@ -51,7 +51,7 @@ public class OKHttpUtils extends BaseHttpUtils{
     public static String post(String url, String content){
         
         try {
-            log.debug("http post url: {}, content: {}", url, content);
+            log.debug("http post Request-URI : {}, message content: {}", url, content);
 
             OkHttpClient client = BaseHttpUtils.getHttpsClient();
             RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), content);
@@ -62,11 +62,11 @@ public class OKHttpUtils extends BaseHttpUtils{
 
             assert response.body() != null;
             String result = response.body().string();
-            log.debug("http post return: {}", result);
+            log.debug("http post return : {}", result);
 
             return result;
         }catch (Exception e) {
-            log.error("http post request failed", e);
+            log.error("http post request fail", e);
         }
         return null;
     }

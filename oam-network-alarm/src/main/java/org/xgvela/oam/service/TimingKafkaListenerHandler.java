@@ -32,22 +32,19 @@ public class TimingKafkaListenerHandler {
     private String redisSaveActiveAlarm;
 
     public void startListener(String listenerId) {
-        log.info("--------------------------------listener----start---listenId: " + listenerId);
+        log.info("------------------------------------start---listenId: " + listenerId);
         if (!registry.getListenerContainer(listenerId).isRunning()) {
             registry.getListenerContainer(listenerId).start();
         }
-
+        //项目启动的时候监听容器是未启动状态，而resume是恢复的意思不是启动的意思
         registry.getListenerContainer(listenerId).resume();
-        log.info("--------------------------------listener----end---listenerId: " + listenerId);
+        log.info("------------------------------------end---listenerId: " + listenerId);
     }
 
-    /**
-     * Gets whether there is data in redis, if so, does not load anything, and if not, loads into redis
-     */
+
     public void addAboutAlarmDataToRedis() {
         redisCacheService.remObj(redisSaveActiveAlarm);
         List<ActiveAlarm> actList = activeAlarmService.list(new QueryWrapper<ActiveAlarm>().eq("alarm_status_type", 0).eq("merge_flag", 0));
-        // TODO zx d
         Map<String, String> actDbMap = actList.stream().
                 collect(Collectors.toMap(ActiveAlarm::getAlarmId,
                         part -> (part.getId() + "-" + part.getAlarmEventTime().getTime() + "-" + part.getAckState()),
@@ -55,7 +52,6 @@ public class TimingKafkaListenerHandler {
         redisCacheService.setKey(redisSaveActiveAlarm, actDbMap);
 
         redisCacheService.remStringSet(redisActiveAlarm);
-        // TODO zx d
         Set<String> actSet = actList.stream().map(ActiveAlarm::getAlarmId).collect(Collectors.toSet());
         redisCacheService.setSetKey(redisActiveAlarm, actSet);
     }

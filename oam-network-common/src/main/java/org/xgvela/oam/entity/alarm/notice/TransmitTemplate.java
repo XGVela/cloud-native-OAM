@@ -16,48 +16,42 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * <p>
- * TransmitTemplate entity
- * </p>
- */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("alarm_transmit_template")
-@ApiModel(value = "TransmitTemplate", description = "TransmitTemplate")
+@ApiModel(value = "TransmitTemplate", description = "Alarm forwarding rule template ")
 public class TransmitTemplate implements Serializable {
 
     private static final long serialVersionUID = -410586061007549154L;
 
-    @ApiModelProperty(value = "id")
+    @ApiModelProperty(value = "primary key ")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "developerId")
+    @ApiModelProperty(value = "developer id")
     @TableField("developer_id")
     private String developerId;
 
-    @ApiModelProperty(value = "name")
+    @ApiModelProperty(value = "template name ")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "eventId")
+    @ApiModelProperty(value = "Alarm event id")
     @TableField("event_id")
     private String eventId;
 
-    @ApiModelProperty(value = "eventName")
+    @ApiModelProperty(value = "Alarm event name ")
     @TableField("event_name")
     private String eventName;
 
-    @ApiModelProperty(value = "content")
+    @ApiModelProperty(value = "template content ")
     @TableField("content")
     private String content;
 
-    @ApiModelProperty(value = "updateTime")
+    @ApiModelProperty(value = "update time ")
     @TableField("update_time")
     private Date updateTime;
-
 }

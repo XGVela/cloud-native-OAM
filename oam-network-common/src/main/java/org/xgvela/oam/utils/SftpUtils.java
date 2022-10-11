@@ -8,19 +8,21 @@ import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 import net.schmizz.sshj.xfer.FileSystemFile;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class SftpUtils {
     private final String host;
-    private final int port ;
+    private final int port;
     private final String username;
     private final String password;
     private final SSHClient sshClient;
@@ -47,27 +49,22 @@ public class SftpUtils {
         }
     }
 
-    /**
-     * Create a default ftp client
-     *
-     * @param host     host or ip
-     * @param username ftp username
-     * @param password ftp password
-     * @return com.siniswift.efb.acars.utils.SftpUtils
-     */
+//    public static void main(String[] args) {
+//        SftpUtils sftp = new SftpUtils("111.111.63.240", 30023, "omc1", "123456");
+////        SftpUtils sftp = new SftpUtils("10.180.145.78", 22, "root", "Inspur@123");
+//        try {
+//            log.info("path: {}", sftp.ls("/omc-deploy/sftp"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        String str = "/root/omc-deploy/sftp/write/AMF/amfinstanceid230";
+//    }
+
+
     public static SftpUtils createFtpCli(String host, String username, String password) {
         return new SftpUtils(host, username, password);
     }
 
-    /**
-     * Create an ftp client for custom properties
-     *
-     * @param host     host or ip
-     * @param port     ftp port
-     * @param username ftp username
-     * @param password ftp password
-     * @return com.siniswift.efb.acars.utils.SftpUtils
-     */
     public static SftpUtils createFtpCli(String host, int port, String username, String password) {
         return new SftpUtils(host, port, username, password);
     }
@@ -105,22 +102,54 @@ public class SftpUtils {
         }
     }
 
-    /**
-     * @param sftpPathAndName  e.g. upload/test.txt
-     * @param file             e.g. local/test2.txt
-     * @throws IOException     Exception handling: Close the connection
-     */
-    public void download(String sftpPathAndName, File file) throws IOException {
+
+
+    public void downloadDir(String sftpPathAndName, String localPath, SftpUtils sftpConfigClient, String version, String method) throws IOException {
+        try {
+            try {
+                localPath = localPath.replace("\\\\", "/");
+                List<RemoteResourceInfo> infos = sftpClient.ls(sftpPathAndName);
+                for (int i = 0; infos != null && i < infos.size(); i++) {
+                    RemoteResourceInfo rri = infos.get(i);
+                    if (rri.isDirectory() && !".".equals(rri.getName()) && !"..".equals(rri.getName())) {
+                        downloadDir(String.format("%s/%s", sftpPathAndName, rri.getName()), String.format("%s/%s", localPath, rri.getName()), sftpConfigClient, version, method);
+                    } else {
+                        if (ObjectUtils.isNotEmpty(version)) {
+                            log.info("version: {}",version);
+                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, version + "_" + rri.getName())), sftpConfigClient);
+                        } else {
+                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, rri.getName())), sftpConfigClient);
+                        }
+                    }
+                }
+            } finally {
+            }
+        } finally {
+        }
+    }
+
+
+    public void downloadFileAndMkdir(String sftpPathAndName, File file, SftpUtils sftpConfigClient) throws IOException {
+        if (ObjectUtils.isNotEmpty(sftpConfigClient)) {
+            File fileParent = file.getParentFile();
+            log.info("fileParent path {}", fileParent.getPath());
+            if (!fileParent.exists() && ObjectUtils.isNotEmpty(sftpConfigClient)) {
+//                "/root/sftp/read/UPF/upfinstanceid001"
+//                "/sftp-agent/sftp/read/UPF/upfinstanceid001/"
+                String configPath = fileParent.getPath().replaceAll("/root/sftp/", "/sftp-conf/sftp/");
+                log.info("sftp mkdir configPath: {}", configPath);
+                sftpConfigClient.mkdir(configPath);
+                sftpConfigClient.close();
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    log.error("Exception:: ", e);
+                }
+            }
+        }
         sftpClient.get(sftpPathAndName, new FileSystemFile(file));
     }
 
-    /**
-     * Download the contents of the folder to a local folder
-     *
-     * @param sftpPathAndName  e.g. upload/data-20210608164833
-     * @param file             e.g. local/data
-     * @throws IOException Exception handling: Close the connection
-     */
     public void downloadFileDir(String host, int port, String userName, String password, String sftpPathAndName, File file) throws IOException {
         SSHClient sshClient = new SSHClient();
         sshClient.addHostKeyVerifier(new PromiscuousVerifier());
@@ -142,57 +171,6 @@ public class SftpUtils {
         }
     }
 
-
-    /**
-     * Download the sftp server under folder to local
-     *
-     * @param sftpPathAndName 
-     * @param localPath       
-     */
-    public void downloadDir(String sftpPathAndName, String localPath, String netype, String vnfinstanceid) throws IOException {
-        try {
-            try {
-                localPath = localPath.replace("\\\\", "/");
-                File file = new File(localPath);
-                if (!file.exists()) {
-                    FileUtils.forceMkdir(file);
-                }
-                List<RemoteResourceInfo> infos = sftpClient.ls(sftpPathAndName);
-                for (int i = 0; infos != null && i < infos.size(); i++) {
-                    RemoteResourceInfo rri = infos.get(i);
-                    if (rri.isDirectory() && !".".equals(rri.getName()) && !"..".equals(rri.getName())) {
-                        downloadDir(String.format("%s/%s", sftpPathAndName, rri.getName()), String.format("%s/%s", localPath, rri.getName()), netype, vnfinstanceid);
-                    } else {
-                        download(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, rri.getName())));
-                    }
-                }
-            } finally {
-//                sftpClient.close();
-            }
-        } finally {
-//            sshClient.disconnect();
-        }
-    }
-
-    public void existState(String path) {
-        File folder = new File(path);
-        log.info("folder.1 {}", folder);
-        if (folder.exists()) {
-            try {
-                log.info("folder.2 {}", folder);
-                FileUtils.forceDelete(folder);
-            } catch (Exception e) {
-                log.error("existState ::", e);
-            }
-        }
-    }
-
-    /**
-     * Gets the remote file
-     *
-     * @param sftpPathAndName  e.g. upload/test.txt
-     * @throws IOException     Exception handling: Close the connection
-     */
     public String read(String userName, String password, String sftpPathAndName) throws IOException {
         RemoteFile remoteFile = null;
         StringBuilder str = new StringBuilder();
@@ -222,12 +200,6 @@ public class SftpUtils {
         return str.toString();
     }
 
-    /**
-     * Gets the remote file
-     *
-     * @param sftpPathAndName  e.g. upload/test.txt
-     * @throws IOException     Exception handling: Close the connection
-     */
     public List<RemoteResourceInfo> ls(String sftpPathAndName) throws IOException {
         List<RemoteResourceInfo> remoteFileList;
         try {
@@ -235,10 +207,8 @@ public class SftpUtils {
 //                remoteFileList = sftpClient.ls(sftpPathAndName);
                 sftpClient.rename("/omc-deploy/sftp/ddd", "/omc-deploy/sftp/cc");
             } finally {
-//                sftpClient.close();
             }
         } finally {
-//            sshClient.disconnect();
         }
         return null;
     }
@@ -261,12 +231,6 @@ public class SftpUtils {
         }
     }
 
-    /**
-     * Gets the remote file
-     *
-     * @param sftpPath     e.g. upload/test.txt
-     * @throws IOException Exception handling: Close the connection
-     */
     public String download(String sftpPath, String fileName, HttpServletResponse response) throws IOException {
         RemoteFile remoteFile = null;
         String str = "";
@@ -301,20 +265,30 @@ public class SftpUtils {
         return str;
     }
 
-    /**
-     * @param sftpPath  e.g. upload/
-     *                  e.g. local/test2.txt
-     * @throws IOException Exception handling: Close the connection
-     */
     public void upload(String sftpPath, File file) throws IOException {
         try {
             try {
-                if (null == sftpClient.statExistence(sftpPath)) {
-                    log.info("sftpPath exist : {}", sftpPath);
-                    sftpClient.mkdirs(sftpPath);
-                    sftpClient.put(new FileSystemFile(file), sftpPath);
+                if (file.getName().contains("_")) {
+                    log.info("contains _");
+                    log.info("upload file filename: {}", file.getAbsoluteFile().getName());
+                    List<String> fileNames = Arrays.asList(file.getName().split("_"));
+                    File fileWithoutTime = new File(fileNames.get(1));
+                    FileUtils.copyFile(file, fileWithoutTime);
+                    if (null == sftpClient.statExistence(sftpPath)) {
+                        log.info("sftpPath exist : {}", fileWithoutTime.getName());
+                        sftpClient.mkdirs(sftpPath);
+                        sftpClient.put(new FileSystemFile(fileWithoutTime), sftpPath);
+                    } else {
+                        sftpClient.put(new FileSystemFile(fileWithoutTime), sftpPath);
+                    }
                 } else {
-                    sftpClient.put(new FileSystemFile(file), sftpPath);
+                    if (null == sftpClient.statExistence(sftpPath)) {
+                        log.info("sftpPath exist : {}", file.getName());
+                        sftpClient.mkdirs(sftpPath);
+                        sftpClient.put(new FileSystemFile(file), sftpPath);
+                    } else {
+                        sftpClient.put(new FileSystemFile(file), sftpPath);
+                    }
                 }
             } finally {
                 sftpClient.close();
@@ -323,5 +297,4 @@ public class SftpUtils {
             sshClient.disconnect();
         }
     }
-
 }

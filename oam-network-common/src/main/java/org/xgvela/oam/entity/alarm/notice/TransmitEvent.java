@@ -14,11 +14,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * <p>
- * TransmitEvent entity
- * </p>
- */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
@@ -30,33 +25,26 @@ public class TransmitEvent extends Model<TransmitEvent> implements Serializable 
 
     private static final long serialVersionUID = 7179441478046272805L;
 
-    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private String id;
 
-    @ApiModelProperty(value = "name")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "tableName")
     @TableField("table_name")
     private String tableName;
 
-    @ApiModelProperty(value = "updateTime")
     @TableField("update_time")
     private Date updateTime;
 
-    @ApiModelProperty(value = "eventFieldList")
     @TableField(exist = false)
     private List<TransmitEventField> eventFieldList;
 
     @AllArgsConstructor
     public enum eventTypeEnum{
-        /**
-         * event
-         */
-        ALARM("1", "alarm event"),
-        ALARM_CLEARED("2", "clear alarm event");
+
+        ALARM("1", "ALARM"),
+        ALARM_CLEARED("2", "ALARM_CLEARED");
 
         @Getter
         private final String id;
@@ -74,5 +62,4 @@ public class TransmitEvent extends Model<TransmitEvent> implements Serializable 
         private ActiveAlarm content;
         private Long kafkaOffSet;
     }
-    
 }

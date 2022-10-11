@@ -545,6 +545,7 @@ public  final class NotifyCfgReq extends
               NotifyCfgReq.class, Builder.class);
     }
 
+    // Construct using NotifyCfgReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

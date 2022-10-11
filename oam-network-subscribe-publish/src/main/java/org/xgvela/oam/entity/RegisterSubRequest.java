@@ -6,7 +6,6 @@ import lombok.*;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "RegisterSubRequest")
 @Builder
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor

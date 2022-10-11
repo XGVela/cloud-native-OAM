@@ -10,14 +10,14 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "ClearAlarm entity", description = "clearAlarm entity")
+@ApiModel(value = "ClearAlarm entity ", description = "clear alarm entity ")
 @ToString
 public class ClearAlarm {
 
-    @ApiModelProperty(value = "neId")
+    @ApiModelProperty(value = "NE ID")
     private String neId;
 
-    @ApiModelProperty(value = "neType")
+    @ApiModelProperty(value = "Alarm NE device type ")
     private String neType;
 
 }

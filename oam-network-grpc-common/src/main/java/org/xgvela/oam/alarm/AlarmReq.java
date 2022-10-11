@@ -313,7 +313,7 @@ public  final class AlarmReq extends
   private int alarmStatusType_;
   /**
    * <pre>
-   *0-active alarm 1-clean alarm
+   *0-代表活动告警 1-代表清除告警
    * </pre>
    *
    * <code>uint32 alarmStatusType = 7;</code>
@@ -994,6 +994,7 @@ public  final class AlarmReq extends
               AlarmReq.class, AlarmReq.Builder.class);
     }
 
+    // Construct using AlarmReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -1502,7 +1503,7 @@ public  final class AlarmReq extends
     private int alarmStatusType_ ;
     /**
      * <pre>
-     *0-active alarm 1-clean alarm
+     *0-代表活动告警 1-代表清除告警
      * </pre>
      *
      * <code>uint32 alarmStatusType = 7;</code>
@@ -1512,7 +1513,7 @@ public  final class AlarmReq extends
     }
     /**
      * <pre>
-     *0-active alarm 1-clean alarm
+     *0-代表活动告警 1-代表清除告警
      * </pre>
      *
      * <code>uint32 alarmStatusType = 7;</code>
@@ -1525,7 +1526,7 @@ public  final class AlarmReq extends
     }
     /**
      * <pre>
-     *0-active alarm 1-clean alarm
+     *0-代表活动告警 1-代表清除告警
      * </pre>
      *
      * <code>uint32 alarmStatusType = 7;</code>

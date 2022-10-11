@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@ApiModel("AlarmAnalysisRule")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,7 +28,7 @@ public class AlarmAnalysisRule extends Model<AlarmAnalysisRule> implements Seria
 
     private static final long serialVersionUID = -4653275173146245389L;
 
-    @ApiModelProperty(value = "id",hidden = true)
+    @ApiModelProperty(value = "主键Id",hidden = true)
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
@@ -60,13 +59,11 @@ public class AlarmAnalysisRule extends Model<AlarmAnalysisRule> implements Seria
     @TableField(value = "description")
     private String description;
 
-    @ApiModelProperty("createTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField("create_time")
     private Date createTime;
 
-    @ApiModelProperty("updateTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField("update_time")

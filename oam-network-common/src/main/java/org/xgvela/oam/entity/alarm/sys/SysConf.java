@@ -8,13 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @ClassName SysConf
- * @Description: TODO
- * @Author zhangtao09
- * @Date 2021/3/25
- * @Version V1.0
- **/
 
 @Data
 @TableName("sys_conf")

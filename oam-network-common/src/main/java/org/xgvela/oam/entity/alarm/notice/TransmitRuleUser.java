@@ -16,47 +16,43 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * <p>
- * TransmitRuleUser entity
- * </p>
- */
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("alarm_transmit_rule_user")
-@ApiModel(value = "TransmitRuleUser", description = "TransmitRuleUser")
+@ApiModel(value = "TransmitRuleUser", description = "TransmitruleUser - Receive User entity ")
 public class TransmitRuleUser implements Serializable {
 
     private static final long serialVersionUID = -3305730871057816134L;
 
-    @ApiModelProperty(value = "id")
+    @ApiModelProperty(value = "primary key ")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "developerId")
+    @ApiModelProperty(value = "developer id")
     @TableField("developer_id")
     private String developerId;
 
-    @ApiModelProperty(value = "userId")
+    @ApiModelProperty(value = "recipient id")
     @TableField("user_id")
     private Long userId;
 
-    @ApiModelProperty(value = "userName")
+    @ApiModelProperty(value = "Recipient name ")
     @TableField("user_name")
     private String userName;
 
-    @ApiModelProperty(value = "userPhone")
+    @ApiModelProperty(value = "Recipient contact number ")
     @TableField("user_phone")
     private String userPhone;
 
-    @ApiModelProperty(value = "ruleId")
+    @ApiModelProperty(value = "Alarm forwarding rule id")
     @TableField("rule_id")
     private Long ruleId;
 
-    @ApiModelProperty(value = "updateTime")
+    @ApiModelProperty(value = "update time ")
     @TableField("update_time")
     private Date updateTime;
 }

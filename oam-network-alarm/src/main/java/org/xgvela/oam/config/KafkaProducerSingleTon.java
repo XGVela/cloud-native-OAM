@@ -43,7 +43,7 @@ public class KafkaProducerSingleTon {
 	}
 
 	/**
-	 * Stand-alone alonestand-producer
+	 * 独立的alonestand-producer
 	 * @return
 	 */
 	public static Map<String,Object> getProducerProps() {
@@ -51,31 +51,18 @@ public class KafkaProducerSingleTon {
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, staticProducerProps.getBootstrapServerConfig());
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,staticProducerProps.getKeySerializerClassConfig());
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, staticProducerProps.getValueSerializerClassConfig());
-
 		props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, staticProducerProps.getEnableIdempotenceConfig());
-
 		props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, staticProducerProps.getMaxInFlightRequestsPerConnnection());
-
 		props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, staticProducerProps.getMaxBlockMsConfig());
-
 		props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, staticProducerProps.getCompressionTypeConfig());
-
 		props.put(ProducerConfig.ACKS_CONFIG, staticProducerProps.getAcksConfig());
-
 		props.put(ProducerConfig.RETRIES_CONFIG, staticProducerProps.getRetriesConfig());
-
 		props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, staticProducerProps.getRetryBackoffMsConfig());
-
 		props.put(ProducerConfig.BATCH_SIZE_CONFIG, staticProducerProps.getBatchSizeConfig());
-
 		props.put(ProducerConfig.LINGER_MS_CONFIG, staticProducerProps.getLingerMsConfig());
-
 		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, staticProducerProps.getBufferMemoryConfig());
-
 		props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, staticProducerProps.getRequestTimeoutMsConfig());
-
 		props.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, staticProducerProps.getMaxRequestSizeConfig());
 		return props;
 	}
-	
 }

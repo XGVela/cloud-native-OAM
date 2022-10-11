@@ -10,8 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class WebUtils {
-    public static final String HEADER_NAME_AUTH = "Authorization";
-    public static final String HEADER_VALUE_AUTH = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjM3ODcwMTUsInVzZXJJZCI6MSwiYWNjb3VudCI6ImFkbWluIn0.h1HXvmBP3JnvRF-u8jQpfyCPM9sn_IC2JanD6cHniD8";
+    //public static final String HEADER_NAME_AUTH = "Authorization";
+    public static final String HEADER_NAME_AUTH = "accessToken";
+    public static final String HEADER_VALUE_AUTH = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTUxMTA3NjgsInVzZXJJZCI6ImFkbWluIn0.f9oyqXy7sWcXdZ7aC8udPvtumlOiO7CLUFs6PqqrEHo";
 
     private WebUtils() {
         throw new IllegalStateException("Utility class");

@@ -1,5 +1,6 @@
 package org.xgvela.oam.service.alarm;
 
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -8,18 +9,14 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.inspur.cnet.common.core.utils.DateUtil;
-import com.inspur.cnet.common.core.utils.StringUtils;
-import com.inspur.cnet.security.entity.Developer;
-import com.inspur.cnet.security.service.DeveloperServiceImpl;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.alarm.active.AlarmKnowledge;
 import org.xgvela.oam.entity.alarm.history.HistoryAlarm;
-import org.xgvela.oam.entity.alarm.sys.Dict;
 import org.xgvela.oam.service.RedisCacheServiceImpl;
 import org.xgvela.oam.service.history.HistoryAlarmServiceImpl;
 import org.xgvela.oam.utils.JsonUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +25,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -51,8 +47,8 @@ public class AlarmService {
     private HistoryAlarmServiceImpl historyAlarmService;
     @Autowired
     private AlarmKnowledgeServiceImpl alarmKnowledgeService;
-    @Autowired
-    private DeveloperServiceImpl developerService;
+    /*@Autowired
+    private DeveloperServiceImpl developerService;*/
     @Autowired
     private RedisCacheServiceImpl redisCacheService;
 
@@ -87,7 +83,7 @@ public class AlarmService {
                         }
                     } catch (IllegalArgumentException e) {
                     } catch (IllegalAccessException e) {
-                    } catch (ParseException e) {
+                    } catch (Exception e) {
                     }
                 }
             }
@@ -155,8 +151,7 @@ public class AlarmService {
     public Date timeStamp2Date(long timeLong) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(TIME_FORMATTER_PATTERN);
-            Date date = sdf.parse(sdf.format(timeLong));
-            return date;
+            return sdf.parse(sdf.format(timeLong));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -169,20 +164,13 @@ public class AlarmService {
         }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = sdf.parse(dateStr);
-            return date;
+            return sdf.parse(dateStr);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    /**
-     * groupingByAlarmId
-     *
-     * @param alarmMap
-     * @param activeAlarm
-     */
     public void groupingByAlarmId(Map<String, List<ActiveAlarm>> alarmMap, ActiveAlarm activeAlarm) {
 
         String alarmId = activeAlarm.getAlarmId();
@@ -200,11 +188,11 @@ public class AlarmService {
     public Boolean createRestActiveAlarm(Object object) {
         List<ActiveAlarm> activeAlarmList = convertAlarms(object);
         if (CollectionUtils.isNotEmpty(activeAlarmList)) {
-            Developer developer = developerService.getOne(Wrappers.<Developer>lambdaQuery().eq(Developer::getName, "admin"));
+            //Developer developer = developerService.getOne(Wrappers.<Developer>lambdaQuery().eq(Developer::getName, "admin"));
             for (ActiveAlarm activeAlarm : activeAlarmList) {
-                if(developer != null){
+                /*if(developer != null){
                     activeAlarm.setDeveloperId(developer.getId());
-                }
+                }*/
                 if (activeAlarm.getAlarmStatusType() == 1) {
                     updAlarmCurrent(activeAlarm);
                 } else {
@@ -228,13 +216,11 @@ public class AlarmService {
                     .eq("alarm_object_type", alarm.getAlarmObjectType())
                     .eq("alarm_object_uid", alarm.getAlarmObjectUid())
                     .eq("alarm_type", alarm.getAlarmType()));
-
         } else {
             alarm.setAlarmClearedType(0);
             alarm.setAckState(0);
             alarm.setAlarmStorageTime(timeStamp2Date(System.currentTimeMillis()));
             activeAlarmService.save(alarm);
-
         }
     }
 

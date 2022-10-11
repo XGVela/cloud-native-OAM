@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @GrpcService
-public class HeartBeatService extends HeartBeatReportServiceGrpc.HeartBeatReportServiceImplBase {
+public class  HeartBeatService extends HeartBeatReportServiceGrpc.HeartBeatReportServiceImplBase {
 
     private static final String VnfManagedStatus = "1";
 

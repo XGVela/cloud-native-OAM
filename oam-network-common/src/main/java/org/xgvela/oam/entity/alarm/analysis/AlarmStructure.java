@@ -25,114 +25,114 @@ public class AlarmStructure {
 
     private String alarmId;
 
-    @ApiModelProperty(value = "neId")
+    @ApiModelProperty(value = "NE ID")
     private String neId;
 
-    @ApiModelProperty(value = "neName")
+    @ApiModelProperty(value = "NE name ")
     private String neName;
 
-    @ApiModelProperty(value = "alarmName")
+    @ApiModelProperty(value = "Alarm name ")
     private String alarmName;
 
-    @ApiModelProperty(value = "alarmType")
+    @ApiModelProperty(value = "Alarm type ")
     private Integer alarmType;
 
-    @ApiModelProperty(value = "alarmLevel")
+    @ApiModelProperty(value = "Alarm severity ")
     private Integer alarmLevel;
 
-    @ApiModelProperty(value = "alarmStatusType")
+    @ApiModelProperty(value = "Alarm status type ")
     private Integer alarmStatusType;
 
-    @ApiModelProperty(value = "alarmEventTime")
+    @ApiModelProperty(value = "alarm generation time ")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date alarmEventTime;
 
-    @ApiModelProperty(value = "alarmClearedTime")
+    @ApiModelProperty(value = "Alarm clearance time ")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date alarmClearedTime;
 
-    @ApiModelProperty(value = "alarmClearedType")
+    @ApiModelProperty(value = "Alarm clearance type ")
     private Integer alarmClearedType;
 
-    @ApiModelProperty(value = "alarmObject")
+    @ApiModelProperty(value = "Alarm object ")
     private String alarmObject;
 
-    @ApiModelProperty(value = "alarmLocationInfo")
+    @ApiModelProperty(value = "Alarm location information ")
     private String alarmLocationInfo;
 
-    @ApiModelProperty(value = "alarmPvFlag")
+    @ApiModelProperty(value = "NE virtualization identifier ")
     private Integer alarmPvFlag;
 
-    @ApiModelProperty(value = "alarmDetail")
+    @ApiModelProperty(value = "Alarm details ")
     private String alarmDetail;
 
-    @ApiModelProperty(value = "specificProblemId")
+    @ApiModelProperty(value = "Alarm cause ID")
     private String specificProblemId;
 
-    @ApiModelProperty(value = "specificProblem")
+    @ApiModelProperty(value = "Cause of alarm ")
     private String specificProblem;
 
-    @ApiModelProperty(value = "neType")
+    @ApiModelProperty(value = "Alarm NE device type ")
     private String neType;
 
-    @ApiModelProperty(value = "alarmObjectUid")
+    @ApiModelProperty(value = "UID of alarm location object ")
     private String alarmObjectUid;
 
-    @ApiModelProperty(value = "alarmObjectName")
+    @ApiModelProperty(value = "Alarm location object name ")
     private String alarmObjectName;
 
-    @ApiModelProperty(value = "alarmObjectType")
+    @ApiModelProperty(value = "Alarm location object resource type ")
     private String alarmObjectType;
 
-    @ApiModelProperty(value = "alarmAddInfo")
+    @ApiModelProperty(value = "Auxiliary Alarm information ")
     private String alarmAddInfo;
 
-    @ApiModelProperty(value = "alarmEventTitle")
+    @ApiModelProperty(value = "Alarm event title ")
     private String alarmEventTitle;
 
-    @ApiModelProperty(value = "province")
+    @ApiModelProperty(value = "NE service province ")
     private String province;
 
-    @ApiModelProperty(value = "alarmConfirmTime")
+    @ApiModelProperty(value = "alarm acknowledgement time ")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date alarmConfirmTime;
 
-    @ApiModelProperty(value = "ackState")
+    @ApiModelProperty(value = "Alarm acknowledgement status ")
     private Integer ackState;
 
-    @ApiModelProperty(value = "alarmConfirmUserid")
+    @ApiModelProperty(value = "Alarm Acknowledgement user ID")
     private String alarmConfirmUserid;
 
-    @ApiModelProperty(value = "alarmConfirmUsername")
+    @ApiModelProperty(value = "Alarm acknowledgment user name ")
     private String alarmConfirmUsername;
 
-    @ApiModelProperty(value = "alarmDeviceType")
+    @ApiModelProperty(value = "Alarm device type ")
     private String alarmDeviceType;
 
-    @ApiModelProperty(value = "rmUid")
+    @ApiModelProperty(value = "Alarm NE UID")
     private String rmUid;
 
-    @ApiModelProperty(value = "neUname")
+    @ApiModelProperty(value = "Alarm NE name ")
     private String neUname;
 
-    @ApiModelProperty(value = "mergeFlag")
+    @ApiModelProperty(value = "Whether alarms have been merged and cleared ")
     private Integer mergeFlag;
 
-    @ApiModelProperty(value = "syncType")
+    @ApiModelProperty(value = "Type of synchronized alarm ")
     private Integer syncType;
 
-    @ApiModelProperty(value = "alarmStorageTime")
+    @ApiModelProperty(value = "alarm entry time ")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date alarmStorageTime;
 
-    @ApiModelProperty(value = "offLine")
+    @ApiModelProperty(value = "Alarm heartbeat online or offline ")
     private Integer offLine;
 
-    @ApiModelProperty(value = "source")
+    @ApiModelProperty(value = "source ")
     private String source;
 
 }

@@ -15,6 +15,7 @@ public  final class StatsInfoReq extends
     super(builder);
   }
   private StatsInfoReq() {
+    neId_ = "";
   }
 
   @Override
@@ -55,6 +56,12 @@ public  final class StatsInfoReq extends
                 statsResultInfo__.getKey(), statsResultInfo__.getValue());
             break;
           }
+          case 18: {
+            String s = input.readStringRequireUtf8();
+
+            neId_ = s;
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -89,6 +96,7 @@ public  final class StatsInfoReq extends
             StatsInfoReq.class, StatsInfoReq.Builder.class);
   }
 
+  private int bitField0_;
   public static final int STATSRESULTINFO_FIELD_NUMBER = 1;
   private static final class StatsResultInfoDefaultEntryHolder {
     static final com.google.protobuf.MapEntry<
@@ -165,6 +173,40 @@ public  final class StatsInfoReq extends
     return map.get(key);
   }
 
+  public static final int NEID_FIELD_NUMBER = 2;
+  private volatile Object neId_;
+  /**
+   * <code>string neId = 2;</code>
+   */
+  public String getNeId() {
+    Object ref = neId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs =
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      neId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string neId = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getNeIdBytes() {
+    Object ref = neId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      neId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -183,6 +225,9 @@ public  final class StatsInfoReq extends
         internalGetStatsResultInfo(),
         StatsResultInfoDefaultEntryHolder.defaultEntry,
         1);
+    if (!getNeIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, neId_);
+    }
   }
 
   public int getSerializedSize() {
@@ -199,6 +244,9 @@ public  final class StatsInfoReq extends
           .build();
       size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, statsResultInfo__);
+    }
+    if (!getNeIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, neId_);
     }
     memoizedSize = size;
     return size;
@@ -218,6 +266,8 @@ public  final class StatsInfoReq extends
     boolean result = true;
     result = result && internalGetStatsResultInfo().equals(
         other.internalGetStatsResultInfo());
+    result = result && getNeId()
+        .equals(other.getNeId());
     return result;
   }
 
@@ -232,6 +282,8 @@ public  final class StatsInfoReq extends
       hash = (37 * hash) + STATSRESULTINFO_FIELD_NUMBER;
       hash = (53 * hash) + internalGetStatsResultInfo().hashCode();
     }
+    hash = (37 * hash) + NEID_FIELD_NUMBER;
+    hash = (53 * hash) + getNeId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -366,6 +418,7 @@ public  final class StatsInfoReq extends
               StatsInfoReq.class, StatsInfoReq.Builder.class);
     }
 
+    // Construct using StatsInfoReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -383,6 +436,8 @@ public  final class StatsInfoReq extends
     public Builder clear() {
       super.clear();
       internalGetMutableStatsResultInfo().clear();
+      neId_ = "";
+
       return this;
     }
 
@@ -406,8 +461,11 @@ public  final class StatsInfoReq extends
     public StatsInfoReq buildPartial() {
       StatsInfoReq result = new StatsInfoReq(this);
       int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.statsResultInfo_ = internalGetStatsResultInfo();
       result.statsResultInfo_.makeImmutable();
+      result.neId_ = neId_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -451,6 +509,10 @@ public  final class StatsInfoReq extends
       if (other == StatsInfoReq.getDefaultInstance()) return this;
       internalGetMutableStatsResultInfo().mergeFrom(
           other.internalGetStatsResultInfo());
+      if (!other.getNeId().isEmpty()) {
+        neId_ = other.neId_;
+        onChanged();
+      }
       onChanged();
       return this;
     }
@@ -598,6 +660,75 @@ public  final class StatsInfoReq extends
         java.util.Map<String, Double> values) {
       internalGetMutableStatsResultInfo().getMutableMap()
           .putAll(values);
+      return this;
+    }
+
+    private Object neId_ = "";
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public String getNeId() {
+      Object ref = neId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        neId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNeIdBytes() {
+      Object ref = neId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        neId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder setNeId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+
+      neId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder clearNeId() {
+
+      neId_ = getDefaultInstance().getNeId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder setNeIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+      neId_ = value;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

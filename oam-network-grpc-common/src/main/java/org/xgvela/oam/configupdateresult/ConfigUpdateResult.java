@@ -34,15 +34,15 @@ public final class ConfigUpdateResult {
   static {
     String[] descriptorData = {
       "\n\030configupdateresult.proto\022\022configupdate" +
-      "result\"W\n\022CfgResultNotifyReq\022\016\n\006NfType\030\001" +
-      " \001(\t\022\022\n\nInstanceId\030\002 \001(\t\022\r\n\005MsgId\030\003 \001(\r\022" +
-      "\016\n\006Result\030\004 \001(\t\"%\n\023CfgResultNotifyResp\022\016" +
-      "\n\006Result\030\001 \001(\t2\201\001\n\031ConfigUpdateResultSer" +
-      "vice\022d\n\017cfgUpdateResult\022&.configupdatere" +
-      "sult.CfgResultNotifyReq\032\'.configupdatere" +
-      "sult.CfgResultNotifyResp\"\000B?\n!org.xgvela" +
-      ".oam.configupdateresultB\022ConfigUpdateRes" +
-      "ultP\001\242\002\003CRNb\006proto3"
+      "result\"H\n\022CfgResultNotifyReq\022\016\n\006NfType\030\001" +
+      " \001(\t\022\022\n\nInstanceId\030\002 \001(\t\022\016\n\006TaskId\030\003 \001(\t" +
+      "\"%\n\023CfgResultNotifyResp\022\016\n\006Result\030\001 \001(\t2" +
+      "\201\001\n\031ConfigUpdateResultService\022d\n\017cfgUpda" +
+      "teResult\022&.configupdateresult.CfgResultN" +
+      "otifyReq\032\'.configupdateresult.CfgResultN" +
+      "otifyResp\"\000B?\n!com.inspur.oam.configupda" +
+      "teresultB\022ConfigUpdateResultP\001\242\002\003CRNb\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -61,7 +61,7 @@ public final class ConfigUpdateResult {
     internal_static_configupdateresult_CfgResultNotifyReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_configupdateresult_CfgResultNotifyReq_descriptor,
-        new String[] { "NfType", "InstanceId", "MsgId", "Result", });
+        new String[] { "NfType", "InstanceId", "TaskId", });
     internal_static_configupdateresult_CfgResultNotifyResp_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_configupdateresult_CfgResultNotifyResp_fieldAccessorTable = new

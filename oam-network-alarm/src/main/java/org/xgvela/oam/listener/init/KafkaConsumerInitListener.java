@@ -16,12 +16,11 @@ public class KafkaConsumerInitListener implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-
         timingKafkaListenerHandler.addAboutAlarmDataToRedis();
         timingKafkaListenerHandler.startListener("alarmConsume");
         timingKafkaListenerHandler.startListener("save-alarm");
-
         timingKafkaListenerHandler.startListener("alarmOamSubNorth");
+        timingKafkaListenerHandler.startListener("alarmConsumeNorth");
     }
     
 }

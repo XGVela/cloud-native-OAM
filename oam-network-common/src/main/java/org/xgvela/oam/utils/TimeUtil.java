@@ -41,16 +41,11 @@ public class TimeUtil {
 		return getFormatDateAdd(getDateFromString(sourceDate, format), -1, format);
 	}
 
-	/**
-	 * Gets the current system time
-	 *
-	 * @return Date
-	 */
 	public static Date newDate() {
 
 		Date time = null;
 		Date now = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 可以方便地修改日期格式
 
 		try {
 			time = dateFormat.parse(dateFormat.format(now));
@@ -61,12 +56,6 @@ public class TimeUtil {
 		return time;
 	}
 
-	/**
-	 * yyyy-MM-dd HH:mm:ss
-	 *
-	 * @param dateDate
-	 * @return
-	 */
 	public static String dateToStrLong(Date dateDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(dateDate);
@@ -99,9 +88,7 @@ public class TimeUtil {
 	}
 
 	public static long getTimeStr(Long milSec){
-		long dayTime = 1000l * 24 * 3600;
-		long day = milSec/dayTime;
-
-		return day ;
+		long dayTime = 1000L * 24 * 3600;
+		return milSec/dayTime;
 	}
 }

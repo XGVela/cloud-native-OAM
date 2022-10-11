@@ -38,11 +38,16 @@ public class AlarmSubscribeService {
         oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getNeId, neId);
         oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getDataType, AlarmDataType);
         OamSubscribe oamSubscribe = iOamSubscribeService.getOne(oamSubscribeLambdaQueryWrapper);
-        String callBackUrl = oamSubscribe.getCallbackUrl();
-        List<ActiveAlarm> activeAlarmList = new ArrayList<>();
-        activeAlarmList.add(activeAlarm);
-        SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(activeAlarmList).perf(null).register(null).build();
-        httpPostClient.send(callBackUrl, subscribeInfo);
+        if(oamSubscribe != null){
+            String callBackUrl = oamSubscribe.getCallbackUrl();
+            log.info(AlarmSubscribeTopic + " CallBackUrl: " + callBackUrl);
+            List<ActiveAlarm> activeAlarmList = new ArrayList<>();
+            activeAlarmList.add(activeAlarm);
+            SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(activeAlarmList).perf(null).register(null).build();
+            String subscribeSendInfo = JSON.toJSONString(subscribeInfo);
+            log.info(AlarmSubscribeTopic + " SubscribeInfo: " + subscribeSendInfo);
+            httpPostClient.send(callBackUrl, subscribeSendInfo);
+        }
     }
 
 }

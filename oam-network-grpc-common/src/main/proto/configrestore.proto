@@ -1,14 +1,14 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.xgvela.oam.configrestore";
+option java_package = "com.inspur.oam.configrestore";
 option java_outer_classname = "ConfigRestore";
 option objc_class_prefix = "CR";
 
 package configrestore;
 
 service ConfigRestoreService  {
-  //notify omc download config file
+  //通知OMC更新下载配置文件
   rpc  notifyUpdateCfg(NotifyCfgReq)  returns  (NotifyCfgResp)  {}
 }
 

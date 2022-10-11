@@ -21,14 +21,9 @@ public class ClearedAlarmSeverity implements Serializable {
 
 	private static final long serialVersionUID = -4874495954295611867L;
 
-	/**
-	 * alarm_level
-	 */
-	@ApiModelProperty(value = "alarm_level")
 	@TableField("alarm_level")
 	private String alarmLevel;
 
-	@ApiModelProperty(value = "count")
 	@TableField(exist = false)
 	private long count;
 }

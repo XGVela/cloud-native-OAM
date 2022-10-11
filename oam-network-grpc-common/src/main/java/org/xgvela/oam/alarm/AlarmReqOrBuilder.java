@@ -54,7 +54,7 @@ public interface AlarmReqOrBuilder extends
 
   /**
    * <pre>
-   *0-active alarm 1-clear alarm
+   *0-代表活动告警 1-代表清除告警
    * </pre>
    *
    * <code>uint32 alarmStatusType = 7;</code>

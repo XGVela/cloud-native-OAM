@@ -16,19 +16,19 @@ public class RunLog implements Serializable {
 	@ApiModelProperty(value = "id")
 	private String id;
 
-	@ApiModelProperty(value = "ip")
+	@ApiModelProperty(value = "service IP")
 	private String ip;
 
-	@ApiModelProperty(value = "level")
+	@ApiModelProperty(value = "log level ")
 	private String level;
 
-	@ApiModelProperty(value = "serverName")
+	@ApiModelProperty(value = "service name ")
 	private String serverName;
 
-	@ApiModelProperty(value = "content")
+	@ApiModelProperty(value = "details ")
 	private String content;
 
-	@ApiModelProperty(value = "createTime")
+	@ApiModelProperty(value = "created time ")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 }

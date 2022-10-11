@@ -38,8 +38,8 @@ public final class SyncConfig {
       "leName\030\003 \001(\t\"/\n\013GetFileResp\022\016\n\006result\030\001 " +
       "\001(\t\022\020\n\010fileData\030\002 \001(\0142Y\n\021SyncConfigServi" +
       "ce\022D\n\rGetConfigFile\022\026.syncconfig.GetFile" +
-      "Req\032\027.syncconfig.GetFileResp\"\0000\001B.\n\031org." +
-      "xgvela.oam.syncconfigB\nSyncConfigP\001\242\002\002SC" +
+      "Req\032\027.syncconfig.GetFileResp\"\0000\001B.\n\031com." +
+      "inspur.oam.syncconfigB\nSyncConfigP\001\242\002\002SC" +
       "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
