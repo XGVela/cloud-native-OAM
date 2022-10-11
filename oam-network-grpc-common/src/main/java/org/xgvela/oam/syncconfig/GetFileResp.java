@@ -68,14 +68,14 @@ public  final class GetFileResp extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return org.xgvela.oam.syncconfig.SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
+    return SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return org.xgvela.oam.syncconfig.SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
+    return SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-                org.xgvela.oam.syncconfig.GetFileResp.class, org.xgvela.oam.syncconfig.GetFileResp.Builder.class);
+            GetFileResp.class, GetFileResp.Builder.class);
   }
 
   public static final int RESULT_FIELD_NUMBER = 1;
@@ -175,10 +175,10 @@ public  final class GetFileResp extends
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof org.xgvela.oam.syncconfig.GetFileResp)) {
+    if (!(obj instanceof GetFileResp)) {
       return super.equals(obj);
     }
-    org.xgvela.oam.syncconfig.GetFileResp other = (org.xgvela.oam.syncconfig.GetFileResp) obj;
+    GetFileResp other = (GetFileResp) obj;
 
     boolean result = true;
     result = result && getResult()
@@ -204,69 +204,69 @@ public  final class GetFileResp extends
     return hash;
   }
 
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(byte[] data)
+  public static GetFileResp parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(java.io.InputStream input)
+  public static GetFileResp parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseDelimitedFrom(java.io.InputStream input)
+  public static GetFileResp parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseDelimitedFrom(
+  public static GetFileResp parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static org.xgvela.oam.syncconfig.GetFileResp parseFrom(
+  public static GetFileResp parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -278,7 +278,7 @@ public  final class GetFileResp extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(org.xgvela.oam.syncconfig.GetFileResp prototype) {
+  public static Builder newBuilder(GetFileResp prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -298,20 +298,20 @@ public  final class GetFileResp extends
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:syncconfig.GetFileResp)
-          org.xgvela.oam.syncconfig.GetFileRespOrBuilder {
+          GetFileRespOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.xgvela.oam.syncconfig.SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
+      return SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.xgvela.oam.syncconfig.SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
+      return SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-                  org.xgvela.oam.syncconfig.GetFileResp.class, org.xgvela.oam.syncconfig.GetFileResp.Builder.class);
+              GetFileResp.class, GetFileResp.Builder.class);
     }
 
-    // Construct using org.xgvela.oam.syncconfig.GetFileResp.newBuilder()
+    // Construct using GetFileResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -337,23 +337,23 @@ public  final class GetFileResp extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return org.xgvela.oam.syncconfig.SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
+      return SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
     }
 
-    public org.xgvela.oam.syncconfig.GetFileResp getDefaultInstanceForType() {
-      return org.xgvela.oam.syncconfig.GetFileResp.getDefaultInstance();
+    public GetFileResp getDefaultInstanceForType() {
+      return GetFileResp.getDefaultInstance();
     }
 
-    public org.xgvela.oam.syncconfig.GetFileResp build() {
-      org.xgvela.oam.syncconfig.GetFileResp result = buildPartial();
+    public GetFileResp build() {
+      GetFileResp result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public org.xgvela.oam.syncconfig.GetFileResp buildPartial() {
-      org.xgvela.oam.syncconfig.GetFileResp result = new org.xgvela.oam.syncconfig.GetFileResp(this);
+    public GetFileResp buildPartial() {
+      GetFileResp result = new GetFileResp(this);
       result.result_ = result_;
       result.fileData_ = fileData_;
       onBuilt();
@@ -387,16 +387,16 @@ public  final class GetFileResp extends
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof org.xgvela.oam.syncconfig.GetFileResp) {
-        return mergeFrom((org.xgvela.oam.syncconfig.GetFileResp)other);
+      if (other instanceof GetFileResp) {
+        return mergeFrom((GetFileResp)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(org.xgvela.oam.syncconfig.GetFileResp other) {
-      if (other == org.xgvela.oam.syncconfig.GetFileResp.getDefaultInstance()) return this;
+    public Builder mergeFrom(GetFileResp other) {
+      if (other == GetFileResp.getDefaultInstance()) return this;
       if (!other.getResult().isEmpty()) {
         result_ = other.result_;
         onChanged();
@@ -416,11 +416,11 @@ public  final class GetFileResp extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.xgvela.oam.syncconfig.GetFileResp parsedMessage = null;
+      GetFileResp parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.xgvela.oam.syncconfig.GetFileResp) e.getUnfinishedMessage();
+        parsedMessage = (GetFileResp) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -574,12 +574,12 @@ public  final class GetFileResp extends
   }
 
   // @@protoc_insertion_point(class_scope:syncconfig.GetFileResp)
-  private static final org.xgvela.oam.syncconfig.GetFileResp DEFAULT_INSTANCE;
+  private static final GetFileResp DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new org.xgvela.oam.syncconfig.GetFileResp();
+    DEFAULT_INSTANCE = new GetFileResp();
   }
 
-  public static org.xgvela.oam.syncconfig.GetFileResp getDefaultInstance() {
+  public static GetFileResp getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
@@ -602,7 +602,7 @@ public  final class GetFileResp extends
     return PARSER;
   }
 
-  public org.xgvela.oam.syncconfig.GetFileResp getDefaultInstanceForType() {
+  public GetFileResp getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

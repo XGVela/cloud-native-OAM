@@ -29,5 +29,4 @@ public class AlarmCountMonitorVo {
 
     @JsonProperty("developerId")
     private String developerId;
-
 }

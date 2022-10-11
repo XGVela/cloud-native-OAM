@@ -2,19 +2,19 @@ package org.xgvela.oam.listener.kafka;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.inspur.cnet.common.core.utils.StringUtils;
 import org.xgvela.oam.config.AlarmConfirmConfig;
 import org.xgvela.oam.config.KafkaProducerSingleTon;
 import org.xgvela.oam.entity.alarm.OmcVnfAlarm;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.alarm.active.AlarmDto;
+import org.xgvela.oam.entity.subscribe.OamSubscribe;
 import org.xgvela.oam.listener.process.AlarmSaveService;
 import org.xgvela.oam.mapper.subscribe.OamSubscribeMapper;
-import org.xgvela.oam.entity.subscribe.OamSubscribe;
 import org.xgvela.oam.service.RedisCacheServiceImpl;
 import org.xgvela.oam.service.alarm.AlarmService;
 import org.xgvela.oam.utils.AlarmParser;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -86,10 +86,10 @@ public class AlarmConsumeListener {
                         recordsLst.add(activeAlarm);
                         alarmService.groupingByAlarmId(alarmMap, activeAlarm);
                     } else {
-                        log.error("The data format is incorrect: " + record.value());
+                        log.error("Wrong data format: " + record.value());
                     }
                 } catch (Exception e) {
-                    log.error("The data format is incorrect: " + record.value());
+                    log.error("Wrong data format: " + record.value());
                     continue;
                 }
             }
@@ -113,18 +113,29 @@ public class AlarmConsumeListener {
                 list11.addAll(list);
             }
 
-
             sendAlarmInterResult(list11);
-
 
             redisCacheService.putSetKey(redisActiveAlarm, removeRedisAlarmList, redisAlarmList);
             log.info("------------consume offsets: " + records.get(0).offset());
         }catch (Exception e) {
             log.error("alarmConsume fail", e);
         }finally {
-
             consumer.commitAsync();
         }
+    }
+
+    @KafkaListener(id = "alarmConsumeNorth", clientIdPrefix = "Alarm-ConsumerNorth", topics = "${alarm.save.consumer.topic}", containerFactory = "batchContainerFactory",
+            groupId = "Alarm-ConsumerNorth", idIsGroup = false, errorHandler = "alarmConsumeListenerErrorHandler")
+    public void alarmConsumeToNorthAlarm(List<ConsumerRecord<String, String>> records, Consumer consumer) {
+        KafkaProducer<String, String> producer = KafkaProducerSingleTon.getProducer();
+        records.forEach(record -> {
+            Map mapTypes = JSON.parseObject(record.value());
+            AlarmDto alarmDto = AlarmParser.parse(mapTypes);
+            alarmDto.setAlarmSeq(record.offset() + 1);
+            ProducerRecord<String, String> northRecord = new ProducerRecord<>("AlarmForNorth", JSON.toJSONStringWithDateFormat(alarmDto, "yyyy-MM-dd HH:mm:ss"));
+            producer.send(northRecord);
+        });
+        consumer.commitAsync();
     }
 
 
@@ -132,7 +143,7 @@ public class AlarmConsumeListener {
             groupId = "Alarm-OamSubNorth", idIsGroup = false, errorHandler = "alarmConsumeListenerErrorHandler")
     public void alarmConsumeToOamSubNorthAlarm(List<ConsumerRecord<String, String>> records, Consumer consumer) {
         KafkaProducer<String, String> producer = KafkaProducerSingleTon.getProducer();
-        Set<String> neIdSet = oamSubscribeMapper.selectList(new LambdaQueryWrapper<OamSubscribe>().eq(OamSubscribe::getDataType, "alarm")).stream().map(OamSubscribe::getNeId).collect(Collectors.toSet());
+        Set<String> neIdSet = oamSubscribeMapper.selectList(new LambdaQueryWrapper<OamSubscribe>().like(OamSubscribe::getDataType, "alarm")).stream().map(OamSubscribe::getNeId).collect(Collectors.toSet());
 
         records.forEach(record -> {
             ActiveAlarm activeAlarm = JSON.parseObject(record.value(), ActiveAlarm.class);
@@ -152,7 +163,7 @@ public class AlarmConsumeListener {
         int startIndex = 0;
         int compareIndex = 0;
         if (!flag) {
-
+            //redis中不存在alarmStatusType=0的告警
             startIndex = catchActiveListStartIndex(activeList, false);
         } else {
             startIndex = catchActiveListStartIndex(activeList, true);
@@ -196,7 +207,7 @@ public class AlarmConsumeListener {
       
         if (alarmConfirmConfig.getAlarmLevel().equals(active.getAlarmLevel()) && alarmConfirmConfig.getAlarmType().equals(active.getAlarmType())
                 && alarmConfirmConfig.getAlarmStatusType().equals(active.getAlarmStatusType())) {
-            log.info("This alarm is automatically confirme" + active.getAlarmId());
+            log.info("This alarm is automatically confirmed" + active.getAlarmId());
             active.setAckState(1);
             active.setAlarmConfirmUserid(String.valueOf(-1L));
             active.setAlarmConfirmUsername("System");
@@ -219,8 +230,6 @@ public class AlarmConsumeListener {
             producer.send(record);
         }
     }
-
-
 
     private void sendAlarmSaveDB(List<ActiveAlarm> activeList) {
         KafkaProducer<String, String> producer = KafkaProducerSingleTon.getProducer();

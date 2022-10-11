@@ -21,7 +21,7 @@ public class ActiveAlarmClass implements Serializable {
 
 	private static final long serialVersionUID = 2350868664290797768L;
 
-	@ApiModelProperty(value = "alarmType")
+	@ApiModelProperty(value = "alarm_type")
 	@TableField("alarm_type")
 	private String alarmType;
 

@@ -324,6 +324,7 @@ public  final class HeartReq extends
               HeartReq.class, Builder.class);
     }
 
+    // Construct using HeartReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -49,10 +49,7 @@ public class KafkaConsumerSingleTon {
 	}
 
 
-	/**
-	 * Stand-alone lonestand-consumer
-	 * @return
-	 */
+
 	public static Map<String, Object> getConsumerProps() {
 		Map<String, Object> props = new HashMap<>(16);
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, staticKafkaConsumerProps.getBootstrapServerConfig());
@@ -62,23 +59,15 @@ public class KafkaConsumerSingleTon {
 
 		props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, staticKafkaConsumerProps.getMaxPollIntervalMsConfig());
 		props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, staticKafkaConsumerProps.getRequestTimeoutMsConfig());
-
 		props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, staticKafkaConsumerProps.getMaxPollRecordsConfig());
-
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, staticKafkaConsumerProps.getAutoOffsetResetConfig());
-
 		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, staticKafkaConsumerProps.getEnableAutoCommitConfig());
-
 		props.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, staticKafkaConsumerProps.getFetchMaxBytesConfig());
-
 		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, staticKafkaConsumerProps.getSessionTimeoutMsConfig());
-
 		props.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, staticKafkaConsumerProps.getHeartBeatIntervalMsConfig());
-
 		props.put(ConsumerConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG, staticKafkaConsumerProps.getConnectionsMaxIdleMsConfig());
-
 		props.put(ConsumerConfig.FETCH_MIN_BYTES_CONFIG, 1);
-
+		//props.put(ConsumerConfig, staticKafkaConsumerProps.getConnectionsMaxIdleMsConfig());//周期性的观测请求平均处理时间飙升，定期consumer和broker的socket通道,-1表示不关闭空闲连接
 		return props;
 	}
 	
@@ -87,11 +76,8 @@ public class KafkaConsumerSingleTon {
         ConcurrentKafkaListenerContainerFactory container = new ConcurrentKafkaListenerContainerFactory();
         container.setConsumerFactory(new DefaultKafkaConsumerFactory<>(KafkaConsumerSingleTon.getConsumerProps()));
         container.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
-
         container.setConcurrency(1);
-
         container.setAutoStartup(false);
-
         container.setBatchListener(true);
         return container;
     }
@@ -101,11 +87,8 @@ public class KafkaConsumerSingleTon {
         ConcurrentKafkaListenerContainerFactory container = new ConcurrentKafkaListenerContainerFactory();
         container.setConsumerFactory(new DefaultKafkaConsumerFactory<>(KafkaConsumerSingleTon.getConsumerProps()));
         container.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
-
         container.setConcurrency(1);
-
         container.setAutoStartup(false);
-
         container.setBatchListener(true);
         return container;
     }
@@ -115,11 +98,8 @@ public class KafkaConsumerSingleTon {
 		ConcurrentKafkaListenerContainerFactory container = new ConcurrentKafkaListenerContainerFactory();
 		container.setConsumerFactory(new DefaultKafkaConsumerFactory<>(KafkaConsumerSingleTon.getConsumerProps()));
 		container.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
-
 		container.setConcurrency(1);
-
 		container.setAutoStartup(false);
-
 		container.setBatchListener(true);
 		return container;
 	}

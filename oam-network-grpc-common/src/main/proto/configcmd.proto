@@ -1,14 +1,14 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.xgvela.oam.configcmd";
+option java_package = "com.inspur.oam.configcmd";
 option java_outer_classname = "ConfigCmd";
 option objc_class_prefix = "CC";
 
 package configcmd;
 
 service ConfigCmdService{
-  //when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+  //omc修改nf配置文件后，通知CP-Agent配置文件变更
   rpc updateNFcfg(UpdateCfgReq)returns(UpdateCfgResp){}
 }
 

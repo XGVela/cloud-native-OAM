@@ -58,7 +58,7 @@ public class EsLog implements Serializable {
 
     private String message;
 
-    public VO toVO() {
+    public EsLog.VO toVO() {
         VO.VOBuilder builder = VO.builder().id(id).timestamp(timeStamp).level(level);
         Optional.ofNullable(kubernetes).ifPresent(k -> builder.namespace(k.namespace)
                 .pod(Optional.ofNullable(k.pod).map(o -> o.name).orElse(null))
@@ -69,33 +69,37 @@ public class EsLog implements Serializable {
         return builder.build();
     }
 
+    public EsLog.VO.EsMessageVO toEsMessageVO() {
+        return VO.EsMessageVO.builder().timestamp(timeStamp).message(message).id(id).build();
+    }
+
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class VO {
 
-        @ExcelProperty(value = "id", index = 0)
+        @ExcelProperty(value = "ID", index = 0)
         private String id;
-        @ExcelProperty(value = "timestamp", index = 1)
+        @ExcelProperty(value = "时间", index = 1)
         @ColumnWidth(50)
         private String timestamp;
-        @ExcelProperty(value = "level", index = 2)
+        @ExcelProperty(value = "级别", index = 2)
         @ColumnWidth(15)
         private String level;
-        @ExcelProperty(value = "namespace", index = 3)
+        @ExcelProperty(value = "命名空间", index = 3)
         @ColumnWidth(15)
         private String namespace;
-        @ExcelProperty(value = "pod", index = 4)
+        @ExcelProperty(value = "容器组", index = 4)
         @ColumnWidth(15)
         private String pod;
-        @ExcelProperty(value = "container", index = 5)
+        @ExcelProperty(value = "容器", index = 5)
         @ColumnWidth(15)
         private String container;
-        @ExcelProperty(value = "node", index = 6)
+        @ExcelProperty(value = "节点", index = 6)
         @ColumnWidth(15)
         private String node;
-        @ExcelProperty(value = "message", index = 7)
+        @ExcelProperty(value = "信息", index = 7)
         private String message;
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -144,6 +148,16 @@ public class EsLog implements Serializable {
             private String neType;
             private String startTime;
             private String endTime;
+        }
+
+        @Data
+        @Builder
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class EsMessageVO implements Serializable {
+            private String timestamp;
+            private String message;
+            private String id;
         }
     }
 }

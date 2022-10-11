@@ -20,11 +20,6 @@ public final class ConfigureManager {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_configuremanager_UpdateCfgFileReq_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_configuremanager_UpdateCfgFileRsps_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_configuremanager_UpdateCfgFileRsps_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_configuremanager_UpdateCfgFileRsp_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -39,17 +34,14 @@ public final class ConfigureManager {
   static {
     String[] descriptorData = {
       "\n\026configuremanager.proto\022\020configuremanag" +
-      "er\"h\n\020UpdateCfgFileReq\022\016\n\006nfType\030\001 \001(\t\022\014" +
-      "\n\004neId\030\002 \001(\t\022\022\n\nupdateType\030\003 \001(\r\022\020\n\010file" +
-      "Name\030\004 \001(\t\022\020\n\010fileData\030\005 \001(\014\"J\n\021UpdateCf" +
-      "gFileRsps\0225\n\tupdateRsp\030\001 \003(\0132\".configure" +
-      "manager.UpdateCfgFileRsp\"%\n\020UpdateCfgFil" +
-      "eRsp\022\021\n\tupdateRsp\030\001 \001(\t2z\n\027ConfigureMana" +
-      "gerService\022_\n\020updateConfigFile\022\".configu" +
-      "remanager.UpdateCfgFileReq\032#.configurema" +
-      "nager.UpdateCfgFileRsps\"\000(\001B:\n\037com.inspu",
-      "r.oam.configuremanagerB\020ConfigureManager" +
-      "P\001\242\002\002CMb\006proto3"
+      "er\"R\n\020UpdateCfgFileReq\022\016\n\006nfType\030\001 \001(\t\022\014" +
+      "\n\004neId\030\002 \001(\t\022\016\n\006taskId\030\003 \001(\t\022\020\n\010fileName" +
+      "\030\004 \001(\t\"%\n\020UpdateCfgFileRsp\022\021\n\tupdateRsp\030" +
+      "\001 \001(\t2w\n\027ConfigureManagerService\022\\\n\020Upda" +
+      "teConfigFile\022\".configuremanager.UpdateCf" +
+      "gFileReq\032\".configuremanager.UpdateCfgFil" +
+      "eRsp\"\000B:\n\037com.inspur.oam.configuremanage" +
+      "rB\020ConfigureManagerP\001\242\002\002CMb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -68,15 +60,9 @@ public final class ConfigureManager {
     internal_static_configuremanager_UpdateCfgFileReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_configuremanager_UpdateCfgFileReq_descriptor,
-        new String[] { "NfType", "NeId", "UpdateType", "FileName", "FileData", });
-    internal_static_configuremanager_UpdateCfgFileRsps_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_configuremanager_UpdateCfgFileRsps_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_configuremanager_UpdateCfgFileRsps_descriptor,
-        new String[] { "UpdateRsp", });
+        new String[] { "NfType", "NeId", "TaskId", "FileName", });
     internal_static_configuremanager_UpdateCfgFileRsp_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_configuremanager_UpdateCfgFileRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_configuremanager_UpdateCfgFileRsp_descriptor,

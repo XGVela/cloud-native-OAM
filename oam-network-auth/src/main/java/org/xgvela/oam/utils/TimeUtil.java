@@ -29,7 +29,7 @@ public class TimeUtil {
 	public static String getFormatDateAdd(Date date, int amount, String format) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(date);
-		cal.add(5, amount);
+		cal.add(Calendar.DATE, amount);
 		return getFormatDateTime(cal.getTime(), format);
 	}
 
@@ -42,15 +42,15 @@ public class TimeUtil {
 	}
 
 	/**
-	 * get current data
+	 * 获取当前系统时间
 	 *
-	 * @return Date
+	 * @return Date类型时间
 	 */
 	public static Date newDate() {
 
 		Date time = null;
 		Date now = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 可以方便地修改日期格式
 
 		try {
 			time = dateFormat.parse(dateFormat.format(now));
@@ -61,16 +61,9 @@ public class TimeUtil {
 		return time;
 	}
 
-	/**
-	 * yyyy-MM-dd HH:mm:ss
-	 *
-	 * @param dateDate
-	 * @return
-	 */
 	public static String dateToStrLong(Date dateDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String dateString = formatter.format(dateDate);
-		return dateString;
+		return formatter.format(dateDate);
 	}
 
 	public static Date getDayAfterDate(int day){
@@ -82,7 +75,7 @@ public class TimeUtil {
 		Date time = null;
 
 		try {
-			Date expireTime = new Date(now.getTime() + hour * 1000 * 60 * 60);
+			Date expireTime = new Date(now.getTime() + (long) hour * 1000 * 60 * 60);
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			time = df.parse(df.format(expireTime));
 		} catch (ParseException e) {
@@ -99,9 +92,7 @@ public class TimeUtil {
 	}
 
 	public static long getTimeStr(Long milSec){
-		long dayTime = 1000l * 24 * 3600;
-		long day = milSec/dayTime;
-
-		return day ;
+		long dayTime = 1000L * 24 * 3600;
+		return milSec/dayTime;
 	}
 }

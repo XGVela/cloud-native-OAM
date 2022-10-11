@@ -42,7 +42,7 @@ public class TimeUtil {
 	}
 
 	/**
-	 * get current time
+	 * 获取当前系统时间
 	 *
 	 * @return Date类型时间
 	 */
@@ -50,7 +50,7 @@ public class TimeUtil {
 
 		Date time = null;
 		Date now = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 可以方便地修改日期格式
 
 		try {
 			time = dateFormat.parse(dateFormat.format(now));
@@ -62,7 +62,7 @@ public class TimeUtil {
 	}
 
 	/**
-	 * yyyy-MM-dd HH:mm:ss
+	 * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
 	 *
 	 * @param dateDate
 	 * @return

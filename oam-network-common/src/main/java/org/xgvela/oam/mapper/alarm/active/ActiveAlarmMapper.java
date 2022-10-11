@@ -9,24 +9,11 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-
-/**
- * <p>
- * ActiveAlarmMapper Mapper interface
- * </p>
- */
 @Mapper
 public interface ActiveAlarmMapper extends BaseMapper<ActiveAlarm> {
 
-    /**
-     * getCountByLabel
-     * @param developerId
-     * @param label
-     * @return
-     */
     public List<ActiveAlarmStatisticsDTO> getCountByLabel(@Param(value = "developerId") String developerId,
                                                           @Param(value = "label") String label);
-
     public List<ActiveAlarmSeverity> getActiveAlarmSeverities(@Param(value = "alarmType") Integer alarmType,
                                                               @Param(value = "source") String source,
                                                               @Param(value = "alarmLevel") Integer alarmLevel,
@@ -35,6 +22,5 @@ public interface ActiveAlarmMapper extends BaseMapper<ActiveAlarm> {
                                                               @Param(value = "alarmNo") String alarmNo,
                                                               @Param(value = "offLine") Integer offLine,
                                                               @Param(value = "mergeFlag") Integer mergeFlag,
-                                                              @Param("startTime") String startTime,
-                                                              @Param("endTime") String endTime);
+                                                              @Param("startTime") String startTime);
 }

@@ -21,7 +21,7 @@ public final class ConfigUpdateResultServiceGrpc {
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<CfgResultNotifyReq,
-      CfgResultNotifyResp> METHOD_CFG_UPDATE_RESULT =
+          CfgResultNotifyResp> METHOD_CFG_UPDATE_RESULT =
       io.grpc.MethodDescriptor.<CfgResultNotifyReq, CfgResultNotifyResp>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
@@ -72,8 +72,8 @@ public final class ConfigUpdateResultServiceGrpc {
             METHOD_CFG_UPDATE_RESULT,
             asyncUnaryCall(
               new MethodHandlers<
-                CfgResultNotifyReq,
-                CfgResultNotifyResp>(
+                      CfgResultNotifyReq,
+                      CfgResultNotifyResp>(
                   this, METHODID_CFG_UPDATE_RESULT)))
           .build();
     }

@@ -61,7 +61,7 @@ public final class ConfigRestoreServiceGrpc {
 
     /**
      * <pre>
-     * notify omc download config file
+     *通知OMC更新下载配置文件
      * </pre>
      */
     public void notifyUpdateCfg(NotifyCfgReq request,
@@ -102,7 +102,7 @@ public final class ConfigRestoreServiceGrpc {
 
     /**
      * <pre>
-     *notify omc download config file
+     *通知OMC更新下载配置文件
      * </pre>
      */
     public void notifyUpdateCfg(NotifyCfgReq request,
@@ -132,7 +132,7 @@ public final class ConfigRestoreServiceGrpc {
 
     /**
      * <pre>
-     *notify omc download config file
+     *通知OMC更新下载配置文件
      * </pre>
      */
     public NotifyCfgResp notifyUpdateCfg(NotifyCfgReq request) {
@@ -161,7 +161,7 @@ public final class ConfigRestoreServiceGrpc {
 
     /**
      * <pre>
-     *notify omc download config file
+     *通知OMC更新下载配置文件
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<NotifyCfgResp> notifyUpdateCfg(

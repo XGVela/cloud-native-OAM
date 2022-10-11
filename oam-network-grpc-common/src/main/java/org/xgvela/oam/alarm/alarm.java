@@ -45,7 +45,7 @@ public final class alarm {
       "\t\022\027\n\017alarmDeviceType\030\021 \001(\t\"\032\n\010AlarmRsp\022\016",
       "\n\006result\030\001 \001(\t2G\n\022AlarmReportService\0221\n\013" +
       "AlarmReport\022\017.alarm.AlarmReq\032\017.alarm.Ala" +
-      "rmRsp\"\000B\'\n\024org.xgvela.oam.alarmB\005alarmP\001" +
+      "rmRsp\"\000B\'\n\024com.inspur.oam.alarmB\005alarmP\001" +
       "\242\002\005alarmb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

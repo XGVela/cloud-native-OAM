@@ -5,26 +5,21 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * <p>
- * UserRole entity
- * </p>
- */
 @Data
 public class UserRoleVO implements Serializable {
 
     private static final long serialVersionUID = -6428774508083268028L;
 
     private static final String ADMIN = "admin";
-    private static final String SUPER_ADMIN = "superuser";
+    private static final String SUPER_ADMIN = "super administrator ";
 
-    @ApiModelProperty(value = "userLogin")
+    @ApiModelProperty(value = "User unique identifier ")
     private String userLogin;
 
-    @ApiModelProperty(value = "userNiceName")
+    @ApiModelProperty(value = "user nickname ")
     private String userNiceName;
 
-    @ApiModelProperty(value = "userRole")
+    @ApiModelProperty(value = "User role ")
     private String userRole;
 
     public void setUserRole(String userRole) {

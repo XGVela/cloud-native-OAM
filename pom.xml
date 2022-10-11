@@ -25,6 +25,7 @@
         <module>oam-network-log</module>
         <module>oam-network-auth</module>
         <module>oam-network-alarm</module>
+        <module>oam-network-nftube</module>
         <module>oam-network-subscribe-publish</module>
     </modules>
 

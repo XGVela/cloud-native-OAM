@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.xgvela.oam.nfregister";
+option java_package = "com.inspur.oam.nfregister";
 option java_outer_classname = "NFRegister";
 option objc_class_prefix = "NFR";
 

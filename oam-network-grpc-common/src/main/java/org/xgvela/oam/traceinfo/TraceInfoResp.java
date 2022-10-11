@@ -273,6 +273,7 @@ public  final class TraceInfoResp extends
               TraceInfoResp.class, Builder.class);
     }
 
+    // Construct using TraceInfoResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -12,24 +12,24 @@ public class OmcVnfAlarm implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "province")
+	@ApiModelProperty(value = "province ")
 	private String province;
-	
-	@ApiModelProperty(value = "Administrative Status: Locked | Released | Closed")
+
+	@ApiModelProperty (value = "managing state: lock release | | close")
 	private String administrativeState;
-		
-	@ApiModelProperty(value = "vnfName")
+
+	@ApiModelProperty(value = "NE name ")
 	private String vnfName;
-		
-	@ApiModelProperty(value = "rmuid")
+
+	@ApiModelProperty(value = "unique identifier ")
 	private String rmuid;
-		
-	@ApiModelProperty(value = "Network element operation status: online | main standby | offline | project")
+
+	@ApiModelProperty (value = "yuan running state: online | main standby offline | | project")
 	private String vnfStatus;
 
-	@ApiModelProperty(value = "Manage ip")
-    private String vnfManageIp;
+	@ApiModelProperty(value = "admin ip")
+	private String vnfManageIp;
 
-	@ApiModelProperty(value = "VirtName：physical | virtual")
+	@ApiModelProperty (value = "physical | yuan virtualization identification: virtual")
 	private String vnfVirtName;
 }

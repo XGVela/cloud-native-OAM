@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  */
 @Configuration
-@MapperScan("com.inspur.cnet.*.mapper*")
+@MapperScan("org.xgvela.cnet.*.mapper*")
 public class MybatisPlusConfig {
 
     /**
-     *   mybatis-plus
+     *   mybatis-plus分页插件
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

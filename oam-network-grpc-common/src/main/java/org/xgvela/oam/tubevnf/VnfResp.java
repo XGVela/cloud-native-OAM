@@ -273,6 +273,7 @@ public  final class VnfResp extends
               VnfResp.class, Builder.class);
     }
 
+    // Construct using VnfResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -8,11 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * <p>
- * ActiveAlarmStatisticsDTO dto
- * </p>
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,9 +16,9 @@ public class ActiveAlarmStatisticsDTO implements Serializable {
 
     private static final long serialVersionUID = 8504020187622715450L;
 
-    @ApiModelProperty(value = "type")
+    @ApiModelProperty(value = "field name ")
     private String type;
 
-    @ApiModelProperty(value = "count")
+    @ApiModelProperty(value = "statistics ")
     private Integer count;
 }

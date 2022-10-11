@@ -61,7 +61,7 @@ public final class ConfigCmdServiceGrpc {
 
     /**
      * <pre>
-     * when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+     *omc修改nf配置文件后，通知CP-Agent配置文件变更
      * </pre>
      */
     public void updateNFcfg(UpdateCfgReq request,
@@ -102,7 +102,7 @@ public final class ConfigCmdServiceGrpc {
 
     /**
      * <pre>
-     *when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+     *omc修改nf配置文件后，通知CP-Agent配置文件变更
      * </pre>
      */
     public void updateNFcfg(UpdateCfgReq request,
@@ -132,7 +132,7 @@ public final class ConfigCmdServiceGrpc {
 
     /**
      * <pre>
-     *when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+     *omc修改nf配置文件后，通知CP-Agent配置文件变更
      * </pre>
      */
     public UpdateCfgResp updateNFcfg(UpdateCfgReq request) {
@@ -161,7 +161,7 @@ public final class ConfigCmdServiceGrpc {
 
     /**
      * <pre>
-     *when omc modify nf's config mapomc, notify CP-Agent NFcfgupdate
+     *omc修改nf配置文件后，通知CP-Agent配置文件变更
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<UpdateCfgResp> updateNFcfg(

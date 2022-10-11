@@ -281,6 +281,7 @@ public  final class UpdateCfgResp extends
               UpdateCfgResp.class, Builder.class);
     }
 
+    // Construct using UpdateCfgResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

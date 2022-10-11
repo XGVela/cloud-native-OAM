@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * HttpUtils
  * </p>
- *
  * @author gengdawen
  * @since 2021/11/5
  */
@@ -76,7 +75,7 @@ public abstract class BaseHttpUtils {
     }
 
     /**
-     * httpsclient，skip ssl
+     * https On the client, skip ssl authentication
      */
     protected static OkHttpClient getHttpsClient() {
         if (null == client) {

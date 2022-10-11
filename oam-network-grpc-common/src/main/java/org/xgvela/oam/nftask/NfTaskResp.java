@@ -273,6 +273,7 @@ public  final class NfTaskResp extends
               NfTaskResp.class, Builder.class);
     }
 
+    // Construct using NfTaskResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

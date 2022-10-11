@@ -58,7 +58,7 @@ public class RedisCacheConfig<T> extends CachingConfigurerSupport {
     @Bean(name = "hashRedisTemplate")
     public RedisTemplate<String, Object> hashRedisTemplate(
             LettuceConnectionFactory lettuceConnectionFactory) {
-
+        //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式）
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -87,13 +87,11 @@ public class RedisCacheConfig<T> extends CachingConfigurerSupport {
     @Primary
     public CacheManager cacheManager(RedisConnectionFactory factory) {
 
-
         RedisSerializationContext.SerializationPair valueSerializationPair
                 = RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer());
 
         Set<String> cacheNames = new HashSet<>();
         cacheNames.add("heartbeat");
-
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
 //                .entryTtl(Duration.ofDays(1))
@@ -110,7 +108,6 @@ public class RedisCacheConfig<T> extends CachingConfigurerSupport {
 
     @Bean
     public CacheManager analysisCacheManger(RedisConnectionFactory factory){
-        //对象的序列化
         RedisSerializationContext.SerializationPair valueSerializationPair
                 = RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer());
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()

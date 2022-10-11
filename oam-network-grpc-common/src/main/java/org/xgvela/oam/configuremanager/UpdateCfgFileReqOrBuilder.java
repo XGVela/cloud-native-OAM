@@ -28,9 +28,14 @@ public interface UpdateCfgFileReqOrBuilder extends
       getNeIdBytes();
 
   /**
-   * <code>uint32 updateType = 3;</code>
+   * <code>string taskId = 3;</code>
    */
-  int getUpdateType();
+  String getTaskId();
+  /**
+   * <code>string taskId = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getTaskIdBytes();
 
   /**
    * <code>string fileName = 4;</code>
@@ -41,13 +46,4 @@ public interface UpdateCfgFileReqOrBuilder extends
    */
   com.google.protobuf.ByteString
       getFileNameBytes();
-
-  /**
-   * <pre>
-   *file contents
-   * </pre>
-   *
-   * <code>bytes fileData = 5;</code>
-   */
-  com.google.protobuf.ByteString getFileData();
 }

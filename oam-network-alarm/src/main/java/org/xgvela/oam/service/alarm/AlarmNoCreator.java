@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 public class AlarmNoCreator {
-    public static final String ALARM_PREFIX = "Threshold alarm";
+    public static final String ALARM_PREFIX = "门限告警";
 
     public static String createAlarmNo(JSONObject recordJson) {
         String neId = recordJson.getString("neId");
@@ -18,7 +18,6 @@ public class AlarmNoCreator {
         if (StringUtils.contains(specificProblem, ALARM_PREFIX)) {
             return "000009";
         }
-
         String specificProblemId = recordJson.getString("specificProblemId");
         switch (specificProblemId) {
             case "CertCloseExpired":
@@ -65,6 +64,9 @@ public class AlarmNoCreator {
     }
 
     /**
+     * 001 : OMC alarms. Procedure
+     * 002 : UPF alarm
+     *
      * @param neId
      * @return
      */

@@ -14,72 +14,65 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * <p>
- * TransmitRule entity
- * </p>
- */
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("alarm_transmit_rule")
-@ApiModel(value = "TransmitRule", description = "TransmitRule")
+@ApiModel(value = "TransmitRule", description = "Transmitrule entity ")
 public class TransmitRule implements Serializable {
 
     private static final long serialVersionUID = -5735666830091560860L;
 
-    @ApiModelProperty(value = "id")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "developerId")
     @TableField("developer_id")
     private String developerId;
 
-    @ApiModelProperty(value = "name")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "delayTime")
+    @ApiModelProperty(value = "Message latency (minutes) ")
     @TableField("delay_time")
     private Integer delayTime;
 
-    @ApiModelProperty(value = "status")
+    @ApiModelProperty(value = "status ")
     @TableField("status")
     private String status;
 
-    @ApiModelProperty(value = "eventId")
+    @ApiModelProperty(value = "Alarm event id")
     @TableField("event_id")
     private String eventId;
 
-    @ApiModelProperty(value = "eventName")
+    @ApiModelProperty(value = "Alarm event name ")
     @TableField("event_name")
     private String eventName;
 
-    @ApiModelProperty(value = "templateId")
+    @ApiModelProperty(value = "Alarm forwarding template id")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableField("template_id")
     private Long templateId;
 
-    @ApiModelProperty(value = "templateName")
+    @ApiModelProperty(value = "Alarm forwarding template name ")
     @TableField("template_name")
     private String templateName;
 
-    @ApiModelProperty(value = "sendMethod")
+    @ApiModelProperty(value = "send ")
     @TableField("send_method")
     private String sendMethod;
 
-    @ApiModelProperty(value = "updateTime")
+    @ApiModelProperty(value = "update time ")
     @TableField("update_time")
     private Date updateTime;
 
-    @ApiModelProperty(value = "userList")
+    @ApiModelProperty(value = "recipient list")
     @TableField(exist = false)
     private List<TransmitRuleUser> userList;
 
-    @ApiModelProperty(value = "conditionList")
+    @ApiModelProperty(value = "filter criteria list")
     @TableField(exist = false)
     private List<TransmitRuleCondition> conditionList;
 
@@ -90,8 +83,7 @@ public class TransmitRule implements Serializable {
 
     @AllArgsConstructor
     public enum sendMethodEnum {
-        SMS("sms"), QYWEIXIN("Wechat");
-
+        SMS(" short message "), QYWEIXIN(" Enterprise wechat ");
         @Getter
         private final String value;
     }

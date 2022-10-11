@@ -38,7 +38,7 @@ public final class TraceInfo {
       "aceInfoResp\022\016\n\006result\030\001 \001(\t2Z\n\020TraceInfo" +
       "Service\022F\n\017InformTraceInfo\022\027.traceinfo.T" +
       "raceInfoReq\032\030.traceinfo.TraceInfoResp\"\000B" +
-      ",\n\030org.xgvela.oam.traceinfoB\tTraceInfoP\001" +
+      ",\n\030com.inspur.oam.traceinfoB\tTraceInfoP\001" +
       "\242\002\002TIb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

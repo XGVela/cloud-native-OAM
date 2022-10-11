@@ -299,6 +299,7 @@ public  final class TraceInfoReq extends
               TraceInfoReq.class, Builder.class);
     }
 
+    // Construct using TraceInfoReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

@@ -28,7 +28,7 @@ public class SwaggerConfig {
     public Docket createRestApi() {
 
         ParameterBuilder parameterBuilder = new ParameterBuilder();
-        parameterBuilder.name(WebUtils.HEADER_NAME_AUTH).description("OMC auth token").modelRef(new ModelRef("string")).parameterType("header").required(true).defaultValue(WebUtils.HEADER_VALUE_AUTH).build();
+        parameterBuilder.name(WebUtils.HEADER_NAME_AUTH).description("OAM权限验证token").modelRef(new ModelRef("string")).parameterType("header").required(true).defaultValue(WebUtils.HEADER_VALUE_AUTH).build();
         List<Parameter> parameters = Lists.newArrayList();
         parameters.add(parameterBuilder.build());
 
@@ -37,13 +37,15 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                //.apis(RequestHandlerSelectors.basePackage("org.xgvela.cnet.mepm.web,org.xgvela.cnet.rest.security"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("OM 5gc api")
+                .title("OAM核心网api")
+//                .description("更多Spring Boot相关文章请关注：http://test/")
 //                .termsOfServiceUrl("http://test/")
                 .version("Application Version: 1.0-SNAPSHOT, Spring Boot Version: " + SpringBootVersion.getVersion())
                 .build();

@@ -9,30 +9,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- *  Entity
- * </p>
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "OamSubscribe entity")
+@ApiModel(value = "OamSubscribe entity ")
 public class OamSubscribe extends Model<OamSubscribe> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "nfid")
+    @ApiModelProperty(value = "NE instance id")
     @TableField(updateStrategy = FieldStrategy.IGNORED, insertStrategy = FieldStrategy.IGNORED)
     private String neId;
 
-    @ApiModelProperty(value = "type:register,alarm,perf")
+    @ApiModelProperty(value = "Data type :register,alarm,perf")
     private String dataType;
 
     @ApiModelProperty(value = "callback URL")
     private String callbackUrl;
 
-    @ApiModelProperty(value = "omc ID")
+    @ApiModelProperty(value = "upper-layer NMS ID")
     private String systemId;
-
 }

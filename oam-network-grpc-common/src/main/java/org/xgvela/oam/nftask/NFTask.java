@@ -40,7 +40,7 @@ public final class NFTask {
       "(\004\022\016\n\006status\030\010 \001(\r\022\025\n\rinterfaceType\030\t \003(" +
       "\t\"\034\n\nNfTaskResp\022\016\n\006result\030\001 \001(\t2H\n\rNfTas" +
       "kService\0227\n\014createNfTask\022\021.nftask.NfTask" +
-      "Req\032\022.nftask.NfTaskResp\"\000B&\n\025org.xgvela." +
+      "Req\032\022.nftask.NfTaskResp\"\000B&\n\025com.inspur." +
       "oam.nftaskB\006NFTaskP\001\242\002\002NTb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

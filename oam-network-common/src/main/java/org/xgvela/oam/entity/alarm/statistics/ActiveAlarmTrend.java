@@ -10,12 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * <p>
- * ActiveAlarmTrend entity
- * </p>
- *
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -25,10 +19,11 @@ public class ActiveAlarmTrend implements Serializable {
 
     private static final long serialVersionUID = 2687146427792416351L;
 
-    @ApiModelProperty(value = "alarm date")
+    @ApiModelProperty(value = "alarm date ")
     @TableField(exist = false)
     private String alarmTime;
-    @ApiModelProperty(value = "count")
+
+    @ApiModelProperty(value = "Alarm statistics ")
     @TableField(exist = false)
     private long count;
 }

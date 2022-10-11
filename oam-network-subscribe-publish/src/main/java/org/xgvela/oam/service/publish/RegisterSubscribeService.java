@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -33,14 +34,18 @@ public class RegisterSubscribeService {
         OamVnf oamVnf = JSON.parseObject((String) record.value(), OamVnf.class);
         String neId = oamVnf.getNeId();
         LambdaQueryWrapper<OamSubscribe> oamSubscribeLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getNeId, neId);
         oamSubscribeLambdaQueryWrapper.eq(OamSubscribe::getDataType, RegisterDataType);
         List<OamSubscribe> oamSubscribes = iOamSubscribeService.list(oamSubscribeLambdaQueryWrapper);
+        List<OamVnf> oamVnfs = new ArrayList<>();
+        oamVnfs.add(oamVnf);
         if(oamSubscribes != null && oamSubscribes.size() > 0){
             for(OamSubscribe oamSubscribe: oamSubscribes){
                 String callBackUrl = oamSubscribe.getCallbackUrl();
-                SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(null).perf(null).register(null).build();
-                httpPostClient.send(callBackUrl, subscribeInfo);
+                log.info(RegisterSubscribeTopic + " CallBackUrl: " + callBackUrl);
+                SubscribeInfo subscribeInfo = SubscribeInfo.builder().neId(neId).alarm(null).perf(null).register(oamVnfs).build();
+                String subscribeSendInfo = JSON.toJSONString(subscribeInfo);
+                log.info(RegisterSubscribeTopic + " SubscribeInfo: " + subscribeSendInfo);
+                httpPostClient.send(callBackUrl, subscribeSendInfo);
             }
         }
     }

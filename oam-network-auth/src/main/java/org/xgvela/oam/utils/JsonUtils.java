@@ -74,7 +74,7 @@ public class JsonUtils {
     }
 
     /**
-     * json data to pojo list
+     * 将json数据转换成pojo对象list
      */
     public static <T> List<T> jsonToList(String jsonData, Class<T> beanType) {
         JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);

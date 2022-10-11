@@ -13,10 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * @author gengfei01
- *
- */
 public class LogAppender extends AppenderBase<ILoggingEvent> {
 
 	private String serverName = "cnet-alarm";
@@ -41,7 +37,6 @@ public class LogAppender extends AppenderBase<ILoggingEvent> {
 		} catch (UnknownHostException e) {
 			logger.error("get request ip error,error msg <{}>", e.getMessage(), e);
 		}
-
 		logger.info(JSONObject.toJSONString(runLog));
 	}
 }

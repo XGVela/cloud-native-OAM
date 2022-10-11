@@ -21,7 +21,7 @@ public class ActiveAlarmSeverity implements Serializable {
 
 	private static final long serialVersionUID = 2350868664290797768L;
 
-	@ApiModelProperty(value = "alarmLevel")
+	@ApiModelProperty(value = "alarm_level")
 	@TableField("alarm_level")
 	private String alarmLevel;
 

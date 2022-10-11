@@ -40,4 +40,14 @@ public interface StatsInfoReqOrBuilder extends
 
   double getStatsResultInfoOrThrow(
           String key);
+
+  /**
+   * <code>string neId = 2;</code>
+   */
+  String getNeId();
+  /**
+   * <code>string neId = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getNeIdBytes();
 }

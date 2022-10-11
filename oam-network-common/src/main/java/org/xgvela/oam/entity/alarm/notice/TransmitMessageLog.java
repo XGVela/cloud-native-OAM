@@ -13,11 +13,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * <p>
- * TransmitMessageLog eneity
- * </p>
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,12 +23,10 @@ public class TransmitMessageLog implements Serializable {
 
     private static final long serialVersionUID = 4363856379724733490L;
 
-    @ApiModelProperty(value = "id")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "developerId")
     @TableField("developer_id")
     private String developerId;
 
@@ -45,43 +38,43 @@ public class TransmitMessageLog implements Serializable {
     @TableField("status")
     private String status;
 
-    @ApiModelProperty(value = "ruleUserId")
+    @ApiModelProperty(value = "rule_user_id")
     @TableField("rule_user_id")
     private Long ruleUserId;
 
-    @ApiModelProperty(value = "userId")
+    @ApiModelProperty(value = "user_id")
     @TableField("user_id")
     private Long userId;
 
-    @ApiModelProperty(value = "userName")
+    @ApiModelProperty(value = "user_name")
     @TableField("user_name")
     private String userName;
 
-    @ApiModelProperty(value = "sendTime")
+    @ApiModelProperty(value = "send_time")
     @TableField("send_time")
     private Date sendTime;
 
-    @ApiModelProperty(value = "sendMethod")
+    @ApiModelProperty(value = "send_method")
     @TableField("send_method")
     private String sendMethod;
 
-    @ApiModelProperty(value = "eventId")
+    @ApiModelProperty(value = "event_id")
     @TableField("event_id")
     private String eventId;
 
-    @ApiModelProperty(value = "eventName")
+    @ApiModelProperty(value = "event_name")
     @TableField("event_name")
     private String eventName;
 
-    @ApiModelProperty(value = "ruleId")
+    @ApiModelProperty(value = "rule_id")
     @TableField("rule_id")
     private Long ruleId;
 
-    @ApiModelProperty(value = "kafkaOffset")
+    @ApiModelProperty(value = "kafka_offset")
     @TableField("kafka_offset")
     private Long kafkaOffset;
 
-    @ApiModelProperty(value = "alarmId")
+    @ApiModelProperty(value = "alarm_id")
     @TableField("alarm_id")
     private String alarmId;
 
@@ -92,9 +85,7 @@ public class TransmitMessageLog implements Serializable {
 
     @AllArgsConstructor
     public enum statusEnum {
-
-        WAIT("Pending sending"), SUCCESS("Sent"), FAIL("Failed to send"), CANCEL("Cancel sending");
-
+        WAIT("WAIT"), SUCCESS("SUCCESS"), FAIL("FAIL"), CANCEL("CANCEL");
         @Getter
         private final String value;
     }

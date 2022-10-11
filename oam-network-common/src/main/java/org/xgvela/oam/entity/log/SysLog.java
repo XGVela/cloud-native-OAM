@@ -54,7 +54,7 @@ public class SysLog implements Serializable {
     @AllArgsConstructor
     @ToString
     public enum lxType {
-        SYSTEM(1, "system"), OMC_OPREATE(2, "omc log"), NET_OPREATE(3, "nf log"), ALARM_DATA(4, "alarm log");
+        SYSTEM(1, "system "), OMC_OPREATE(2, "omc operation log "), NET_OPREATE(3," NE operation log "), ALARM_DATA(4, "Alarm data log ");
         @Getter
         private final int id;
         @Getter
@@ -64,19 +64,16 @@ public class SysLog implements Serializable {
     @AllArgsConstructor
     @ToString
     public enum actionType {
-        CONFIG_MANAGE("config_manage"), VNF_OPERATION("vnf_operation"), PM_MANAGE("pm_manage"),
-        ALARM_MANAGE("alarm_manage"), MAINTAIN_MANAGE("maintain_manage"), LOG_MANAGE("log_manage"),
-        SYS_LOG("sys_log"), OTHER("other");
-
-        @Getter
-        private final String value;
+        CONFIG_MANAGE, VNF_OPERATION, PM_MANAGE,
+        ALARM_MANAGE, MAINTAIN_MANAGE, LOG_MANAGE,
+        SYS_LOG, OTHER;
     }
 
     public String getLogStatus(String status) {
         if ("ERROR".equals(status)) {
-            return "failed";
+            return "failed ";
         } else if ("SUCCESS".equals(status)) {
-            return "success";
+            return "success ";
         } else {
             return "";
         }

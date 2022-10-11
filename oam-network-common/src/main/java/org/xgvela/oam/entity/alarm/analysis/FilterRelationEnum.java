@@ -22,7 +22,6 @@ public enum FilterRelationEnum {
         return operator;
     }
 
-
     public static String getOperatorByType(String type) {
         if (type == null) {
             return null;

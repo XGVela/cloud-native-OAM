@@ -18,15 +18,10 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.util.Date;
 
-/**
- * <p>
- *  entity
- * </p>
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "ActiveAlarm entity", description = "ActiveAlarm entity")
+@ApiModel(value = "ActiveAlarm entity ", description = "ActiveAlarm Application Instance ")
 @TableName(autoResultMap = true, value = "oam_alarm_active")
 @ToString
 public class ActiveAlarm extends Model<ActiveAlarm> {
@@ -40,98 +35,98 @@ public class ActiveAlarm extends Model<ActiveAlarm> {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "alarmNO")
+    @ApiModelProperty(value = "alarm_no")
     @TableField("alarm_no")
     private String alarmNO;
 
-    @ApiModelProperty(value = "alarmId")
+    @ApiModelProperty(value = "alarm_id")
     @TableField("alarm_id")
     private String alarmId;
     
-    @ApiModelProperty(value = "neId")
+    @ApiModelProperty(value = "ne_id")
     @TableField("ne_id")
     private String neId;
     
-    @ApiModelProperty(value = "neName")
+    @ApiModelProperty(value = "ne_name")
     @TableField("ne_name")
     private String neName;
     
-    @ApiModelProperty(value = "alarmName")
+    @ApiModelProperty(value = "alarm_name")
     @TableField("alarm_name")
     private String alarmName;
     
-    @ApiModelProperty(value = "alarmType")
+    @ApiModelProperty(value = "alarm_type")
     @TableField("alarm_type")
     private Integer alarmType;
     
 
-    @ApiModelProperty(value = "alarmLevel")
+    @ApiModelProperty(value = "alarm_levels")
     @TableField("alarm_level")
     private Integer alarmLevel;
     
-    @ApiModelProperty(value = "alarmStatusType")
+    @ApiModelProperty(value = "alarm_status_type")
     @TableField("alarm_status_type")
     private Integer alarmStatusType;
     
-    @ApiModelProperty(value = "alarmEventTime")
+    @ApiModelProperty(value = "alarm_event_time")
     @JsonFormat(pattern = ALARM_DATE_PARAM_PATTERN, timezone = "GMT+8")
     @TableField(value = "alarm_event_time",jdbcType = JdbcType.TIMESTAMP)
     private Date alarmEventTime;
 
-    @ApiModelProperty(value = "alarmClearedTime")
+    @ApiModelProperty(value = "alarm_cleared_time")
     @JsonFormat(pattern = ALARM_DATE_PARAM_PATTERN, timezone = "GMT+8")
     @TableField(value = "alarm_cleared_time",jdbcType = JdbcType.TIMESTAMP)
     private Date alarmClearedTime;
     
-    @ApiModelProperty(value = "alarmClearedType")
+    @ApiModelProperty(value = "alarm_cleared_type")
     @TableField("alarm_cleared_type")
     private Integer alarmClearedType;
 
-    @ApiModelProperty(value = "alarmObject")
+    @ApiModelProperty(value = "alarm_object")
     @TableField("alarm_object")
     private String alarmObject;
 
-    @ApiModelProperty(value = "alarmLocationInfo")
+    @ApiModelProperty(value = "alarm_location_info")
     @TableField("alarm_location_info")
     private String alarmLocationInfo;
 
-    @ApiModelProperty(value = "alarmPvFlag")
+    @ApiModelProperty(value = "alarm_pv_flag")
     @TableField("alarm_pv_flag")
     private Integer alarmPvFlag;
 
-    @ApiModelProperty(value = "alarmDetail")
+    @ApiModelProperty(value = "alarm_detail")
     @TableField("alarm_detail")
     private String alarmDetail;
 
-    @ApiModelProperty(value = "specificProblemId")
+    @ApiModelProperty(value = "specific_problem_id")
     @TableField("specific_problem_id")
     private String specificProblemId;
 
-    @ApiModelProperty(value = "specificProblem")
+    @ApiModelProperty(value = "specific_problem")
     @TableField("specific_problem")
     private String specificProblem;
 
-    @ApiModelProperty(value = "neType")
+    @ApiModelProperty(value = "ne_type")
     @TableField("ne_type")
     private String neType;
 
-    @ApiModelProperty(value = "alarmObjectUid")
+    @ApiModelProperty(value = "alarm_object_uid")
     @TableField("alarm_object_uid")
     private String alarmObjectUid;
 
-    @ApiModelProperty(value = "alarmObjectName")
+    @ApiModelProperty(value = "alarm_object_name")
     @TableField("alarm_object_name")
     private String alarmObjectName;
 
-    @ApiModelProperty(value = "alarmObjectType")
+    @ApiModelProperty(value = "alarm_object_type")
     @TableField("alarm_object_type")
     private String alarmObjectType;
 
-    @ApiModelProperty(value = "alarmAddInfo")
+    @ApiModelProperty(value = "alarm_add_info")
     @TableField("alarm_add_info")
     private String alarmAddInfo;
     
-    @ApiModelProperty(value = "alarmEventTitle")
+    @ApiModelProperty(value = "alarm_event_title")
     @TableField("alarm_event_title")
     private String alarmEventTitle;
     
@@ -139,49 +134,49 @@ public class ActiveAlarm extends Model<ActiveAlarm> {
     @TableField("province")
     private String province;
 
-    @ApiModelProperty(value = "alarmConfirmTime")
+    @ApiModelProperty(value = "alarm_confirm_timex")
     @JsonFormat(pattern = ALARM_DATE_PARAM_PATTERN, timezone = "GMT+8")
     @TableField(value = "alarm_confirm_time",jdbcType = JdbcType.TIMESTAMP)
     private Date alarmConfirmTime;
     
-    @ApiModelProperty(value = "ackState")
+    @ApiModelProperty(value = "ack_state")
     @TableField("ack_state")
     private Integer ackState;
 
-    @ApiModelProperty(value = "alarmConfirmUserid")
+    @ApiModelProperty(value = "alarm_confirm_userid")
     @TableField("alarm_confirm_userid")
     private String alarmConfirmUserid;
 
-    @ApiModelProperty(value = "alarmConfirmUsername")
+    @ApiModelProperty(value = "告警确认用户名称")
     @TableField("alarm_confirm_username")
     private String alarmConfirmUsername;
 
-    @ApiModelProperty(value = "alarmDeviceType")
+    @ApiModelProperty(value = "alarm_device_type")
     @TableField("alarm_device_type")
     private String alarmDeviceType;
 
-    @ApiModelProperty(value = "rmUid")
+    @ApiModelProperty(value = "rm_uid")
     @TableField("rm_uid")
     private String rmUid;
 
-    @ApiModelProperty(value = "neUname")
+    @ApiModelProperty(value = "ne_uname")
     @TableField("ne_uname")
     private String neUname;
 
-    @ApiModelProperty(value = "mergeFlag")
+    @ApiModelProperty(value = "merge_flag")
     @TableField("merge_flag")
     private Integer mergeFlag;
     
-    @ApiModelProperty(value = "syncType")
+    @ApiModelProperty(value = "sync_type")
     @TableField("sync_type")
     private Integer syncType;
     
-    @ApiModelProperty(value = "alarmStorageTime")
+    @ApiModelProperty(value = "alarm_storage_time")
     @JsonFormat(pattern = ALARM_DATE_PARAM_PATTERN, timezone = "GMT+8")
     @TableField("alarm_storage_time")
     private Date alarmStorageTime;
     
-    @ApiModelProperty(value = "offLine")
+    @ApiModelProperty(value = "off_line")
     @TableField("off_line")
     private Integer offLine;
 
@@ -189,7 +184,7 @@ public class ActiveAlarm extends Model<ActiveAlarm> {
     @TableField("source")
     private String source;
 
-    @ApiModelProperty(value = "developerId")
+    @ApiModelProperty(value = "developer_id")
     @TableField("developer_id")
     private String developerId;
 

@@ -17,8 +17,7 @@ public  final class CfgResultNotifyReq extends
   private CfgResultNotifyReq() {
     nfType_ = "";
     instanceId_ = "";
-    msgId_ = 0;
-    result_ = "";
+    taskId_ = "";
   }
 
   @Override
@@ -58,15 +57,10 @@ public  final class CfgResultNotifyReq extends
             instanceId_ = s;
             break;
           }
-          case 24: {
-
-            msgId_ = input.readUInt32();
-            break;
-          }
-          case 34: {
+          case 26: {
             String s = input.readStringRequireUtf8();
 
-            result_ = s;
+            taskId_ = s;
             break;
           }
         }
@@ -160,43 +154,34 @@ public  final class CfgResultNotifyReq extends
     }
   }
 
-  public static final int MSGID_FIELD_NUMBER = 3;
-  private int msgId_;
+  public static final int TASKID_FIELD_NUMBER = 3;
+  private volatile Object taskId_;
   /**
-   * <code>uint32 MsgId = 3;</code>
+   * <code>string TaskId = 3;</code>
    */
-  public int getMsgId() {
-    return msgId_;
-  }
-
-  public static final int RESULT_FIELD_NUMBER = 4;
-  private volatile Object result_;
-  /**
-   * <code>string Result = 4;</code>
-   */
-  public String getResult() {
-    Object ref = result_;
+  public String getTaskId() {
+    Object ref = taskId_;
     if (ref instanceof String) {
       return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       String s = bs.toStringUtf8();
-      result_ = s;
+      taskId_ = s;
       return s;
     }
   }
   /**
-   * <code>string Result = 4;</code>
+   * <code>string TaskId = 3;</code>
    */
   public com.google.protobuf.ByteString
-      getResultBytes() {
-    Object ref = result_;
+      getTaskIdBytes() {
+    Object ref = taskId_;
     if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (String) ref);
-      result_ = b;
+      taskId_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -221,11 +206,8 @@ public  final class CfgResultNotifyReq extends
     if (!getInstanceIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, instanceId_);
     }
-    if (msgId_ != 0) {
-      output.writeUInt32(3, msgId_);
-    }
-    if (!getResultBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, result_);
+    if (!getTaskIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, taskId_);
     }
   }
 
@@ -240,12 +222,8 @@ public  final class CfgResultNotifyReq extends
     if (!getInstanceIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, instanceId_);
     }
-    if (msgId_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(3, msgId_);
-    }
-    if (!getResultBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, result_);
+    if (!getTaskIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, taskId_);
     }
     memoizedSize = size;
     return size;
@@ -267,10 +245,8 @@ public  final class CfgResultNotifyReq extends
         .equals(other.getNfType());
     result = result && getInstanceId()
         .equals(other.getInstanceId());
-    result = result && (getMsgId()
-        == other.getMsgId());
-    result = result && getResult()
-        .equals(other.getResult());
+    result = result && getTaskId()
+        .equals(other.getTaskId());
     return result;
   }
 
@@ -285,10 +261,8 @@ public  final class CfgResultNotifyReq extends
     hash = (53 * hash) + getNfType().hashCode();
     hash = (37 * hash) + INSTANCEID_FIELD_NUMBER;
     hash = (53 * hash) + getInstanceId().hashCode();
-    hash = (37 * hash) + MSGID_FIELD_NUMBER;
-    hash = (53 * hash) + getMsgId();
-    hash = (37 * hash) + RESULT_FIELD_NUMBER;
-    hash = (53 * hash) + getResult().hashCode();
+    hash = (37 * hash) + TASKID_FIELD_NUMBER;
+    hash = (53 * hash) + getTaskId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -401,6 +375,7 @@ public  final class CfgResultNotifyReq extends
               CfgResultNotifyReq.class, Builder.class);
     }
 
+    // Construct using CfgResultNotifyReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -421,9 +396,7 @@ public  final class CfgResultNotifyReq extends
 
       instanceId_ = "";
 
-      msgId_ = 0;
-
-      result_ = "";
+      taskId_ = "";
 
       return this;
     }
@@ -449,8 +422,7 @@ public  final class CfgResultNotifyReq extends
       CfgResultNotifyReq result = new CfgResultNotifyReq(this);
       result.nfType_ = nfType_;
       result.instanceId_ = instanceId_;
-      result.msgId_ = msgId_;
-      result.result_ = result_;
+      result.taskId_ = taskId_;
       onBuilt();
       return result;
     }
@@ -500,11 +472,8 @@ public  final class CfgResultNotifyReq extends
         instanceId_ = other.instanceId_;
         onChanged();
       }
-      if (other.getMsgId() != 0) {
-        setMsgId(other.getMsgId());
-      }
-      if (!other.getResult().isEmpty()) {
-        result_ = other.result_;
+      if (!other.getTaskId().isEmpty()) {
+        taskId_ = other.taskId_;
         onChanged();
       }
       onChanged();
@@ -671,97 +640,71 @@ public  final class CfgResultNotifyReq extends
       return this;
     }
 
-    private int msgId_ ;
+    private Object taskId_ = "";
     /**
-     * <code>uint32 MsgId = 3;</code>
+     * <code>string TaskId = 3;</code>
      */
-    public int getMsgId() {
-      return msgId_;
-    }
-    /**
-     * <code>uint32 MsgId = 3;</code>
-     */
-    public Builder setMsgId(int value) {
-      
-      msgId_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint32 MsgId = 3;</code>
-     */
-    public Builder clearMsgId() {
-      
-      msgId_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private Object result_ = "";
-    /**
-     * <code>string Result = 4;</code>
-     */
-    public String getResult() {
-      Object ref = result_;
+    public String getTaskId() {
+      Object ref = taskId_;
       if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        result_ = s;
+        taskId_ = s;
         return s;
       } else {
         return (String) ref;
       }
     }
     /**
-     * <code>string Result = 4;</code>
+     * <code>string TaskId = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getResultBytes() {
-      Object ref = result_;
+        getTaskIdBytes() {
+      Object ref = taskId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        result_ = b;
+        taskId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string Result = 4;</code>
+     * <code>string TaskId = 3;</code>
      */
-    public Builder setResult(
+    public Builder setTaskId(
         String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      result_ = value;
+      taskId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string Result = 4;</code>
+     * <code>string TaskId = 3;</code>
      */
-    public Builder clearResult() {
+    public Builder clearTaskId() {
       
-      result_ = getDefaultInstance().getResult();
+      taskId_ = getDefaultInstance().getTaskId();
       onChanged();
       return this;
     }
     /**
-     * <code>string Result = 4;</code>
+     * <code>string TaskId = 3;</code>
      */
-    public Builder setResultBytes(
+    public Builder setTaskIdBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      result_ = value;
+      taskId_ = value;
       onChanged();
       return this;
     }

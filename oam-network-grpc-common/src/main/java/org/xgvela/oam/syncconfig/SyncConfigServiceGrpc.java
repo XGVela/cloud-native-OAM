@@ -1,19 +1,11 @@
 package org.xgvela.oam.syncconfig;
 
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
 import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
 import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
 import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
 /**
  */
@@ -28,16 +20,16 @@ public final class SyncConfigServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<org.xgvela.oam.syncconfig.GetFileReq,
-          org.xgvela.oam.syncconfig.GetFileResp> METHOD_GET_CONFIG_FILE =
-      io.grpc.MethodDescriptor.<org.xgvela.oam.syncconfig.GetFileReq, org.xgvela.oam.syncconfig.GetFileResp>newBuilder()
+  public static final io.grpc.MethodDescriptor<GetFileReq,
+          GetFileResp> METHOD_GET_CONFIG_FILE =
+      io.grpc.MethodDescriptor.<GetFileReq, GetFileResp>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
           .setFullMethodName(generateFullMethodName(
               "syncconfig.SyncConfigService", "GetConfigFile"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.xgvela.oam.syncconfig.GetFileReq.getDefaultInstance()))
+              GetFileReq.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.xgvela.oam.syncconfig.GetFileResp.getDefaultInstance()))
+              GetFileResp.getDefaultInstance()))
           .build();
 
   /**
@@ -69,8 +61,8 @@ public final class SyncConfigServiceGrpc {
 
     /**
      */
-    public void getConfigFile(org.xgvela.oam.syncconfig.GetFileReq request,
-        io.grpc.stub.StreamObserver<org.xgvela.oam.syncconfig.GetFileResp> responseObserver) {
+    public void getConfigFile(GetFileReq request,
+                              io.grpc.stub.StreamObserver<GetFileResp> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_GET_CONFIG_FILE, responseObserver);
     }
 
@@ -80,8 +72,8 @@ public final class SyncConfigServiceGrpc {
             METHOD_GET_CONFIG_FILE,
             asyncServerStreamingCall(
               new MethodHandlers<
-                      org.xgvela.oam.syncconfig.GetFileReq,
-                      org.xgvela.oam.syncconfig.GetFileResp>(
+                      GetFileReq,
+                      GetFileResp>(
                   this, METHODID_GET_CONFIG_FILE)))
           .build();
     }
@@ -107,8 +99,8 @@ public final class SyncConfigServiceGrpc {
 
     /**
      */
-    public void getConfigFile(org.xgvela.oam.syncconfig.GetFileReq request,
-        io.grpc.stub.StreamObserver<org.xgvela.oam.syncconfig.GetFileResp> responseObserver) {
+    public void getConfigFile(GetFileReq request,
+                              io.grpc.stub.StreamObserver<GetFileResp> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(METHOD_GET_CONFIG_FILE, getCallOptions()), request, responseObserver);
     }
@@ -134,8 +126,8 @@ public final class SyncConfigServiceGrpc {
 
     /**
      */
-    public java.util.Iterator<org.xgvela.oam.syncconfig.GetFileResp> getConfigFile(
-            org.xgvela.oam.syncconfig.GetFileReq request) {
+    public java.util.Iterator<GetFileResp> getConfigFile(
+        GetFileReq request) {
       return blockingServerStreamingCall(
           getChannel(), METHOD_GET_CONFIG_FILE, getCallOptions(), request);
     }
@@ -180,8 +172,8 @@ public final class SyncConfigServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_GET_CONFIG_FILE:
-          serviceImpl.getConfigFile((org.xgvela.oam.syncconfig.GetFileReq) request,
-              (io.grpc.stub.StreamObserver<org.xgvela.oam.syncconfig.GetFileResp>) responseObserver);
+          serviceImpl.getConfigFile((GetFileReq) request,
+              (io.grpc.stub.StreamObserver<GetFileResp>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -202,7 +194,7 @@ public final class SyncConfigServiceGrpc {
   private static final class SyncConfigServiceDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier {
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return org.xgvela.oam.syncconfig.SyncConfig.getDescriptor();
+      return SyncConfig.getDescriptor();
     }
   }
 

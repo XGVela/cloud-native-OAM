@@ -38,7 +38,7 @@ public final class TubeVnf {
       "(\t\"\031\n\007VnfResp\022\016\n\006result\030\001 \001(\t2r\n\016TubeVnf" +
       "Service\022.\n\007TubeVnf\022\017.tubevnf.VnfReq\032\020.tu" +
       "bevnf.VnfResp\"\000\0220\n\tDeTubeVnf\022\017.tubevnf.V" +
-      "nfReq\032\020.tubevnf.VnfResp\"\000B-\n\026org.xgvela." +
+      "nfReq\032\020.tubevnf.VnfResp\"\000B-\n\026com.inspur." +
       "oam.tubevnfB\007TubeVnfP\001\242\002\007tubevnfb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

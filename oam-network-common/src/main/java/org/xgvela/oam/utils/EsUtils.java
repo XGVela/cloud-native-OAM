@@ -15,6 +15,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
+import java.time.Duration;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class EsUtils {
             credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
         }
         return RestClient.builder(new HttpHost(host, port)).setHttpClientConfigCallback(
-                clientBuilder -> clientBuilder.setDefaultCredentialsProvider(credentialsProvider).addInterceptorLast((HttpRequestInterceptor) (request, context) -> {
+                clientBuilder -> clientBuilder.setKeepAliveStrategy((response, context) -> Duration.ofMinutes(5).toMillis()).setDefaultCredentialsProvider(credentialsProvider).addInterceptorLast((HttpRequestInterceptor) (request, context) -> {
                     try {
                         HttpRequestWrapper r = ((HttpRequestWrapper) request);
                         URIBuilder builder = new URIBuilder(r.getURI());

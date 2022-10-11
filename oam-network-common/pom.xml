@@ -15,6 +15,8 @@
     <properties>
         <tcnative.classifier>linux-x86_64</tcnative.classifier>
         <trilead.version>1.0.0-build222</trilead.version>
+        <shiro.version>1.2.5</shiro.version>
+        <jwt.version>3.4.1</jwt.version>
     </properties>
 
     <dependencies>
@@ -122,7 +124,7 @@
             <groupId>org.influxdb</groupId>
             <artifactId>influxdb-java</artifactId>
         </dependency>
-        <!--easyexcel-->
+        <!--easyexcel -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
@@ -135,7 +137,19 @@
             <version>1.8</version>
             <scope>provided</scope>
         </dependency>
-        <!-- shiro -->
+        <!--shiro 权限校验 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
@@ -146,7 +160,7 @@
             <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
         </dependency>
-        <!--shiro+redis-->
+        <!-- shiro+redis缓存插件 -->
         <!--<dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
@@ -166,7 +180,7 @@
                 </exclusion>
             </exclusions>
         </dependency>-->
-        <!--swagger2-->
+        <!--swagger2 提供平台api使用说明 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -193,28 +207,6 @@
             <artifactId>springfox-bean-validators</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <!-- security -->
-        <dependency>
-            <groupId>com.inspur.cnet</groupId>
-            <artifactId>security-service</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/security-service-1.1-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.inspur.cnet</groupId>
-            <artifactId>cnet-common-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/cnet-common-core-1.0-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.inspur.cnet</groupId>
-            <artifactId>security-entity</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/security-entity-1.0-SNAPSHOT.jar</systemPath>
-        </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
@@ -226,17 +218,7 @@
             <artifactId>hutool-all</artifactId>
             <version>5.5.2</version>
         </dependency>
+
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>lib</directory>
-                <targetPath>/BOOT-INF/lib/</targetPath>
-                <includes>
-                    <include>**/*.jar</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>

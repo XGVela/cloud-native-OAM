@@ -14,8 +14,6 @@ public enum OperatorEnum {
     public String type;
     public String operator;
 
-
-
     OperatorEnum(String type,String operator){
         this.type = type;
         this.operator = operator;

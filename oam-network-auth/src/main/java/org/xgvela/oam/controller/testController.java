@@ -1,8 +1,7 @@
 package org.xgvela.oam.controller;
 
-
-import com.inspur.cnet.common.core.entity.response.Response;
-import com.inspur.cnet.common.core.entity.response.ResponseFactory;
+import org.xgvela.oam.entity.response.Response;
+import org.xgvela.oam.entity.response.ResponseFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Api(tags = "oam auth-test")
+@Api(tags = "oam Authentication-test")
 @RestController
 @RequestMapping(value = "api")
 public class testController {

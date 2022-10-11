@@ -273,6 +273,7 @@ public  final class HeartRsp extends
               HeartRsp.class, Builder.class);
     }
 
+    // Construct using HeartRsp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

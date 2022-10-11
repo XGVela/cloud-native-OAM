@@ -9,27 +9,11 @@ import java.util.List;
 
 /**
  * <p>
- * AlarmKnowledgeMapper  Mapper interface
+ * AlarmKnowledgeMapper 告警知识库 Mapper接口
  * </p>
  */
 public interface AlarmKnowledgeMapper extends BaseMapper<AlarmKnowledge> {
 
-    /**
-     * AlarmKnowledge
-     * @param alarmId
-     * @param specificProblemId
-     * @param specificProblem
-     * @param specificAnalyse
-     * @param specificUsername
-     * @param developerId
-     * @param startTime
-     * @param endTime
-     * @param start
-     * @param pageSize
-     * @param columnName
-     * @param sortOrder
-     * @return
-     */
     public List<AlarmKnowledge> selectForAlarmKnowledge(@Param("alarmId") String alarmId,
                                                         @Param("specificProblemId") String specificProblemId,
                                                         @Param("specificProblem") String specificProblem,
@@ -43,18 +27,6 @@ public interface AlarmKnowledgeMapper extends BaseMapper<AlarmKnowledge> {
                                                         @Param("columnName") String columnName,
                                                         @Param("sortOrder") String sortOrder);
 
-    /**
-     * countForAlarmKnowledge
-     * @param alarmId
-     * @param specificProblemId
-     * @param specificProblem
-     * @param specificAnalyse
-     * @param specificUsername
-     * @param developerId
-     * @param startTime
-     * @param endTime
-     * @return
-     */
     public Integer countForAlarmKnowledge(@Param("alarmId") String alarmId,
                                           @Param("specificProblemId") String specificProblemId,
                                           @Param("specificProblem") String specificProblem,
@@ -63,5 +35,4 @@ public interface AlarmKnowledgeMapper extends BaseMapper<AlarmKnowledge> {
                                           @Param("developerId") String developerId,
                                           @Param("startTime") Date startTime,
                                           @Param("endTime") Date endTime);
-
 }

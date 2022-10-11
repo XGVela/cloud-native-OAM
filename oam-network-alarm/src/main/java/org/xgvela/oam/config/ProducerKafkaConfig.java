@@ -7,48 +7,29 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
-/**
- * <p>
- * ProducerKafkaConfig
- * </p>
- *
- * @author gengdawen
- * @since 2021/11/5
- */
+
 @Configuration
 public class ProducerKafkaConfig {
 
-    /**
-     * Create a connection to the Kafka server
-     */
+
     @Value("${alarm.producerconfig.bootstrapServerConfig}")
     private String bootstrapServers;
-    /**
-     * The maximum number of attempts to send a message
-     */
+
     @Value("${alarm.producerconfig.retriesConfig}")
     private String retries;
-    /**
-     * The packet size of the bulk message
-     */
+
     @Value("${alarm.producerconfig.batchSizeConfig}")
     private String batchSize;
-    /**
-     * Message delay send time
-     */
+
     @Value("${alarm.producerconfig.lingerMsConfig}")
     private String lingerms;
-    /**
-     * The buffer size of the cached message
-     */
+
     @Value("${alarm.producerconfig.bufferMemoryConfig}")
     private String bufferMemory;
 
     @Value("${alarm.producerconfig.maxBlockMsConfig}")
     private String maxBlockMsConfig;
-    /**
-     * The format of the compressed message
-     */
+
     @Value("${alarm.producerconfig.compressionTypeConfig}")
     private String compressionType;
 
@@ -57,24 +38,14 @@ public class ProducerKafkaConfig {
 
     @Value("${alarm.producerconfig.maxRequestSizeConfig}")
     private String maxRequestSizeConfig;
-    /**
-     * Message key type
-     */
+
     private String keySerializerClass = "org.apache.kafka.common.serialization.StringSerializer";
-    /**
-     * Message value type
-     */
+
     private String valueSerializerClass = "org.apache.kafka.common.serialization.StringSerializer";
 
-    /**
-     * Controls the producer's message externality
-     */
     @Value("${spring.kafka.producer.acks}")
     private String acks;
 
-    /**
-     * Bulk send parameters
-     */
     @Value("${spring.kafka.producer.batch-count}")
     public int batchCount;
 

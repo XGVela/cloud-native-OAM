@@ -1,9 +1,11 @@
 package org.xgvela.oam.configuremanager;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncUnaryCall;
+import static io.grpc.stub.ClientCalls.blockingUnaryCall;
+import static io.grpc.stub.ClientCalls.futureUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
@@ -19,15 +21,15 @@ public final class ConfigureManagerServiceGrpc {
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<UpdateCfgFileReq,
-      UpdateCfgFileRsps> METHOD_UPDATE_CONFIG_FILE =
-      io.grpc.MethodDescriptor.<UpdateCfgFileReq, UpdateCfgFileRsps>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+          UpdateCfgFileRsp> METHOD_UPDATE_CONFIG_FILE =
+      io.grpc.MethodDescriptor.<UpdateCfgFileReq, UpdateCfgFileRsp>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
-              "configuremanager.ConfigureManagerService", "updateConfigFile"))
+              "configuremanager.ConfigureManagerService", "UpdateConfigFile"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               UpdateCfgFileReq.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              UpdateCfgFileRsps.getDefaultInstance()))
+              UpdateCfgFileRsp.getDefaultInstance()))
           .build();
 
   /**
@@ -59,19 +61,19 @@ public final class ConfigureManagerServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<UpdateCfgFileReq> updateConfigFile(
-        io.grpc.stub.StreamObserver<UpdateCfgFileRsps> responseObserver) {
-      return asyncUnimplementedStreamingCall(METHOD_UPDATE_CONFIG_FILE, responseObserver);
+    public void updateConfigFile(UpdateCfgFileReq request,
+                                 io.grpc.stub.StreamObserver<UpdateCfgFileRsp> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_UPDATE_CONFIG_FILE, responseObserver);
     }
 
     @Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_UPDATE_CONFIG_FILE,
-            asyncClientStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
-                UpdateCfgFileReq,
-                UpdateCfgFileRsps>(
+                      UpdateCfgFileReq,
+                      UpdateCfgFileRsp>(
                   this, METHODID_UPDATE_CONFIG_FILE)))
           .build();
     }
@@ -97,10 +99,10 @@ public final class ConfigureManagerServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<UpdateCfgFileReq> updateConfigFile(
-        io.grpc.stub.StreamObserver<UpdateCfgFileRsps> responseObserver) {
-      return asyncClientStreamingCall(
-          getChannel().newCall(METHOD_UPDATE_CONFIG_FILE, getCallOptions()), responseObserver);
+    public void updateConfigFile(UpdateCfgFileReq request,
+                                 io.grpc.stub.StreamObserver<UpdateCfgFileRsp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_CONFIG_FILE, getCallOptions()), request, responseObserver);
     }
   }
 
@@ -121,6 +123,13 @@ public final class ConfigureManagerServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new ConfigureManagerServiceBlockingStub(channel, callOptions);
     }
+
+    /**
+     */
+    public UpdateCfgFileRsp updateConfigFile(UpdateCfgFileReq request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_UPDATE_CONFIG_FILE, getCallOptions(), request);
+    }
   }
 
   /**
@@ -139,6 +148,14 @@ public final class ConfigureManagerServiceGrpc {
     protected ConfigureManagerServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new ConfigureManagerServiceFutureStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<UpdateCfgFileRsp> updateConfigFile(
+        UpdateCfgFileReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_CONFIG_FILE, getCallOptions()), request);
     }
   }
 
@@ -161,6 +178,10 @@ public final class ConfigureManagerServiceGrpc {
     @SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_UPDATE_CONFIG_FILE:
+          serviceImpl.updateConfigFile((UpdateCfgFileReq) request,
+              (io.grpc.stub.StreamObserver<UpdateCfgFileRsp>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -171,9 +192,6 @@ public final class ConfigureManagerServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_UPDATE_CONFIG_FILE:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.updateConfigFile(
-              (io.grpc.stub.StreamObserver<UpdateCfgFileRsps>) responseObserver);
         default:
           throw new AssertionError();
       }

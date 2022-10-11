@@ -75,6 +75,10 @@ public  final class NotifyCfgResp extends
   public static final int RESULT_FIELD_NUMBER = 1;
   private volatile Object result_;
   /**
+   * <pre>
+   *0  成功  非0  失败
+   * </pre>
+   *
    * <code>string Result = 1;</code>
    */
   public String getResult() {
@@ -90,6 +94,10 @@ public  final class NotifyCfgResp extends
     }
   }
   /**
+   * <pre>
+   *0  成功  非0  失败
+   * </pre>
+   *
    * <code>string Result = 1;</code>
    */
   public com.google.protobuf.ByteString
@@ -273,6 +281,7 @@ public  final class NotifyCfgResp extends
               NotifyCfgResp.class, Builder.class);
     }
 
+    // Construct using NotifyCfgResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -388,7 +397,7 @@ public  final class NotifyCfgResp extends
     private Object result_ = "";
     /**
      * <pre>
-     *0  success  非0  failed
+     *0  成功  非0  失败
      * </pre>
      *
      * <code>string Result = 1;</code>
@@ -406,6 +415,10 @@ public  final class NotifyCfgResp extends
       }
     }
     /**
+     * <pre>
+     *0  成功  非0  失败
+     * </pre>
+     *
      * <code>string Result = 1;</code>
      */
     public com.google.protobuf.ByteString
@@ -422,6 +435,10 @@ public  final class NotifyCfgResp extends
       }
     }
     /**
+     * <pre>
+     *0  成功  非0  失败
+     * </pre>
+     *
      * <code>string Result = 1;</code>
      */
     public Builder setResult(
@@ -435,6 +452,10 @@ public  final class NotifyCfgResp extends
       return this;
     }
     /**
+     * <pre>
+     *0  成功  非0  失败
+     * </pre>
+     *
      * <code>string Result = 1;</code>
      */
     public Builder clearResult() {
@@ -444,6 +465,10 @@ public  final class NotifyCfgResp extends
       return this;
     }
     /**
+     * <pre>
+     *0  成功  非0  失败
+     * </pre>
+     *
      * <code>string Result = 1;</code>
      */
     public Builder setResultBytes(

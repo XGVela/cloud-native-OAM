@@ -25,7 +25,7 @@ import java.util.Set;
 public class AlarmAnalysisResponseField extends Model<AlarmAnalysisResponseField> implements Serializable {
     private static final long serialVersionUID = -2241039999114233754L;
 
-    @ApiModelProperty(value = "id",hidden = true)
+    @ApiModelProperty(value = "主键Id",hidden = true)
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
@@ -41,7 +41,6 @@ public class AlarmAnalysisResponseField extends Model<AlarmAnalysisResponseField
     @TableField(exist = false)
     public Set<String> children;
 
-    @ApiModelProperty(value = "status")
     @TableField("status")
     private Integer status;
 }

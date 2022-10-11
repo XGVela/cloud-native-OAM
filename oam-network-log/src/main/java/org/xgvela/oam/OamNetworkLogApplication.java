@@ -23,12 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
         "org.xgvela.oam.service",
         "org.xgvela.oam.controller",
         "org.xgvela.oam.utils",
-        "com.inspur.cnet.security",
-        "com.inspur.cnet.system",
-        "com.inspur.cnet.security.service"
 })
-@MapperScan(basePackages = {"org.xgvela.oam.log.mapper", "org.xgvela.oam.mapper", "com.inspur.cnet.security.mapper",
-        "com.inspur.cnet.system.mapper"})
+@MapperScan(basePackages = {"org.xgvela.oam.log.mapper", "org.xgvela.oam.mapper", "org.xgvela.cnet.security.mapper",
+        "org.xgvela.cnet.system.mapper"})
 public class OamNetworkLogApplication {
     public static void main(String[] args) {
         SpringApplication.run(OamNetworkLogApplication.class, args);
