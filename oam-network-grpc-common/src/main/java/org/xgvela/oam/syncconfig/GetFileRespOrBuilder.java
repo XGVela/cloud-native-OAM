@@ -14,7 +14,7 @@ public interface GetFileRespOrBuilder extends
    *
    * <code>string result = 1;</code>
    */
-  java.lang.String getResult();
+  String getResult();
   /**
    * <pre>
    *0 succ, other fail

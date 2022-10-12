@@ -93,7 +93,7 @@ public  final class StatsInfoReq extends
       internalGetFieldAccessorTable() {
     return performance.internal_static_performance_StatsInfoReq_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            StatsInfoReq.class, StatsInfoReq.Builder.class);
+            StatsInfoReq.class, Builder.class);
   }
 
   private int bitField0_;
@@ -415,7 +415,7 @@ public  final class StatsInfoReq extends
         internalGetFieldAccessorTable() {
       return performance.internal_static_performance_StatsInfoReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              StatsInfoReq.class, StatsInfoReq.Builder.class);
+              StatsInfoReq.class, Builder.class);
     }
 
     // Construct using StatsInfoReq.newBuilder()

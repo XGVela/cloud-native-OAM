@@ -24,10 +24,10 @@ public class JwtRealm extends AuthenticatingRealm {
         OamUsers user = oamUsersService.getOne(new LambdaQueryWrapper<OamUsers>().eq(OamUsers::getUserId, userId));
         if (Objects.nonNull(user)) {
             if (!JwtUtils.verify(token, user.getUserId(), user.getUserPass())) {
-                throw new UnauthorizedException("用户名或密码错误");
+                throw new UnauthorizedException(" user name or password error ");
             }
         } else {
-            throw new UnknownAccountException("用户不存在");
+            throw new UnknownAccountException(" User does not exist ");
         }
         return new SimpleAuthenticationInfo(token, token, "JwtRealm");
     }

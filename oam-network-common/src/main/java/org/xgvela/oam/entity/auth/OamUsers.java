@@ -9,30 +9,25 @@ import lombok.*;
 
 import java.io.Serializable;
 
-/**
-* <p>
-    *  实体类
-    * </p>
-*/
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("oam_users")
-@ApiModel(value = "OamUsers实体", description = "")
+@ApiModel(value = "OamUsers entity ", description = "")
 public class OamUsers implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "上层网管登录ID")
+    @ApiModelProperty(value = "upper-layer NMS login ID")
     @TableId(value = "user_id")
     private String userId;
 
-    @ApiModelProperty(value = "上层网管登录密码")
+    @ApiModelProperty(value = "upper-layer NMS login password ")
     @TableField("user_pass")
     private String userPass;
 
-    @ApiModelProperty(value = "上层网管系统ID")
+    @ApiModelProperty(value = "upper-layer OSS ID")
     @TableField("system_id")
     private String systemId;
 

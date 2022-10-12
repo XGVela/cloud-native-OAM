@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.configuremanagerwithfile";
+option java_outer_classname = "ConfigureManagerWithFile";
+option objc_class_prefix = "CMWF";
+
+package configuremanagerwithfile;
+
+service ConfigureManagerWithFileService {
+  rpc UpdateConfigWithFile(stream UpdateCfgFileWithFileReq)returns(UpdateCfgWithFileRsp){}
+}
+message UpdateCfgFileWithFileReq
+{
+  string nfType = 1;
+  string neId = 2;
+  string taskId = 3;
+  string fileName = 4;
+  bytes  fileData = 5; //file contents
+}
+message UpdateCfgWithFileRsp
+{
+  string updateRsp = 1; // 0 succ 1 failed 2 need reboot
+}

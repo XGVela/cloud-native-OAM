@@ -10,55 +10,57 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-/**
- * <p>
- * 实体类
- * </p>
- */
+
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "OamVnfConfigTask实体", description = "")
+@ApiModel(value = "OamVnfConfigTask entity ", description = "")
 public class OamVnfConfigTask extends Model<OamVnfConfigTask> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "任务ID")
+    @ApiModelProperty(value = "task ID")
     @TableId(type = IdType.AUTO)
     private Long taskId;
 
-    @ApiModelProperty(value = "网元类型")
+    @ApiModelProperty(value = "NE type ")
     private String neType;
 
-    @ApiModelProperty(value = "网元实例ID")
+    @ApiModelProperty(value = "NE instance ID")
     private String neId;
 
-    @ApiModelProperty(value = "网元名称")
+    @ApiModelProperty(value = "NE name ")
     private String vnfName;
 
-    @ApiModelProperty(value = "网元IP")
+    @ApiModelProperty(value = "NE IP address ")
     private String vnfManageIp;
 
-    @ApiModelProperty(value = "网元端口")
+    @ApiModelProperty(value = "NE port ")
     private String vnfSignalPort;
 
-    @ApiModelProperty(value = "状态：未执行、已完成、执行中")
+    @ApiModelProperty(value = "Status: not executed, completed, executing ")
     private String status;
 
-    @ApiModelProperty(value = "上层系统接收地址")
+    @ApiModelProperty(value = "upper system receiving address ")
     private String callbackUrl;
 
-    @ApiModelProperty(value = "任务创建时间")
+    @ApiModelProperty(value = "task creation time ")
     private Date createTime;
+
+    @ApiModelProperty(value = "task type ")
+    private String type;
+
+    @ApiModelProperty(value = "the version involved in the task ")
+    private String version;
 
     @AllArgsConstructor
     @ToString
     public enum statusType {
-        UNDO("UNDO", "未执行"), DOING("DOING", "执行中"), DONE("DONE", "已完成");
+        UNDO (" UNDO ", "UNDO") , DOING (" DOING ", "DOING") , DONE (" DONE ", "DONE");
         @Getter
         private final String id;
         @Getter
         private final String name;
-    }
+        }
 }

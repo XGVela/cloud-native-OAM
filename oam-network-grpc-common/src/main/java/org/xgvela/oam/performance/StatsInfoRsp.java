@@ -69,7 +69,7 @@ public  final class StatsInfoRsp extends
       internalGetFieldAccessorTable() {
     return performance.internal_static_performance_StatsInfoRsp_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            StatsInfoRsp.class, StatsInfoRsp.Builder.class);
+            StatsInfoRsp.class, Builder.class);
   }
 
   public static final int RESULT_FIELD_NUMBER = 1;
@@ -278,7 +278,7 @@ public  final class StatsInfoRsp extends
         internalGetFieldAccessorTable() {
       return performance.internal_static_performance_StatsInfoRsp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              StatsInfoRsp.class, StatsInfoRsp.Builder.class);
+              StatsInfoRsp.class, Builder.class);
     }
 
     // Construct using StatsInfoRsp.newBuilder()

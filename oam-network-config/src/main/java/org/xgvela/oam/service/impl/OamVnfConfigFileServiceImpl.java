@@ -24,17 +24,14 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
-/**
- * <p>
- *
- * </p>
- */
+
 @Service
 @Slf4j
 public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMapper, OamVnfConfigFile> implements IOamVnfConfigFileService {
@@ -49,6 +46,9 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
     private ConfGrpcClient confGrpcClient;
     @Resource
     private SftpConfig sftpConfig;
+
+    public final static String CONF_DELIVERY = "conf_delivery";
+    public final static String CONF_SWITCH = "conf_switch";
 
     void init() {
         confGrpcClient = confGrpcClient.getConfGrpcClient();
@@ -66,17 +66,17 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
 
     @Override
     public boolean confDelivery(OamVnfConfigFile.VnfConfigDeliveryRequest request) {
-        return createTask(request);
+        return createTask(request, CONF_DELIVERY);
     }
 
     @Override
     public boolean confSwitch(OamVnfConfigFile.VnfConfigDeliveryRequest request) {
-        return createTask(request);
+        return createTask(request, CONF_SWITCH);
     }
 
     @Override
     public boolean confResult(OamVnfConfigFile.ConfUpdateRequest request) {
-        log.info("Notify the upper-level network administrator of the update results neId:{}, result:{}", request.getNeId(), request.getResult());
+        log.info(" notifying the upper-layer NMS of the update result neId:{}, result:{}", request.getNeId(), request.getResult());
         return true;
     }
 
@@ -152,7 +152,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
                     } else {
                         updateRsp = confGrpcClient.getConfGrpcClient().updateConfigFile(request.getNeType(), request.getNeId(), tree.getName(), String.valueOf(task.getTaskId())).getUpdateRsp();
                     }
-                    log.info("conf >> agent Request profile fallback updateRsp {}", updateRsp);
+                    log.info("conf >> agent  updateRsp {}", updateRsp);
                 }
             } catch (Exception e) {
                 log.error("Exception::", e);
@@ -168,11 +168,18 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
         return true;
     }
 
-    private boolean createTask(OamVnfConfigFile.VnfConfigDeliveryRequest deliveryRequest) {
+    private boolean createTask(OamVnfConfigFile.VnfConfigDeliveryRequest deliveryRequest, String method) {
         OamVnf vnf = oamVnfMapper.selectById(deliveryRequest.getNeId());
         String neId = vnf.getNeId();
         String neType = vnf.getNeType();
-        String fileName = deliveryRequest.getFile().getCfName();
+        String fileName = null;
+
+        if (method.equals(CONF_DELIVERY)) {
+            fileName = deliveryRequest.getFile().getCfName();
+        } else if (method.equals(CONF_SWITCH)) {
+            fileName = Optional.ofNullable(oamVnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getCfVersion, deliveryRequest.getFile().getVersion()))).map(OamVnfConfigFile::getCfName).orElse("");
+        }
+
         String sftpWriteAgentPath = String.format("%s/write/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
 
         oamVnfConfigTaskMapper.insert(OamVnfConfigTask.builder()
@@ -183,6 +190,8 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
                 .callbackUrl(deliveryRequest.getCallbackUrl())
                 .status(OamVnfConfigTask.statusType.UNDO.getName())
                 .createTime(new Date())
+                .type(method)
+                .version(deliveryRequest.getFile().getVersion())
                 .vnfSignalPort(vnf.getVnfManagePort()).build()
         );
 
@@ -196,6 +205,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
 
         List<OamVnfConfigTask> tasks = oamVnfConfigTaskMapper.selectList(Wrappers.<OamVnfConfigTask>lambdaQuery().eq(OamVnfConfigTask::getNeId, neId).orderByDesc(OamVnfConfigTask::getCreateTime));
         OamVnfConfigTask task = tasks.get(0);
+        assert fileName != null;
         if (fileName.contains("_")) {
             log.info("fileName {}", fileName);
             updateRsp = confGrpcClient.getConfGrpcClient().updateConfigFile(neType, neId, fileName.split("_")[1], String.valueOf(task.getTaskId())).getUpdateRsp();
@@ -203,8 +213,8 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
             log.info("fileName {}", fileName);
             updateRsp = confGrpcClient.getConfGrpcClient().updateConfigFile(neType, neId, fileName, String.valueOf(task.getTaskId())).getUpdateRsp();
         }
-        log.info("conf >> agent Configure update request delivery updateRsp {}", updateRsp);
-        task.setStatus(OamVnfConfigTask.statusType.DOING.getName());
+        log.info("conf >> agent  updateRsp {}", updateRsp);
+
         if (ObjectUtils.isNotEmpty(tasks)) {
             oamVnfConfigTaskMapper.updateById(task);
             log.info("taskid {} status {}", task.getTaskId(), OamVnfConfigTask.statusType.DOING.getName());

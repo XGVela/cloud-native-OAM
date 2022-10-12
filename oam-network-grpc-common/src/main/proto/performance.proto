@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.inspur.oam.performance";
+option java_package = "org.xgvela.oam.performance";
 option java_outer_classname = "performance";
 option objc_class_prefix = "performance";
 

@@ -10,7 +10,7 @@ public interface GetFileReqOrBuilder extends
   /**
    * <code>string nfType = 1;</code>
    */
-  java.lang.String getNfType();
+  String getNfType();
   /**
    * <code>string nfType = 1;</code>
    */
@@ -20,7 +20,7 @@ public interface GetFileReqOrBuilder extends
   /**
    * <code>string neId = 2;</code>
    */
-  java.lang.String getNeId();
+  String getNeId();
   /**
    * <code>string neId = 2;</code>
    */
@@ -30,7 +30,7 @@ public interface GetFileReqOrBuilder extends
   /**
    * <code>string fileName = 3;</code>
    */
-  java.lang.String getFileName();
+  String getFileName();
   /**
    * <code>string fileName = 3;</code>
    */

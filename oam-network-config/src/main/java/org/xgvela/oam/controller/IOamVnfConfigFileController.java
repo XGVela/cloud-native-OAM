@@ -10,45 +10,41 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * <p>
- *
- * </p>
- */
+
 @RestController
 @RequestMapping("/ne/config")
-@Api(tags = {"OAM-ConfigManager"})
+@Api(tags = {"OAM- configuration management "})
 public interface IOamVnfConfigFileController {
     @GetMapping
-    @ApiOperation(value = "VnfConfigFile")
+    @ApiOperation(value = "config query ")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "neId", value = "neId"),
-            @ApiImplicitParam(name = "neType", value = "neType"),
-            @ApiImplicitParam(name = "vnfName", value = "vnfName")
+            @ApiImplicitParam(name = "neId", value = "NE ID"),
+            @ApiImplicitParam(name = "neType", value = "NE type "),
+            @ApiImplicitParam(name = "vnfName", value = "NE name ")
     })
     Response<List<OamVnfConfigFile>> confInfo(@RequestParam(value = "neId", required = false) String neId, @RequestParam(value = "neType", required = false) String neType, @RequestParam(value = "vnfName", required = false) String vnfName);
 
     @PostMapping("/confDelivery")
-    @ApiOperation(value = "confDelivery")
+    @ApiOperation(value = "Configuration delivered ")
     Response<Boolean> confDelivery(@RequestBody OamVnfConfigFile.VnfConfigDeliveryRequest request);
 
     @PostMapping("/switch")
-    @ApiOperation(value = "switch")
+    @ApiOperation(value = "Configuration version switch ")
     Response<Boolean> confSwitch(@RequestBody OamVnfConfigFile.VnfConfigDeliveryRequest request);
 
     @PostMapping("/confResult")
-    @ApiOperation(value = "confResult")
+    @ApiOperation(value = "Report configuration update result ")
     Response<Boolean> confResult(@RequestBody OamVnfConfigFile.ConfUpdateRequest request);
 
     @PostMapping("/notifyDownLoadFiles")
-    @ApiOperation(value = "notifyDownLoadFiles")
+    @ApiOperation(value = "tube tells config to download configuration files ")
     Response<Boolean> notifyDownLoadFiles(@RequestBody OamVnfConfigFile.Vnf request);
 
     @PostMapping("/cfgUpdateResultNotify")
-    @ApiOperation(value = "cfgUpdateResultNotify")
+    @ApiOperation(value = "agent notifies config of configuration update result ")
     Response<Boolean> cfgUpdateResultNotify(@RequestBody OamVnfConfigFile.VnfRequest request);
 
     @DeleteMapping("/{neId}")
-    @ApiOperation(value = "Delete")
+    @ApiOperation(value = "Clear configuration data ")
     Response<Boolean> deleteFileAndTask(@PathVariable(value = "neId", required = false) String neId);
 }

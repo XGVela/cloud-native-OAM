@@ -1,15 +1,15 @@
 package org.xgvela.oam.entity.response;
 
 public enum ResponseEnum {
-    success(200, "操作成功"),
-    closure(301, "被封禁"),
-    error(400, "很抱歉,系统发生故障"),
-    please_login(401, "没有权限"),
-    forbidden(403, "没有足够的权限"),
-    incomplete_develoer_info(402, "开发者信息尚未完善"),
-    obj_not_exist(404, "对象不存在"),
-    param_error(414, "参数错误"),
-    failure(500, "操作失败");
+    success(200, "operation successful "),
+    closure(301, "closed "),
+    error(400, "Sorry, the system is out of order "),
+    please_login(401, "no permission "),
+    forbidden(403, "Do not have enough permission "),
+    incomplete_develoer_info(402, "developer info not yet developed "),
+    obj_not_exist(404, "Object does not exist "),
+    param_error(414, "parameter error "),
+    failure(500, "fail to operate ");
 
     private int code;
     private String message;

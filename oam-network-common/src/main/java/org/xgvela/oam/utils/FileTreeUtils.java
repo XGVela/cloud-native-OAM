@@ -91,18 +91,14 @@ public class FileTreeUtils {
                     tree.setId(pid);
                     tree.setId(id);
                     tree.setName(array[i].getName());
-                    //判断是否为文件夹，是的话进行递归
                     if (array[i].isDirectory()) {
                         tree.setIsDirectory(true);
                         trees.add(tree);
                         tree.setSize(String.valueOf(FileUtils.sizeOfDirectory(array[i])));
-                        //进行递归，此时的pid为上一级的id
                         getFile(array[i].getPath(), id * 10 + 1 + i, id, trees);
                     } else {
-                        //正在写日志文件
                         tree.setCreatedTime(Objects.requireNonNull(getLastModfiyTime(array[i])));
                         tree.setIsDirectory(false);
-                        //bit-kb-mb
                         tree.setSize(String.valueOf(new FileInputStream(array[i]).available()));
                         trees.add(tree);
                     }
