@@ -66,7 +66,7 @@ public final class SyncConfigServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_GET_CONFIG_FILE, responseObserver);
     }
 
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+    @Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_GET_CONFIG_FILE,
@@ -91,7 +91,7 @@ public final class SyncConfigServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected SyncConfigServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new SyncConfigServiceStub(channel, callOptions);
@@ -118,7 +118,7 @@ public final class SyncConfigServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected SyncConfigServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new SyncConfigServiceBlockingStub(channel, callOptions);
@@ -145,7 +145,7 @@ public final class SyncConfigServiceGrpc {
       super(channel, callOptions);
     }
 
-    @java.lang.Override
+    @Override
     protected SyncConfigServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new SyncConfigServiceFutureStub(channel, callOptions);
@@ -167,8 +167,8 @@ public final class SyncConfigServiceGrpc {
       this.methodId = methodId;
     }
 
-    @java.lang.Override
-    @java.lang.SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_GET_CONFIG_FILE:
@@ -180,8 +180,8 @@ public final class SyncConfigServiceGrpc {
       }
     }
 
-    @java.lang.Override
-    @java.lang.SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -192,7 +192,7 @@ public final class SyncConfigServiceGrpc {
   }
 
   private static final class SyncConfigServiceDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier {
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
       return SyncConfig.getDescriptor();
     }

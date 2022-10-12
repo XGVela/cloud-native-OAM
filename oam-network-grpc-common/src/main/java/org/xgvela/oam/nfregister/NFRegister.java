@@ -40,7 +40,7 @@ public final class NFRegister {
       "\035\n\013RegisterRsp\022\016\n\006result\030\001 \001(\t2U\n\021NfRegi" +
       "sterService\022@\n\nNfRegister\022\027.nfregister.R" +
       "egisterReq\032\027.nfregister.RegisterRsp\"\000B/\n" +
-      "\031com.inspur.oam.nfregisterB\nNFRegisterP\001" +
+      "\031org.xgvela.oam.nfregisterB\nNFRegisterP\001" +
       "\242\002\003NFRb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

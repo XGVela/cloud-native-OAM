@@ -22,11 +22,13 @@
         <module>oam-network-common</module>
         <module>oam-network-grpc-common</module>
         <module>oam-network-agent</module>
+        <module>oam-network-config</module>
+        <module>oam-network-nftube</module>
+        <module>oam-network-subscribe-publish</module>
         <module>oam-network-log</module>
         <module>oam-network-auth</module>
         <module>oam-network-alarm</module>
-        <module>oam-network-nftube</module>
-        <module>oam-network-subscribe-publish</module>
+        <module>oam-network-performance</module>
     </modules>
 
     <properties>

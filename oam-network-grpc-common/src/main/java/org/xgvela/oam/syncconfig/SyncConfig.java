@@ -32,7 +32,7 @@ public final class SyncConfig {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\020syncconfig.proto\022\nsyncconfig\"<\n\nGetFil" +
       "eReq\022\016\n\006nfType\030\001 \001(\t\022\014\n\004neId\030\002 \001(\t\022\020\n\010fi" +
       "leName\030\003 \001(\t\"/\n\013GetFileResp\022\016\n\006result\030\001 " +
@@ -59,13 +59,13 @@ public final class SyncConfig {
     internal_static_syncconfig_GetFileReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_syncconfig_GetFileReq_descriptor,
-        new java.lang.String[] { "NfType", "NeId", "FileName", });
+        new String[] { "NfType", "NeId", "FileName", });
     internal_static_syncconfig_GetFileResp_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_syncconfig_GetFileResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_syncconfig_GetFileResp_descriptor,
-        new java.lang.String[] { "Result", "FileData", });
+        new String[] { "Result", "FileData", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -19,7 +19,7 @@ public  final class GetFileResp extends
     fileData_ = com.google.protobuf.ByteString.EMPTY;
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -45,7 +45,7 @@ public  final class GetFileResp extends
             break;
           }
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             result_ = s;
             break;
@@ -71,15 +71,15 @@ public  final class GetFileResp extends
     return SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
   }
 
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
     return SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            GetFileResp.class, GetFileResp.Builder.class);
+            GetFileResp.class, Builder.class);
   }
 
   public static final int RESULT_FIELD_NUMBER = 1;
-  private volatile java.lang.Object result_;
+  private volatile Object result_;
   /**
    * <pre>
    *0 succ, other fail
@@ -87,14 +87,14 @@ public  final class GetFileResp extends
    *
    * <code>string result = 1;</code>
    */
-  public java.lang.String getResult() {
-    java.lang.Object ref = result_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getResult() {
+    Object ref = result_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       result_ = s;
       return s;
     }
@@ -108,11 +108,11 @@ public  final class GetFileResp extends
    */
   public com.google.protobuf.ByteString
       getResultBytes() {
-    java.lang.Object ref = result_;
-    if (ref instanceof java.lang.String) {
+    Object ref = result_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       result_ = b;
       return b;
     } else {
@@ -170,8 +170,8 @@ public  final class GetFileResp extends
   }
 
   private static final long serialVersionUID = 0L;
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
@@ -188,7 +188,7 @@ public  final class GetFileResp extends
     return result;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -286,9 +286,9 @@ public  final class GetFileResp extends
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -304,11 +304,11 @@ public  final class GetFileResp extends
       return SyncConfig.internal_static_syncconfig_GetFileResp_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return SyncConfig.internal_static_syncconfig_GetFileResp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              GetFileResp.class, GetFileResp.Builder.class);
+              GetFileResp.class, Builder.class);
     }
 
     // Construct using GetFileResp.newBuilder()
@@ -317,7 +317,7 @@ public  final class GetFileResp extends
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -430,7 +430,7 @@ public  final class GetFileResp extends
       return this;
     }
 
-    private java.lang.Object result_ = "";
+    private Object result_ = "";
     /**
      * <pre>
      *0 succ, other fail
@@ -438,16 +438,16 @@ public  final class GetFileResp extends
      *
      * <code>string result = 1;</code>
      */
-    public java.lang.String getResult() {
-      java.lang.Object ref = result_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getResult() {
+      Object ref = result_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         result_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -459,11 +459,11 @@ public  final class GetFileResp extends
      */
     public com.google.protobuf.ByteString
         getResultBytes() {
-      java.lang.Object ref = result_;
+      Object ref = result_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         result_ = b;
         return b;
       } else {
@@ -478,7 +478,7 @@ public  final class GetFileResp extends
      * <code>string result = 1;</code>
      */
     public Builder setResult(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -597,7 +597,7 @@ public  final class GetFileResp extends
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<GetFileResp> getParserForType() {
     return PARSER;
   }

@@ -40,7 +40,7 @@ public final class ConfigureManager {
       "\001 \001(\t2w\n\027ConfigureManagerService\022\\\n\020Upda" +
       "teConfigFile\022\".configuremanager.UpdateCf" +
       "gFileReq\032\".configuremanager.UpdateCfgFil" +
-      "eRsp\"\000B:\n\037com.inspur.oam.configuremanage" +
+      "eRsp\"\000B:\n\037org.xgvela.oam.configuremanage" +
       "rB\020ConfigureManagerP\001\242\002\002CMb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

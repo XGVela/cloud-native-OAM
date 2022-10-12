@@ -20,7 +20,7 @@ public  final class GetFileReq extends
     fileName_ = "";
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
@@ -46,19 +46,19 @@ public  final class GetFileReq extends
             break;
           }
           case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             nfType_ = s;
             break;
           }
           case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             neId_ = s;
             break;
           }
           case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             fileName_ = s;
             break;
@@ -79,26 +79,26 @@ public  final class GetFileReq extends
     return SyncConfig.internal_static_syncconfig_GetFileReq_descriptor;
   }
 
-  protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  protected FieldAccessorTable
       internalGetFieldAccessorTable() {
     return SyncConfig.internal_static_syncconfig_GetFileReq_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            GetFileReq.class, GetFileReq.Builder.class);
+            GetFileReq.class, Builder.class);
   }
 
   public static final int NFTYPE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object nfType_;
+  private volatile Object nfType_;
   /**
    * <code>string nfType = 1;</code>
    */
-  public java.lang.String getNfType() {
-    java.lang.Object ref = nfType_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getNfType() {
+    Object ref = nfType_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       nfType_ = s;
       return s;
     }
@@ -108,11 +108,11 @@ public  final class GetFileReq extends
    */
   public com.google.protobuf.ByteString
       getNfTypeBytes() {
-    java.lang.Object ref = nfType_;
-    if (ref instanceof java.lang.String) {
+    Object ref = nfType_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       nfType_ = b;
       return b;
     } else {
@@ -121,18 +121,18 @@ public  final class GetFileReq extends
   }
 
   public static final int NEID_FIELD_NUMBER = 2;
-  private volatile java.lang.Object neId_;
+  private volatile Object neId_;
   /**
    * <code>string neId = 2;</code>
    */
-  public java.lang.String getNeId() {
-    java.lang.Object ref = neId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getNeId() {
+    Object ref = neId_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       neId_ = s;
       return s;
     }
@@ -142,11 +142,11 @@ public  final class GetFileReq extends
    */
   public com.google.protobuf.ByteString
       getNeIdBytes() {
-    java.lang.Object ref = neId_;
-    if (ref instanceof java.lang.String) {
+    Object ref = neId_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       neId_ = b;
       return b;
     } else {
@@ -155,18 +155,18 @@ public  final class GetFileReq extends
   }
 
   public static final int FILENAME_FIELD_NUMBER = 3;
-  private volatile java.lang.Object fileName_;
+  private volatile Object fileName_;
   /**
    * <code>string fileName = 3;</code>
    */
-  public java.lang.String getFileName() {
-    java.lang.Object ref = fileName_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getFileName() {
+    Object ref = fileName_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       fileName_ = s;
       return s;
     }
@@ -176,11 +176,11 @@ public  final class GetFileReq extends
    */
   public com.google.protobuf.ByteString
       getFileNameBytes() {
-    java.lang.Object ref = fileName_;
-    if (ref instanceof java.lang.String) {
+    Object ref = fileName_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       fileName_ = b;
       return b;
     } else {
@@ -230,8 +230,8 @@ public  final class GetFileReq extends
   }
 
   private static final long serialVersionUID = 0L;
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
@@ -250,7 +250,7 @@ public  final class GetFileReq extends
     return result;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -350,9 +350,9 @@ public  final class GetFileReq extends
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      BuilderParent parent) {
     Builder builder = new Builder(parent);
     return builder;
   }
@@ -368,11 +368,11 @@ public  final class GetFileReq extends
       return SyncConfig.internal_static_syncconfig_GetFileReq_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return SyncConfig.internal_static_syncconfig_GetFileReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              GetFileReq.class, GetFileReq.Builder.class);
+              GetFileReq.class, Builder.class);
     }
 
     // Construct using GetFileReq.newBuilder()
@@ -381,7 +381,7 @@ public  final class GetFileReq extends
     }
 
     private Builder(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       super(parent);
       maybeForceBuilderInitialization();
     }
@@ -502,20 +502,20 @@ public  final class GetFileReq extends
       return this;
     }
 
-    private java.lang.Object nfType_ = "";
+    private Object nfType_ = "";
     /**
      * <code>string nfType = 1;</code>
      */
-    public java.lang.String getNfType() {
-      java.lang.Object ref = nfType_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getNfType() {
+      Object ref = nfType_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         nfType_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -523,11 +523,11 @@ public  final class GetFileReq extends
      */
     public com.google.protobuf.ByteString
         getNfTypeBytes() {
-      java.lang.Object ref = nfType_;
+      Object ref = nfType_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         nfType_ = b;
         return b;
       } else {
@@ -538,7 +538,7 @@ public  final class GetFileReq extends
      * <code>string nfType = 1;</code>
      */
     public Builder setNfType(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -571,20 +571,20 @@ public  final class GetFileReq extends
       return this;
     }
 
-    private java.lang.Object neId_ = "";
+    private Object neId_ = "";
     /**
      * <code>string neId = 2;</code>
      */
-    public java.lang.String getNeId() {
-      java.lang.Object ref = neId_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getNeId() {
+      Object ref = neId_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         neId_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -592,11 +592,11 @@ public  final class GetFileReq extends
      */
     public com.google.protobuf.ByteString
         getNeIdBytes() {
-      java.lang.Object ref = neId_;
+      Object ref = neId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         neId_ = b;
         return b;
       } else {
@@ -607,7 +607,7 @@ public  final class GetFileReq extends
      * <code>string neId = 2;</code>
      */
     public Builder setNeId(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -640,20 +640,20 @@ public  final class GetFileReq extends
       return this;
     }
 
-    private java.lang.Object fileName_ = "";
+    private Object fileName_ = "";
     /**
      * <code>string fileName = 3;</code>
      */
-    public java.lang.String getFileName() {
-      java.lang.Object ref = fileName_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getFileName() {
+      Object ref = fileName_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         fileName_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -661,11 +661,11 @@ public  final class GetFileReq extends
      */
     public com.google.protobuf.ByteString
         getFileNameBytes() {
-      java.lang.Object ref = fileName_;
+      Object ref = fileName_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         fileName_ = b;
         return b;
       } else {
@@ -676,7 +676,7 @@ public  final class GetFileReq extends
      * <code>string fileName = 3;</code>
      */
     public Builder setFileName(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -746,7 +746,7 @@ public  final class GetFileReq extends
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<GetFileReq> getParserForType() {
     return PARSER;
   }

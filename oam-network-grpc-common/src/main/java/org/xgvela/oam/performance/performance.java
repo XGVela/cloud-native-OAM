@@ -46,7 +46,7 @@ public final class performance {
       "sInfoRsp\022\016\n\006result\030\001 \001(\t2b\n\025PerfStatisti" +
       "csService\022I\n\rStatisticsReq\022\031.performance" +
       ".StatsInfoReq\032\031.performance.StatsInfoRsp" +
-      "\"\0000\001B9\n\032com.inspur.oam.performanceB\013perf" +
+      "\"\0000\001B9\n\032org.xgvela.oam.performanceB\013perf" +
       "ormanceP\001\242\002\013performanceb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

@@ -177,7 +177,7 @@ public  final class AlarmReq extends
       internalGetFieldAccessorTable() {
     return alarm.internal_static_alarm_AlarmReq_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            AlarmReq.class, AlarmReq.Builder.class);
+            AlarmReq.class, Builder.class);
   }
 
   public static final int NETYPE_FIELD_NUMBER = 1;
@@ -991,7 +991,7 @@ public  final class AlarmReq extends
         internalGetFieldAccessorTable() {
       return alarm.internal_static_alarm_AlarmReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              AlarmReq.class, AlarmReq.Builder.class);
+              AlarmReq.class, Builder.class);
     }
 
     // Construct using AlarmReq.newBuilder()
