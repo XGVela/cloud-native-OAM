@@ -53,9 +53,9 @@ public class TimeUtil {
 	}
 
 	/**
-	 * get system time
+	 * 获取当前系统时间
 	 *
-	 * @return Date
+	 * @return Date类型时间
 	 */
 	public static Date newDate() {
 
@@ -73,7 +73,7 @@ public class TimeUtil {
 	}
 
 	/**
-	 * date format to yyyy-MM-dd HH:mm:ss
+	 * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
 	 *
 	 * @param dateDate
 	 * @return

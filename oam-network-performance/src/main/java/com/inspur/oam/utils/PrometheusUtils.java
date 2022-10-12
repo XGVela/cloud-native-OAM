@@ -32,7 +32,7 @@ public class PrometheusUtils extends HttpUtils {
 
     private static void loadQuerys() {
         try {
-            log.debug("Sync query.yaml");
+            log.debug("同步query.yaml");
             querys = YamlUtils.ym2jn(IOUtils.toString(new ClassPathResource("promql/query.yaml").getInputStream(), StandardCharsets.UTF_8.toString()));
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -102,7 +102,7 @@ public class PrometheusUtils extends HttpUtils {
     }
 
     /**
-     * getValue
+     * 根据查询语句，查询到具体值
      *
      * @param host
      * @param query
