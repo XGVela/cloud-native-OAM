@@ -3,22 +3,20 @@ package org.xgvela.oam;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootConfiguration
-@EnableAutoConfiguration
+@SpringBootApplication
 @ComponentScan(basePackages = {
         "org.xgvela.oam.config",
         "org.xgvela.oam.service",
         "org.xgvela.oam.controller",
-        "org.xgvela.oam.grpc",
-        "org.xgvela.oam.utils",
+        "org.xgvela.oam.utils"
 })
-@MapperScan(basePackages = {"org.xgvela.oam.log.mapper", "org.xgvela.oam.mapper", "com.inspur.cnet.security.mapper",
-        "com.inspur.cnet.system.mapper"})
-public class OamNetworkAgentApplication {
+@MapperScan(basePackages = {"org.xgvela.oam.log.mapper", "org.xgvela.oam.mapper"})
+public class OamNetworkPerformanceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OamNetworkAgentApplication.class, args);
+        SpringApplication.run(OamNetworkPerformanceApplication.class, args);
     }
 }

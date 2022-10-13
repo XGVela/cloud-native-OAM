@@ -1,38 +1,38 @@
 example:
-  query: hello ${name}
-#宿主机cpu使用率:
+ query: hello ${name}
+# Host cpu usage:
 host_cpu_util:
-  query: Master_CPU{}
-  step: 30
-#宿主机内存使用率:
+ query: Master_CPU{}
+ step: 30
+# Host memory usage:
 host_mem_util:
-  query: Master_Memory{}
-  step: 30
-#宿主机磁盘使用率:
+ query: Master_Memory{}
+ step: 30
+# Host disk usage:
 host_disk_util:
-  query: 100 * (1 - sum(node_filesystem_free_bytes{fstype=~'ext.*|xfs',instance=~"${instance}.*"}) / sum (node_filesystem_size_bytes{fstype=~'ext.*|xfs',instance=~"${instance}.*}))
-  step: 30
-#宿主机网络流入速率:
+ query: 100 * (1 - sum(node_filesystem_free_bytes{fstype=~'ext.*|xfs',instance=~"${instance}.*"}) / sum (node_filesystem_size_bytes{fstype=~'ext.*|xfs',instance=~"${instance}.*}))
+ step: 30
+Host network inflow rate:
 host_network_receive_bytes:
-  query: sum(rate(node_network_receive_bytes_total{instance=~"${instance}.*",device!~"lo"}[5m]))
-  step: 30
-#宿主机网络流出速率:
+ query: sum(rate(node_network_receive_bytes_total{instance=~"${instance}.*",device! ~"lo"}[5m]))
+ step: 30
+Network outbound rate of the host:
 host_network_transmit_bytes:
-  query: sum(rate(node_network_transmit_bytes_total{job="node-exporter",instance=~"${instance}.*",device!~"lo"}[5m]))
-  step: 30
-#集群CPU使用率
+ query: sum(rate(node_network_transmit_bytes_total{job="node-exporter",instance=~"${instance}.*",device! ~"lo"}[5m]))
+ step: 30
+# Cluster CPU usage
 cpu_util:
-  query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])))
-  step: 30
-#集群内存使用率
+ query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])))
+ step: 30
+# Cluster memory usage
 mem_util:
-  query: 100 * (1 - sum(node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes))
-  step: 30
-#集群磁盘使用率
+ query: 100 * (1 - sum(node_memory_MemAvailable_bytes) / sum(node_memory_MemTotal_bytes))
+ step: 30
+# Cluster disk usage
 disk_util:
-  query: 100 * ((sum(node_filesystem_avail_bytes{job="node-exporter", fstype!=""})) / (sum(node_filesystem_size_bytes{job="node-exporter", fstype!=""})))
-  step: 30
-#集群磁盘读速率
+ query: 100 * ((sum(node_filesystem_avail_bytes{job="node-exporter", fstype! =""})) / (sum(node_filesystem_size_bytes{job="node-exporter", fstype! = ""})))
+ step: 30
+# Cluster disk read rate
 disk_read_bytes:
-  query: sum(rate(node_disk_read_bytes_total[2m]))
-  step: 30
+ query: sum(rate(node_disk_read_bytes_total[2m]))
+ step: 30
