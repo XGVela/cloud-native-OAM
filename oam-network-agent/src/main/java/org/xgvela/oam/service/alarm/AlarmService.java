@@ -3,7 +3,6 @@ package org.xgvela.oam.service.alarm;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.xgvela.oam.alarm.AlarmReportServiceGrpc;
-import org.xgvela.oam.alarm.AlarmReq;
 import org.xgvela.oam.alarm.AlarmRsp;
 import org.xgvela.oam.entity.alarm.active.ActiveAlarm;
 import org.xgvela.oam.entity.nftube.OamVnf;
@@ -33,7 +32,7 @@ public class AlarmService extends AlarmReportServiceGrpc.AlarmReportServiceImplB
     private OamVnfMapper oamVnfMapper;
 
     @Override
-    public void alarmReport(AlarmReq request, io.grpc.stub.StreamObserver<AlarmRsp> responseObserver) {
+    public void alarmReport(org.xgvela.oam.alarm.AlarmReq request, io.grpc.stub.StreamObserver<AlarmRsp> responseObserver) {
         log.info("Agent AlarmReportService : {}", request);
         AlarmRsp alarmRsp = AlarmRsp.newBuilder().setResult("0").build();
         ActiveAlarm activeAlarm = new ActiveAlarm();
