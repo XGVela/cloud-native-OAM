@@ -2,13 +2,13 @@ package org.xgvela.oam.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
-import org.xgvela.oam.service.auth.IOamUsersService;
-import org.xgvela.oam.annotation.Log;
 import org.xgvela.oam.entity.auth.OamUsers;
 import org.xgvela.oam.entity.response.Response;
 import org.xgvela.oam.entity.response.ResponseFactory;
 import org.xgvela.oam.service.auth.IOamUsersService;
-import org.xgvela.oam.utils.JwtUtils;
+
+import org.xgvela.oam.annotation.Log;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -17,6 +17,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.xgvela.oam.utils.JwtUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -54,10 +55,7 @@ public class OauthController {
         if (!password.equals(user.getUserPass())){
             throw new IncorrectCredentialsException("用户名或密码错误");
         }
-
-
         return ResponseFactory.getSuccessData("accessToken", JwtUtils.sign(username, password), "expires", 86400000L);
-
     }
 
 }
