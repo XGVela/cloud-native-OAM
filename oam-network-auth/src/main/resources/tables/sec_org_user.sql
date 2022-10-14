@@ -22,12 +22,12 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sec_org_user`;
 CREATE TABLE `sec_org_user`  (
-  `id` int(64) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` int(11) NULL DEFAULT NULL COMMENT 'user_id',
-  `org_id` int(11) NULL DEFAULT NULL COMMENT 'org_id',
-  `org_code` bigint(64) NULL DEFAULT NULL COMMENT 'org_code',
-  `org_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'org_name',
+  `id` int(64) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '用户ID',
+  `org_id` int(11) NULL DEFAULT NULL COMMENT '组织ID',
+  `org_code` bigint(64) NULL DEFAULT NULL COMMENT '组织编码',
+  `org_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '组织名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'sec_org_user' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '组织-人员-关联' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

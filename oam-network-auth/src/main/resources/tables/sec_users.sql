@@ -27,12 +27,12 @@ CREATE TABLE `sec_users`  (
   `user_pass` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `user_nicename` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `user_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `user_phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'user_phone projectid',
+  `user_phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户所关联的projectid',
   `user_registered` datetime NULL DEFAULT NULL,
   `user_activation_key` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `user_status` int(11) NOT NULL DEFAULT 0,
   `user_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `is_first_login` tinyint(1) NULL DEFAULT NULL COMMENT 'is_first_login |默认为true',
+  `is_first_login` tinyint(1) NULL DEFAULT NULL COMMENT '首次登陆 |默认为true',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user_login_key`(`user_login`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;

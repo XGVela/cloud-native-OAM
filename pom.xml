@@ -37,7 +37,7 @@
         <omc.version>21.11</omc.version>
         <java.version>1.8</java.version>
         <docker-maven-plugin.version>0.34.0</docker-maven-plugin.version>
-        <docker.host>http://111.111.63.136:2376</docker.host>
+        <docker.host>http://111.111.63.136:30375</docker.host>
         <docker.registry>registry.local:9001</docker.registry>
         <docker.registry.username>admin</docker.registry.username>
         <docker.registry.password>Harbor12345</docker.registry.password>
