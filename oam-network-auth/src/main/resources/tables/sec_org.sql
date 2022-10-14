@@ -22,16 +22,16 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sec_org`;
 CREATE TABLE `sec_org`  (
-  `id` int(64) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `code` bigint(64) NULL DEFAULT NULL COMMENT 'code',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'name',
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'type：ROOT、PORV、CITY、DEPT',
-  `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT 'is_leaf',
-  `pid` int(64) NULL DEFAULT NULL COMMENT 'pid',
-  `pcode` int(64) NULL DEFAULT NULL COMMENT 'pcode',
-  `pname` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'pname',
-  `order_by` int(11) NULL DEFAULT 999 COMMENT 'order_by',
+  `id` int(64) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `code` bigint(64) NULL DEFAULT NULL COMMENT '编码',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '名称',
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '类型：ROOT、PORV、CITY、DEPT',
+  `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT '是否叶子节点',
+  `pid` int(64) NULL DEFAULT NULL COMMENT '父ID',
+  `pcode` int(64) NULL DEFAULT NULL COMMENT '父编码',
+  `pname` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '父名称',
+  `order_by` int(11) NULL DEFAULT 999 COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'sec_org' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '组织' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
