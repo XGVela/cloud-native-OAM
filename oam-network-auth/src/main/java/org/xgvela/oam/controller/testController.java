@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Api(tags = "oam鉴权-测试")
+@Api(tags = "oam Authentication-test ")
 @RestController
 @RequestMapping(value = "api")
 public class testController {
 
     @GetMapping("/status")
-    @ApiOperation(value = "状态")
+    @ApiOperation(value = "status ")
     public Response status() {
         return ResponseFactory.getSuccess();
     }

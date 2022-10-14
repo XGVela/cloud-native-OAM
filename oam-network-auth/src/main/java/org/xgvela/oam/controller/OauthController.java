@@ -2,6 +2,7 @@ package org.xgvela.oam.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.xgvela.oam.entity.auth.OamUsers;
 import org.xgvela.oam.entity.response.Response;
 import org.xgvela.oam.entity.response.ResponseFactory;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Slf4j
-@Api(tags = "共享层-认证接口")
+@Api(tags = "Shared layer - authentication interface ")
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "api/rest")
@@ -31,10 +32,10 @@ public class OauthController {
 
     private final IOamUsersService oamUsersService;
 
-    private final static int DELAY_TIME = 5; //5分钟
+    private final static int DELAY_TIME = 5; // for 5 minutes
 
-    @Log("用户登录")
-    @ApiOperation(value = "获取token")
+    @Log(" User login ")
+    @ApiOperation(value = "get token")
     @PostMapping("/securityManagement/{apiVersion}/oauth/token")
     public Response<Map<String, Object>> login(@RequestParam(value = "grantType") String grantType,
                                                @RequestParam(value = "userName") String username,
@@ -43,17 +44,17 @@ public class OauthController {
                                                @RequestHeader(value = "Authorization", required = false) String authorization,
                                                HttpServletResponse response) {
 
-        Assert.notNull(username, "用户名不能为空");
-        Assert.notNull(password, "密码不能为空");
-        // 获取用户密码混淆值
+        Assert.notNull(username, "the username cannot be empty ");
+        Assert.notNull(password, "password cannot be empty ");
+      // Get the user password confusion value
         OamUsers user = oamUsersService.getOne(new LambdaQueryWrapper<OamUsers>().eq(OamUsers::getUserId, username));
 
         if (null == user) {
-            throw new UnknownAccountException("用户不存在");
+            throw new UnknownAccountException(" User does not exist ");
         }
 
-        if (!password.equals(user.getUserPass())){
-            throw new IncorrectCredentialsException("用户名或密码错误");
+        if (! password.equals(user.getUserPass())){
+            Throw new IncorrectCredentialsException (" user name or password error ");
         }
         return ResponseFactory.getSuccessData("accessToken", JwtUtils.sign(username, password), "expires", 86400000L);
     }
