@@ -54,7 +54,7 @@ public class OauthController {
         }
 
         if (! password.equals(user.getUserPass())){
-            Throw new IncorrectCredentialsException (" user name or password error ");
+            throw new IncorrectCredentialsException (" user name or password error ");
         }
         return ResponseFactory.getSuccessData("accessToken", JwtUtils.sign(username, password), "expires", 86400000L);
     }
