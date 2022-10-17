@@ -27,9 +27,7 @@ import java.util.Iterator;
 @Component
 @Slf4j
 @GrpcService
-/**
- * oam-network-simulator -> oam-network-agent -> oam-network-config
- */
+//oam-network-simulator -> oam-network-agent -> oam-network-config
 public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.ConfigUpdateResultServiceImplBase {
 
     private static final String NfConfFileName = "upf.xml";
@@ -87,7 +85,6 @@ public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.
         while (iterator.hasNext()) {
             GetFileResp getFileResp = iterator.next();
             if (GetFileRespSucceed.equals(getFileResp.getResult())) {
-                //写入到read目录
                 ByteString bytes = getFileResp.getFileData();
                 byte[] byteArray = bytes.toByteArray();
                 String content = new String(byteArray);

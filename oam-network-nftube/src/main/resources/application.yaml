@@ -8,5 +8,5 @@ spring:
     nacos:
       discovery:
         enabled: true
-        namespace: 75975ef0-c6c1-44ee-a541-ee4334ad7a59
+        namespace: cc2bb596-c3b5-43e2-842c-16f055efe424
         server-addr: 111.111.63.136:30430
