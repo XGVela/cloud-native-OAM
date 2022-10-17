@@ -5,11 +5,7 @@ import org.xgvela.oam.entity.conf.OamVnfConfigFile;
 
 import java.util.List;
 
-/**
- * <p>
- *
- * </p>
- */
+
 public interface IOamVnfConfigFileService extends IService<OamVnfConfigFile> {
 
     List<OamVnfConfigFile> confInfo(String neId, String neType, String vnfName);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "nf")
 public class NfConfig {
-
+    //#s
     private Integer downloadConfigInterval;
 
 }

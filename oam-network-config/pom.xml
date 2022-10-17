@@ -152,7 +152,7 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-        <!-- Quartz -->
+        <!-- 引入 Quartz 依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
@@ -168,7 +168,7 @@
             <artifactId>hutool-all</artifactId>
             <version>5.5.2</version>
         </dependency>
-        <!--NacosValue-->
+        <!--使用@NacosValue引入依赖-->
         <dependency>
             <groupId>com.alibaba.boot</groupId>
             <artifactId>nacos-config-spring-boot-starter</artifactId>
@@ -222,7 +222,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.inspur.oam.OamNetworkConfigApplication</mainClass>
+                    <mainClass>org.xgvela.oam.OamNetworkConfigApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

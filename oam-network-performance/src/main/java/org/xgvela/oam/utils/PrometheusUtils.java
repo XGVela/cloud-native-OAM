@@ -32,7 +32,7 @@ public class PrometheusUtils extends HttpUtils {
 
     private static void loadQuerys() {
         try {
-            log.debug("Sync query.yaml");
+            log.debug("query.yaml");
             querys = YamlUtils.ym2jn(IOUtils.toString(new ClassPathResource("promql/query.yaml").getInputStream(), StandardCharsets.UTF_8.toString()));
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -101,14 +101,6 @@ public class PrometheusUtils extends HttpUtils {
         return new BigDecimal(val).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
-    /**
-     * getValue
-     *
-     * @param host
-     * @param query
-     * @param time
-     * @return
-     */
     public static double getValue(String host, String query, Long time) {
         JsonNode result = query(host, query, time);
         JsonNode successResult = getResult(result);

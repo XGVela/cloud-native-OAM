@@ -1,10 +1,13 @@
 package org.xgvela.oam.grpc;
 
 import org.xgvela.oam.config.ConfigConfiguration;
+
 import org.xgvela.oam.configupdateresult.ConfigUpdateResultServiceGrpc;
 import org.xgvela.oam.configuremanager.ConfigureManagerServiceGrpc;
 import org.xgvela.oam.configuremanager.UpdateCfgFileReq;
 import org.xgvela.oam.configuremanager.UpdateCfgFileRsp;
+//import org.xgvela.oam.configuremanager.UpdateCfgFileRsps;
+
 import org.xgvela.oam.syncconfig.SyncConfigServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -12,12 +15,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
-
-//import com.inspur.oam.configuremanager.UpdateCfgFileRsps;
 
 @Data
 @Component

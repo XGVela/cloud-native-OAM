@@ -39,7 +39,6 @@ public class PerformanceServiceImpl implements IPerformanceService {
             });
         }
 
-        //query prometheus data
         String querySql = "{__name__=~\"icore_.*\"}";
         Long time = System.currentTimeMillis();
         JsonNode jsonNode = PrometheusUtils.query(prometheusHost, querySql, time);
@@ -67,7 +66,6 @@ public class PerformanceServiceImpl implements IPerformanceService {
                     }
                 }
             }
-
             for (String neId : perf.keySet()) {
                 List<String> measurementCategorysList = new ArrayList<>();
                 List<Object> measurementResultsList = new ArrayList<>();

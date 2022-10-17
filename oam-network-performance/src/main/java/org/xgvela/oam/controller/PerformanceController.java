@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "PM")
+@Api(tags = "Performance")
 @RestController
 @RequestMapping("/api/rest/performanceManagement")
 public class PerformanceController {
@@ -16,7 +16,7 @@ public class PerformanceController {
     @Autowired
     private IPerformanceService performanceService;
 
-    @ApiOperation(value = "query PM data", notes = "query PM data")
+    @ApiOperation(value = "Query performance data ", notes =" Query performance data ")
     @GetMapping("/{apiVersion}/elementType/{elementTypeValue}/objectType/{objectTypeValue}")
     public Response listQuery(@PathVariable(value = "apiVersion") String apiVersion,
                               @PathVariable(value = "elementTypeValue") String elementTypeValue,

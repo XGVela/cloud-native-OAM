@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * <p>
- *
- * </p>
- */
 @RestController
 @AllArgsConstructor
 public class OamVnfConfigFileControllerImpl implements IOamVnfConfigFileController {

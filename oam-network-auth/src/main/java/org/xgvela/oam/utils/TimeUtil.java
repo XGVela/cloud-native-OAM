@@ -29,7 +29,7 @@ public class TimeUtil {
 	public static String getFormatDateAdd(Date date, int amount, String format) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(date);
-		cal.add(Calendar.DATE, amount);
+		cal.add(5, amount);
 		return getFormatDateTime(cal.getTime(), format);
 	}
 
@@ -61,9 +61,16 @@ public class TimeUtil {
 		return time;
 	}
 
+	/**
+	 * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
+	 *
+	 * @param dateDate
+	 * @return
+	 */
 	public static String dateToStrLong(Date dateDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return formatter.format(dateDate);
+		String dateString = formatter.format(dateDate);
+		return dateString;
 	}
 
 	public static Date getDayAfterDate(int day){
@@ -75,7 +82,7 @@ public class TimeUtil {
 		Date time = null;
 
 		try {
-			Date expireTime = new Date(now.getTime() + (long) hour * 1000 * 60 * 60);
+			Date expireTime = new Date(now.getTime() + hour * 1000 * 60 * 60);
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			time = df.parse(df.format(expireTime));
 		} catch (ParseException e) {
@@ -92,7 +99,9 @@ public class TimeUtil {
 	}
 
 	public static long getTimeStr(Long milSec){
-		long dayTime = 1000L * 24 * 3600;
-		return milSec/dayTime;
+		long dayTime = 1000l * 24 * 3600;
+		long day = milSec/dayTime;
+
+		return day ;
 	}
 }

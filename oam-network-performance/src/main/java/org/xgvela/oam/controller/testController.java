@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Api(tags = "oam_auth-test")
+@Api(tags = "oam")
 @RestController
 @RequestMapping(value = "api")
 public class testController {

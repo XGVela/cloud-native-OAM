@@ -17,8 +17,6 @@ import org.springframework.context.annotation.ComponentScan;
         "org.xgvela.oam.grpc"
 })
 @MapperScan(basePackages = {
-        "com.inspur.cnet.security.mapper",
-        "com.inspur.cnet.system.mapper",
         "org.xgvela.oam.config",
         "org.xgvela.oam.log.mapper",
         "org.xgvela.oam.mapper"

@@ -58,7 +58,7 @@ public class EsLog implements Serializable {
 
     private String message;
 
-    public EsLog.VO toVO() {
+    public VO toVO() {
         VO.VOBuilder builder = VO.builder().id(id).timestamp(timeStamp).level(level);
         Optional.ofNullable(kubernetes).ifPresent(k -> builder.namespace(k.namespace)
                 .pod(Optional.ofNullable(k.pod).map(o -> o.name).orElse(null))
@@ -69,7 +69,7 @@ public class EsLog implements Serializable {
         return builder.build();
     }
 
-    public EsLog.VO.EsMessageVO toEsMessageVO() {
+    public VO.EsMessageVO toEsMessageVO() {
         return VO.EsMessageVO.builder().timestamp(timeStamp).message(message).id(id).build();
     }
 

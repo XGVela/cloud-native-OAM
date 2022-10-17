@@ -45,9 +45,7 @@ public abstract class HttpUtils {
         }
     }
 
-    /**
-     * http客户端
-     */
+
     protected static OkHttpClient getHttpClient() {
         if (ObjectUtils.isEmpty(client)) {
             synchronized (httpLock) {
@@ -67,9 +65,6 @@ public abstract class HttpUtils {
         return client;
     }
 
-    /**
-     * https客户端，跳过ssl认证
-     */
     protected static OkHttpClient getHttpsClient() {
         if (ObjectUtils.isEmpty(client)) {
             synchronized (httpsLock) {

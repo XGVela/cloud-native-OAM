@@ -40,7 +40,7 @@ public final class ConfigUpdateResult {
       "\201\001\n\031ConfigUpdateResultService\022d\n\017cfgUpda" +
       "teResult\022&.configupdateresult.CfgResultN" +
       "otifyReq\032\'.configupdateresult.CfgResultN" +
-      "otifyResp\"\000B?\n!com.inspur.oam.configupda" +
+      "otifyResp\"\000B?\n!org.xgvela.oam.configupda" +
       "teresultB\022ConfigUpdateResultP\001\242\002\003CRNb\006pr" +
       "oto3"
     };

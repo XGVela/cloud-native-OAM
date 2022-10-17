@@ -69,7 +69,7 @@ public  final class AlarmRsp extends
       internalGetFieldAccessorTable() {
     return alarm.internal_static_alarm_AlarmRsp_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            AlarmRsp.class, AlarmRsp.Builder.class);
+            AlarmRsp.class, Builder.class);
   }
 
   public static final int RESULT_FIELD_NUMBER = 1;
@@ -278,7 +278,7 @@ public  final class AlarmRsp extends
         internalGetFieldAccessorTable() {
       return alarm.internal_static_alarm_AlarmRsp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              AlarmRsp.class, AlarmRsp.Builder.class);
+              AlarmRsp.class, Builder.class);
     }
 
     // Construct using AlarmRsp.newBuilder()

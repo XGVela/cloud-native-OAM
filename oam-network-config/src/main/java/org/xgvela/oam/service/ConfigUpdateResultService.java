@@ -12,6 +12,7 @@ import org.xgvela.oam.entity.conf.OamVnfConfigFile;
 import org.xgvela.oam.entity.conf.OamVnfConfigTask;
 import org.xgvela.oam.mapper.conf.OamVnfConfigFileMapper;
 import org.xgvela.oam.mapper.conf.OamVnfConfigTaskMapper;
+import org.xgvela.oam.service.impl.OamVnfConfigFileServiceImpl;
 import org.xgvela.oam.utils.FileTreeUtils;
 import org.xgvela.oam.utils.SftpUtils;
 import io.grpc.stub.StreamObserver;
@@ -56,8 +57,6 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
         responseObserver.onNext(cfgResultNotifyResp);
         responseObserver.onCompleted();
 
-        SftpUtils sftp = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
-
         String sftpAgentReadPath = String.format("%s/read/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNfType(), request.getInstanceId());
         String localConfigWriteDir = String.format("/root/sftp/write/%s/%s", request.getNfType(), request.getInstanceId());
         String localConfigReadDir = String.format("/root/sftp/read/%s/%s", request.getNfType(), request.getInstanceId());
@@ -76,47 +75,53 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
 
         log.info("cfgUpdateResult :sftpConfigClient download file for config write path");
         collect(sftpAgentReadPath, localConfigWriteDir, version, sftpConfig);
-
-
-        try {
-            Thread.sleep(5000);
-        } catch (Exception e) {
-            log.error("Exception:: ", e);
-        }
-
         List<FileTree> fileTrees = FileTreeUtils.getLocalDirectory(localConfigReadDir);
-        versionFileToDatabase(neId, neType, sftpWritePath, version, configReadPath, fileTrees, vnfConfigFileMapper, log);
 
-        String newFileContent = "";
-        String inUseFileContent = "";
+        OamVnfConfigTask task = vnfConfigTaskMapper.selectById(taskId);
 
-        String configReadPathFile = String.format("/root/sftp/read/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
-        String configWritePathFile = String.format("/root/sftp/write/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
+        if (task.getType().equals(OamVnfConfigFileServiceImpl.CONF_SWITCH)) {
 
-        try {
-            log.info("inUseFileContent {}", configReadPathFile);
-            log.info("configWritePath {}", configWritePathFile);
+            OamVnfConfigFile vnfConfigFile = vnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getCfVersion, task.getVersion()));
+            vnfConfigFile.setIsUse(true);
+            vnfConfigFileMapper.updateById(vnfConfigFile);
 
-            inUseFileContent = FileUtils.readFileToString(new File(configReadPathFile), Charset.defaultCharset());
-            newFileContent = FileUtils.readFileToString(new File(configWritePathFile), Charset.defaultCharset());
+            task.setCreateTime(new Date());
+            task.setStatus(OamVnfConfigTask.statusType.DONE.getName());
+            vnfConfigTaskMapper.updateById(task);
 
-            log.info("start compare file ......");
-            if (StringUtils.equals(newFileContent, inUseFileContent)) {
-                log.info("file content is the same ");
-                OamVnfConfigTask task = vnfConfigTaskMapper.selectById(taskId);
-                task.setCreateTime(new Date());
-                task.setStatus(OamVnfConfigTask.statusType.DONE.getName());
-                vnfConfigTaskMapper.updateById(task);
-                log.info(" taskId {} , status {} ", taskId, OamVnfConfigTask.statusType.DONE.getName());
+        } else if (task.getType().equals(OamVnfConfigFileServiceImpl.CONF_DELIVERY)) {
+            versionFileToDatabase(neId, neType, sftpWritePath, version, configReadPath, fileTrees, vnfConfigFileMapper, log);
 
-            } else {
-                log.info("file content is different ,start upload file to agent");
-                SftpUtils sftpAgent = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
-                log.info("upload  {}", configReadPathFile);
-                sftpAgent.upload(sftpAgentWritePath, new File(configReadPathFile));
+            String newFileContent = "";
+            String inUseFileContent = "";
+
+            String configReadPathFile = String.format("/root/sftp/read/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
+            String configWritePathFile = String.format("/root/sftp/write/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
+
+            try {
+                log.info("inUseFileContent {}", configReadPathFile);
+                log.info("configWritePath {}", configWritePathFile);
+
+                inUseFileContent = FileUtils.readFileToString(new File(configReadPathFile), Charset.defaultCharset());
+                newFileContent = FileUtils.readFileToString(new File(configWritePathFile), Charset.defaultCharset());
+
+                log.info("start compare file ......");
+                if (StringUtils.equals(newFileContent, inUseFileContent)) {
+                    log.info("file content is the same ");
+                    task.setCreateTime(new Date());
+                    task.setStatus(OamVnfConfigTask.statusType.DONE.getName());
+                    vnfConfigTaskMapper.updateById(task);
+                    log.info(" taskId {} , status {} ", taskId, OamVnfConfigTask.statusType.DONE.getName());
+
+                } else {
+                    log.info("file content is different ,start upload file to agent");
+                    SftpUtils sftpAgent = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
+                    log.info("upload  {}", configReadPathFile);
+                    sftpAgent.upload(sftpAgentWritePath, new File(configReadPathFile));
+                }
+            } catch (Exception e) {
+                log.error("Exception::", e);
             }
-        } catch (Exception e) {
-            log.error("Exception::", e);
         }
     }
 
