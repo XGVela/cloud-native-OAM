@@ -10,7 +10,7 @@ Developers and operators of upper layer management systems, cloud native OAM dev
 
 ## Northbound interfaces
 
-### *Authentication and Authorization*
+### *Authentication and Authorization - Get token*
 
 When accessing cloud native OAM, upper layer management systems should provide user name and password to apply for a token, which should be carried in the header for all other API requests.
 
@@ -63,7 +63,7 @@ Content-Length:…
 
 * * *
 
-### *Subscription*
+### *Subscribe data of newly registered NF*
 
 Interfaces support upper layer management systems subscribing data of NFs through cloud native OAM. Subscribing data types include NF register notification, NF alarm, NF performance.
 
@@ -96,6 +96,7 @@ Input:
      Message: Request is successful
 }
 ```
+### *Unsubscribe data of newly registered NF*
 
 * `DELETE` &nbsp;&nbsp;&nbsp;&nbsp; */system/jobs/register{systemId}*
 
@@ -118,6 +119,7 @@ Input:
 }
 ```
 
+### *Query "newly registered NF" info of target upper layer manegement system*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */system/jobs/register*
 
 Get new NF register info.
@@ -144,7 +146,7 @@ Input:
          ]
 }
 ```
-
+### *Subscribe business data (alarm & performance) of NF*
 * `POST` &nbsp;&nbsp;&nbsp;&nbsp; */system/jobs/business*
 
 Create subscription of NF alarm or performance data.
@@ -178,6 +180,7 @@ Input:
 }
 ```
 
+### *Unsubscribe business data (alarm & performance) of NF*
 * `DELETE` &nbsp;&nbsp;&nbsp;&nbsp; */system/jobs/business{systemId}*
 
 DELETE existing subscription of NF alarm or performance data.
@@ -199,6 +202,7 @@ Input:
 }
 ```
 
+### *Query subscription data types of target upper layer manegement systemF*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; *system/jobs/business*
 
 Get NF's subscription info of NF alarms and performance.
@@ -227,11 +231,8 @@ Input:
         ]
 }
 ```
-</details>
 
-* * *
-
-### *Cloud native OAM northbound service interfaces*
+### *Upper layer management system manages a NF through cloud native OAM*
 
 * `POST` &nbsp;&nbsp;&nbsp;&nbsp; */tubeVnf/{neType}/{neId} /{systemId}*
 
@@ -262,6 +263,7 @@ neType=UPF&neId=upfinstanceid001&systemId=OSS-02
 }
 ```
 
+### *Upper layer management system unmanages a NF through cloud native OAM*
 * `POST` &nbsp;&nbsp;&nbsp;&nbsp;*/deTubeVnf/{neType}/{neId} /{systemId}*
 
 Used by upper layer management systems to remove management relationship with a NF through cloud native OAM.
@@ -294,6 +296,7 @@ Json：
 
 ```
 
+### *Upper layer management system get information of managed NFs*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */getVnfList*
 
 Used by upper layer management systems to get list of VNFs which are registered to cloud native OAM.
@@ -359,6 +362,7 @@ Input:
 }
 ```
 
+### *Upper layer management system get logs of managed NFs*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */logs/list*
 
 Used by upper layer management systems to get logs of NFs.
@@ -384,6 +388,7 @@ current=1&endTime=2022-09-10 18:00:00&neId=upfinstanceid002&neType=upf&size=10&s
 }
 ```
 
+### *Upper layer management system get topology information of managed NFs*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */getNfResources/{neType}/{neId}*
 
 Used by upper layer management systems to get NF's microservice topology and corresponding resource topology.
@@ -474,6 +479,7 @@ There exist three-layer relationship within NF, which is NF (the NF layer), nf-s
 }
 ```
 
+### *Upper layer management system get in-use configuration info of managed NFs*
 * `GET`  &nbsp;&nbsp;&nbsp;&nbsp;  */ne/config*
 
 Used by upper layer management systems to get basic configuration info of NFs.
@@ -502,6 +508,7 @@ Input:
 }
 ```
 
+### *Upper layer management system post configuration onto cloud native OAM and configure NF*
 * `POST`  &nbsp;&nbsp;&nbsp;&nbsp;  */ne/config*
 
 Used by upper layer management systems to configure NF.
@@ -538,6 +545,8 @@ Input:
 ```
 Configuration files are stored in cloud native OAM under path: *{sftproot}/conf/write/{nfType}/{neId}/*
 
+
+### *Upper layer management system change NF's configuration to hostorical version*
 * `POST`  &nbsp;&nbsp;&nbsp;&nbsp; */ne/config/swtich*
 
 Used by upper layer management systems to change NF's configuration to a historical version. Cloud native OAM support to store 5 versions of historical configurations.
