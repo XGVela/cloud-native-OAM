@@ -497,13 +497,13 @@ Input:
      Status:200,
      Message:Request is successful,
      "file": [{
-         "ne_id": "网元ID",
-         "ne_type ": "网元类型"，
-         "cf_version": "配置版本号"，
-         "cf_path": "配置文件路径"，
-         "cf_name": "配置文件名称"，
-         "cf_size": "配置文件大小"，
-         "cf_updatetime": "配置文件更新时间"
+         "ne_id": "Your NF ID",
+         "ne_type ": "Your NF type"，
+         "cf_version": "Version number of your NF's configuration (in-use)"，
+         "cf_path": "Path of NF's configuration file"，
+         "cf_name": "Name of NF's configuration file"，
+         "cf_size": "Size of NF's configuration file"，
+         "cf_updatetime": "Time stamp of updating NF's configuration with this configuration file"
      }]
 }
 ```
@@ -525,13 +525,13 @@ Input:
 <u>Request Example</u>
 ```
 {
- "neType": "网元类型",
- "neId": "网元实例ID",
- "vnfName": "网元名称",
- "callback_url": "上层系统接收地址",
+ "neType": "Your NF type",
+ "neId": "Your NF ID",
+ "vnfName": "Your NF name",
+ "callback_url": "Callback URL of upper layer management system",
  "file": {
-     "cf_name": "配置文件路径",
-     "cf_path": "配置文件名称"
+     "cf_name": "Name of NF's configuration file",
+     "cf_path": "Path of NF's configuration file"
     }
 }
 ```
@@ -563,13 +563,13 @@ Input:
 <u>Request Example</u>
 ```
 {
- "neType": "网元类型",
- "neId": "网元实例ID",
- "vnfName": "网元名称",
- "callback_url": "上层系统接收地址",
+ "neType": "Your NF type",
+ "neId": "Your NF ID",
+ "vnfName": "Your NF name",
+ "callback_url": "Callback URL of upper layer management system",
  "file": {
-     "cf_name": "配置文件路径",
-     "cf_path": "配置文件名称"
+     "cf_name": "Name of NF's configuration file",
+     "cf_path": "Path of NF's configuration file"
     }
 }
 ```
