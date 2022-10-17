@@ -82,8 +82,12 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
         if (task.getType().equals(OamVnfConfigFileServiceImpl.CONF_SWITCH)) {
 
             OamVnfConfigFile vnfConfigFile = vnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getCfVersion, task.getVersion()));
+            OamVnfConfigFile source = OamVnfConfigFile.builder().isUse(false).build();
+            log.info("switch other files false");
+            vnfConfigFileMapper.update(source, Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getNeId, vnfConfigFile.getNeId()));
             vnfConfigFile.setIsUse(true);
             vnfConfigFileMapper.updateById(vnfConfigFile);
+            log.info("switch file {} true", vnfConfigFile.getCfVersion());
 
             task.setCreateTime(new Date());
             task.setStatus(OamVnfConfigTask.statusType.DONE.getName());

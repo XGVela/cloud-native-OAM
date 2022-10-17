@@ -52,7 +52,7 @@ public class OamSubscribeControllerImpl implements IOamSubscribeController {
         }
         if (oamVnfs.size() > 0) {
             for (OamVnf oamVnf : oamVnfs) {
-                if (!" 1".equals(oamVnf.getVnfManageStatus())) {
+                if (!"1".equals(oamVnf.getVnfManageStatus())) {
                     throw new ServiceException(" Upper-layer OSS does not manage this NE: + oamVnf.getNeId()  creating a subscription task failed");
                 }
             }
