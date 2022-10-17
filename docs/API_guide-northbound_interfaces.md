@@ -497,7 +497,7 @@ Input:
      Status:200,
      Message:Request is successful,
      "file": [{
-         "ne_id": "网元ID",
+         "ne_id": "ID of NF",
          "ne_type ": "网元类型"，
          "cf_version": "配置版本号"，
          "cf_path": "配置文件路径"，
