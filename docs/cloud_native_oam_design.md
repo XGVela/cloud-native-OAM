@@ -10,14 +10,15 @@ As the above operation and management functions are independent from network fun
 
 As listed above, cloud native OAM usually has following functions: NF register, NF management enabler, NF heartbeat management, NF configuration management, NF topology management, NF signaling tracing, NF performance management, NF alarm management, and NF log management.
 
-Cloud native OAM interacts with NFs southbound and upper layer management systems northbound (such as OSS, MANO, etc.). So, following cloud native design principles, the above cloud native OAM functions have been designed as microservices which can be divided into three logical layers:
+Cloud native OAM interacts with NFs on southbound and upper layer management systems on northbound (such as OSS, MANO, etc.). So, following cloud native design principles, the above cloud native OAM functions have been designed as microservices in three logical layers:
 
 > *	**Agent layer**
 > 
-> Cloud native OAM agent layer are in charge of southbound interaction with NFs, which include NF’s data collection and operational command delivery. NFs can establish connection with cloud native OAM and use its functions through unified mechanisms defined by agent layer.
+> Cloud native OAM agent layer is in charge of southbound interaction with NFs, which include NF’s data collection and operational command delivery. NFs can establish connection with cloud native OAM and use its functions through unified mechanisms defined by agent layer.
 > 
 > Each cloud native OAM function could have an independent agent-layer microservice to ensure flexibility, while all cloud native OAM functions can have one agent-layer microservices to avoid managing too many microservices. Within Release 11.2022, the latter solution has been selected.
-Agent layer is usually deployed together with NFs in similar Kubernetes environment. One agent layer microservice can serve one or multiple NFs.
+>
+>Agent layer is usually deployed together with NFs in similar Kubernetes environment. One agent layer microservice can serve one or multiple NFs.
 >
 > * **Processing layer**
 > 
@@ -25,15 +26,15 @@ Agent layer is usually deployed together with NFs in similar Kubernetes environm
 > 
 > Each cloud native OAM function is recommended to have an independent processing-layer microservice.
 > 
-> Processing layer can be deployed with agent layer and NF in the same Kubernetes environment, as well as be deployed in different Kubernetes environment. One processing layer microservice and serve one or multiple agent layer microservice.
+> Processing layer can be deployed with agent layer and NF in the same Kubernetes environment, as well as be deployed in different Kubernetes environment. One processing layer microservice can serve one or multiple agent layer microservices.
 > 
 > * **Data sharing layer**
 > 
-> Data sharing layer provides a group of unified interfaces northbound for management systems to subscribe data from it and send commands to NF through it. 
+> Data sharing layer provides a group of northbound unified interfaces for management systems to subscribe data from it and send commands to NF through it. 
 > 
 > In release 11.2022, data sharing layer microservice and processing layer microservice of each cloud native OAM function are been wrapped together into one microservice to avoid increasing management complexity.
 
-Place holder for figure: logical layers of cloud native OAM
+![avatar](https://github.com/QihuiZhao/cloud-native-OAM/blob/main/figure/three_layer_architecture.png)
 
 ## Functional design
 
