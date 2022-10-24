@@ -479,7 +479,7 @@ There exist three-layer relationship within NF, which is NF (the NF layer), nf-s
 }
 ```
 
-### *Upper layer management system get in-use configuration info of managed NFs*
+### *Upper layer management system get configurations of managed NFs*
 * `GET`  &nbsp;&nbsp;&nbsp;&nbsp;  */ne/config*
 
 Used by upper layer management systems to get basic configuration info of NFs.
