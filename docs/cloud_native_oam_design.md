@@ -34,7 +34,7 @@ Cloud native OAM interacts with NFs on southbound and upper layer management sys
 > 
 > In release 11.2022, data sharing layer microservice and processing layer microservice of each cloud native OAM function are been wrapped together into one microservice to avoid increasing management complexity.
 
-![avatar](https://github.com/QihuiZhao/cloud-native-OAM/blob/main/figure/three_layer_architecture.png)
+![avatar](https://github.com/XGVela/cloud-native-OAM/blob/main/figure/three_layer_architecture.png)
 
 ## Functional design
 
