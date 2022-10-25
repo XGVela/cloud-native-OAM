@@ -119,7 +119,7 @@ Input:
 }
 ```
 
-### *Query "newly registered NF" info of target upper layer manegement system*
+### *Get "newly registered NF" info of target upper layer manegement system*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */system/jobs/register*
 
 Get new NF register info.
@@ -202,7 +202,7 @@ Input:
 }
 ```
 
-### *Query subscription data types of target upper layer manegement systemF*
+### *Get subscription data types of target upper layer manegement systemF*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; *system/jobs/business*
 
 Get NF's subscription info of NF alarms and performance.
@@ -388,7 +388,7 @@ current=1&endTime=2022-09-10 18:00:00&neId=upfinstanceid002&neType=upf&size=10&s
 }
 ```
 
-### *Upper layer management system get topology information of managed NFs*
+### *Upper layer management system get business topology of managed NFs*
 * `GET` &nbsp;&nbsp;&nbsp;&nbsp; */getNfResources/{neType}/{neId}*
 
 Used by upper layer management systems to get NF's microservice topology and corresponding resource topology.
@@ -479,7 +479,7 @@ There exist three-layer relationship within NF, which is NF (the NF layer), nf-s
 }
 ```
 
-### *Upper layer management system get configurations of managed NFs*
+### *Upper layer management system get configuration list of managed NFs*
 * `GET`  &nbsp;&nbsp;&nbsp;&nbsp;  */ne/config*
 
 Used by upper layer management systems to get basic configuration info of NFs.
