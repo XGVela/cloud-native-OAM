@@ -18,7 +18,7 @@ The Cloud Native OAM system consists of several key services that are separately
 * If you want to repackage this services jar:
     * Linux 3.10.0+
     * JDK 1.8+
-    * Apache Maven  3.0.0+
+    * Apache Maven 3.0.0+
 * If you want to rebuild this services OCI image:
     * Linux 3.10.0+
     * Docker 20.10.0+ or other imagemaker tools
@@ -67,14 +67,26 @@ mvn package
 
 >Under normal circumstances, you will see the following output indicating that the compilation was successful
 ```
+[INFO] Reactor Summary:
+[INFO]
 [INFO] oam ............................................... SUCCESS [0.002s]
-[INFO] oam-network-common ................................ SUCCESS [7.980s]
-[INFO] oam-network-grpc-common ........................... SUCCESS [0.675s]
-[INFO] oam-network-agent ................................. SUCCESS [7.635s]
-[INFO] oam-network-log ................................... SUCCESS [1.291s]
-[INFO] oam-network-auth .................................. SUCCESS [1.206s]
-[INFO] oam-network-alarm ................................. SUCCESS [2.175s]
-[INFO] oam-network-subscribe-publish ..................... SUCCESS [1.653s]
+[INFO] oam-network-common ................................ SUCCESS [9.914s]
+[INFO] oam-network-grpc-common ........................... SUCCESS [0.183s]
+[INFO] oam-network-agent ................................. SUCCESS [2.263s]
+[INFO] oam-network-config ................................ SUCCESS [0.639s]
+[INFO] oam-network-nftube ................................ SUCCESS [0.615s]
+[INFO] oam-network-subscribe-publish ..................... SUCCESS [0.665s]
+[INFO] oam-network-log ................................... SUCCESS [0.514s]
+[INFO] oam-network-auth .................................. SUCCESS [0.423s]
+[INFO] oam-network-alarm ................................. SUCCESS [0.586s]
+[INFO] oam-network-performance ........................... SUCCESS [0.302s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 17.320s
+[INFO] Finished at: Tue Nov 01 15:32:53 CST 2022
+[INFO] Final Memory: 112M/1327M
+[INFO] ------------------------------------------------------------------------
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -102,33 +114,36 @@ systemctl start docker
 The Cloud Native OAM system’s several key services use the same method to build OCI image.This guide document uses oam-network-log as an example.After compile oam-network-log source code, You can find the jar file in ~/oam/cloud-native-OAM/oam-network-log/target/oam-network-log-1.0-SNAPSHOT.jar
  
 ####  Step2: Build OCI image
- 
-```
-cd ~/oam/cloud-native-OAM/oam-network-log
-cp target/oam-network-log-1.0-SNAPSHOT.jar ci/app.jar
-cd ci
-docker build . -f Dockerfile
-```
->Under normal circumstances, you will see the following output
+cd ~/oam/cloud-native-OAM/docs
+/bin/sh  /image.sh
+
+> Under normal circumstances, you will see the following output
+
 ```
 Successfully built 3f1103058de1
 ```
->You can find the OCI image in the local image repo.
+
+> You can find the OCI image in the local image repo.
+
 ```
-[root@cmcc oam-network-log]# docker image ls |grep 3f1103058de1<none>                                                       <none>         3f1103058de1   19 minutes ago   271MB
+[root@cmcc oam-network-log]# docker image ls |grep 3f1103058de1<none>                            <none>     3f1103058de1  19 minutes ago  271MB
 ```
+
 #### Step3: Export OCI image to tar
+
 ```
 docker save 3f1103058de1 > oam-network-log.tar
 ```
 
 ## Installation
 #### Step1: Prepare
-```
-kubectl -n oam-system create secret generic additional-external 
---from-file=/root/oam/data/additional-prometheus.yaml
 
-kubectl -n oam-system create secret generic etcd-client-certs  \
+```
+cd ~/oam
+git clone https://github.com/XGVela/cloud-native-OAM-builder.git
+cd cloud-native-OAM-builder
+
+kubectl -n oam-system create secret generic etcd-client-certs \
 --from-file=/etc/ssl/etcd/ssl/ca.pem \
 --from-file=/etc/ssl/etcd/ssl/member-b5g-iepnm-vm01.pem \
 --from-file=/etc/ssl/etcd/ssl/member-b5g-iepnm-vm01-key.pem
@@ -136,16 +151,32 @@ kubectl -n oam-system create secret generic etcd-client-certs  \
 
 #### Step2: Upload OAM's images to image repository
 
+```
+docker push registry.local:9001/omc/oam-network-agent:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-alarm:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-auth:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-config:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-log:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-nftube:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-nfregister:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-performance:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-nftube:1.0-SNAPSHOT
+docker push registry.local:9001/omc/oam-network-subscribe-publish:1.0-SNAPSHOT
+```
+
 #### Step3: Install basic component
+
 ```
-mkdir ~/oam
-cd ~/oam
-git clone https://github.com/XGVela/cloud-native-OAM-builder.git
-cd cloud-native-OAM-builder
+cd ~/oam/cloud-native-OAM-builder/
 kubectl create ns oam-system
-helm install oam-basic-component charts -n oam-system
+cd ~/oam/cloud-native-OAM-builder/oam-basic/charts/mysql
+docker build . -f Dockerfile   -t mysql:5.7.28
+
+helm install oam ~/oam/cloud-native-OAM-builder/oam-basic -n oam-system
 ```
+
 Check the installation status
+
 ```
 kubectl get pod -n oam-system
 NAME                                                 READY   STATUS    RESTARTS   AGE
@@ -165,26 +196,54 @@ oam-sftp-agent-b5dd77967-bf68l                       1/1     Running   0        
 oam-sftp-conf-f8f454466-hhf26                        1/1     Running   0          4d8h
 oam-zookeeper-0                                      1/1     Running   0          7d8h
 prometheus-oam-kube-prometheus-stack-prometheus-0    2/2     Running   1          6d3h
-socat-84b7c89dcb-9bbzv                               1/1     Running   0          7d8h
+```
+
+#### Step4: Install OAM simulator component
+
+```
+cd ~/oam/cloud-native-OAM-builder/
+kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid001
+kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid002
+
+helm install simulator ~/oam/cloud-native-OAM-builder/simulator -n oam-system
+helm install simulator002 ~/oam/cloud-native-OAM-builder/simulator002 -n oam-system
+
+helm uninstall simulator -n oam-system
+helm uninstall simulator002 -n oam-system
+```
+
+Check the installation status in inspur-xgvela1-infra-upf-upfinstanceid001 and inspur-xgvela1-infra-upf-upfinstanceid002 namespace
+
+```
+kubectl get pods -n inspur-xgvela1-infra-upf-upfinstanceid001
+NAME                         READY   STATUS    RESTARTS   AGE
+simulator-5d6446d5df-hfbv2   2/2     Running   2          23h
+
+kubectl get pods -n inspur-xgvela1-infra-upf-upfinstanceid002
+NAME                         READY   STATUS    RESTARTS   AGE
+simulator-6b4956b9f6-m4xbf   2/2     Running   2          23h
 ```
 
 #### Step4: Install OAM component
+
 ```
 cd ~/oam/cloud-native-OAM-builder/
 kubectl create ns oam-system
-helm install oam oam-charts -n oam-system
-```
-Check the installation status
-```
-kubectl get pods  -n oam-system |grep network
-oam-network-agent-c69d89c85-c8wqg                    1/1     Running   0          3d7h
-oam-network-alarm-76696f4f99-mqxl4                   1/1     Running   0          3d7h
-oam-network-auth-779c9bf599-f7bw6                    1/1     Running   0          3d7h
-oam-network-config-66f64fcf6c-87vxj                  1/1     Running   0          3d7h
-oam-network-log-7f9c7d6c8f-lws4b                     1/1     Running   0          3d7h
-oam-network-nfregister-6457fb79ff-swkqk              1/1     Running   0          3d7h
-oam-network-nftube-6f45c6f957-4jqvh                  1/1     Running   0          2d
-oam-network-performance-55c59d585c-kp875             1/1     Running   0          3d7h
-oam-network-subscribe-publish-854c665f84-ghqgw       1/1     Running   0          3d7h
+helm install oam-network ~/oam/cloud-native-OAM-builder/oam-network -n oam-system
 ```
 
+Check the installation status
+
+```
+kubectl get pods  -n oam-system |grep network
+oam-network-agent-7775bc47c9-454l5                   1/1     Running   0          28m
+oam-network-alarm-7ddf68766c-l75bx                   1/1     Running   0          28m
+oam-network-auth-6bc4fd4f97-v8xtm                    1/1     Running   0          28m
+oam-network-config-66964b4758-5k686                  1/1     Running   0          28m
+oam-network-heartbeat-755d54f465-n8926               1/1     Running   0          28m
+oam-network-log-7965b97645-2ghgg                     1/1     Running   0          28m
+oam-network-nfregister-bdbb55cbc-7k46s               1/1     Running   0          28m
+oam-network-nftube-b47c85757-gjmfz                   1/1     Running   0          28m
+oam-network-performance-7569f6c7b5-59c4c             1/1     Running   0          28m
+oam-network-subscribe-publish-74d7f7999b-29kz5       1/1     Running   0          28m
+```
