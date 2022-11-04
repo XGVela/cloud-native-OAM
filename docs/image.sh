@@ -31,10 +31,10 @@ cp target/oam-network-nftube-1.0-SNAPSHOT.jar ci/linux/app.jar
 cd ci/linux
 docker build . -f Dockerfile   -t registry.local:9001/omc/oam-network-nftube:1.0-SNAPSHOT
 
-cd ~/oam/cloud-native-OAM/oam-network-nfregister/ci
-cp oam-network-nfregister-1.0-SNAPSHOT.jar linux/app.jar
-cd linux
-docker build . -f Dockerfile   -t registry.local:9001/omc/oam-network-nfregister:1.0-SNAPSHOT
+#cd ~/oam/cloud-native-OAM/oam-network-nfregister/ci
+#cp oam-network-nfregister-1.0-SNAPSHOT.jar linux/app.jar
+#cd linux
+#docker build . -f Dockerfile   -t registry.local:9001/omc/oam-network-nfregister:1.0-SNAPSHOT
 
 cd ~/oam/cloud-native-OAM/oam-network-performance/
 cp target/oam-network-performance-1.0-SNAPSHOT.jar ci/linux/app.jar
