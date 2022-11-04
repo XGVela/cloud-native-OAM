@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class HeartBeatGrpcClient {
     @Resource
     private HeartBeatConfiguration heartBeatConfiguration;
-    private static final int deadlineTime = 5;
+    private static final int deadlineTime = 50;
     private ManagedChannel channel;
     private HeartBeatReportServiceGrpc.HeartBeatReportServiceBlockingStub heartBeatReportServiceBlockingStub;
 

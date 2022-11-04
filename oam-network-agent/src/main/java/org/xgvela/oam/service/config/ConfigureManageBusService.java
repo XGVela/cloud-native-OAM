@@ -34,7 +34,7 @@ public class ConfigureManageBusService extends ConfigureManagerServiceGrpc.Confi
     ////   D:\test\write
     private static final String WritePath = "/root/sftp/write";
     private static final String UpdateCfgWithFileSucceed = "0";
-
+    private static final String simulator_server = "simulator.inspur-xgvela1-infra-upf-";
     @Autowired
     private ConfigureGrpcClient configureGrpcClient;
     @Autowired
@@ -50,13 +50,23 @@ public class ConfigureManageBusService extends ConfigureManagerServiceGrpc.Confi
         lambdaQueryWrapper.eq(OamVnf::getNeId, updateCfgFileReq.getNeId());
         OamVnf oamVnf = iOamVnfSelectService.getOne(lambdaQueryWrapper);
         log.info("VnfManageIp {},VnfSignalPort {}", oamVnf.getVnfManageIp(), Integer.valueOf(oamVnf.getVnfSignalPort()));
-        configureGrpcClient = configureGrpcClient.getConfigureGrpcClient(oamVnf.getVnfManageIp(), Integer.valueOf(oamVnf.getVnfSignalPort()));
+
+        if (oamVnf.getVnfManageIp().contains("agent")) {
+            log.info("ip vnfSignalPort netype neid : {} , {},{} , {}", simulator_server + updateCfgFileReq.getNeId(), Integer.valueOf(oamVnf.getVnfSignalPort()), updateCfgFileReq.getNfType(), updateCfgFileReq.getNeId());
+//            configureGrpcClient = configureGrpcClient.getConfigureGrpcClient(simulator_server + updateCfgFileReq.getNeId(), Integer.valueOf(oamVnf.getVnfSignalPort()));
+            configureGrpcClient = configureGrpcClient.getConfigureGrpcClient(simulator_server + updateCfgFileReq.getNeId(), Integer.valueOf(oamVnf.getVnfSignalPort()));
+        } else {
+            log.info("ip vnfSignalPort netype neid : {} , {},{} , {}", oamVnf.getVnfManageIp(),  Integer.valueOf(oamVnf.getVnfSignalPort()), updateCfgFileReq.getNfType(), updateCfgFileReq.getNeId());
+            configureGrpcClient = configureGrpcClient.getConfigureGrpcClient(oamVnf.getVnfManageIp(), Integer.valueOf(oamVnf.getVnfSignalPort()));
+        }
 
 //        String writeConfPath = WritePath + "\\" + updateCfgFileReq.getFileName();
         String writeConfPath = String.format("%s/UPF/%s/", WritePath, updateCfgFileReq.getNeId());
         String writeConfPathFile = String.format("%s/UPF/%s/%s", WritePath, updateCfgFileReq.getNeId(), updateCfgFileReq.getFileName());
 //        String filePathWindows = ReadPath + "/UPF/" + neId + "/" + NfConfFileName;
-        SftpUtils sftpAgentClient = new SftpUtils(sftpConfig.getSftpAgentPath(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
+
+        log.info("updateConfigFile sftp: ip{} port{} user{} password{}", sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
+        SftpUtils sftpAgentClient = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
         ByteString bytes = getConfigFileBytes(writeConfPath, writeConfPathFile, sftpAgentClient);
         UpdateFileCallBack updateFileCallBack = new UpdateFileCallBack();
         configureGrpcClient.updateConfigFileBusService(updateFileCallBack, updateCfgFileReq.getNfType(), updateCfgFileReq.getNeId(), updateCfgFileReq.getTaskId(), updateCfgFileReq.getFileName(), bytes);
@@ -79,8 +89,7 @@ public class ConfigureManageBusService extends ConfigureManagerServiceGrpc.Confi
                 log.info("Exception::",e);
             }
             String fileContent = FileUtils.readFileToString(new File(filePath), "UTF-8");
-            ByteString bytes = ByteString.copyFromUtf8(fileContent);
-            return bytes;
+            return ByteString.copyFromUtf8(fileContent);
         } catch (IOException ioException) {
             log.info("Read ConfigFile Occurs Exception: " + ioException.getMessage());
         }

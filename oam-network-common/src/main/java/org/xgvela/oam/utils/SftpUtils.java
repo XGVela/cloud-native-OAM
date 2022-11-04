@@ -40,6 +40,7 @@ public class SftpUtils {
         this.port = (port <= 0) ? 21 : port;
         this.username = StringUtils.isEmpty(username) ? "anonymous" : username;
         this.password = password;
+        log.info("host [{}],port [{}],username [{}],password [{}]", host, port, username, password);
         try {
             this.sshClient.connect(host, port);
             this.sshClient.authPassword(username, password);
@@ -103,7 +104,6 @@ public class SftpUtils {
     }
 
 
-
     public void downloadDir(String sftpPathAndName, String localPath, SftpUtils sftpConfigClient, String version, String method) throws IOException {
         try {
             try {
@@ -115,7 +115,7 @@ public class SftpUtils {
                         downloadDir(String.format("%s/%s", sftpPathAndName, rri.getName()), String.format("%s/%s", localPath, rri.getName()), sftpConfigClient, version, method);
                     } else {
                         if (ObjectUtils.isNotEmpty(version)) {
-                            log.info("version: {}",version);
+                            log.info("version: {}", version);
                             downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, version + "_" + rri.getName())), sftpConfigClient);
                         } else {
                             downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, rri.getName())), sftpConfigClient);
