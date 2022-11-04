@@ -47,6 +47,7 @@ public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.
     private String configServerIp;
     @Value("${configServerhttpPort}")
     private String configServerhttpPort;
+    private static final String simulator_server = "simulator.inspur-xgvela1-infra-upf-";
 
     @Autowired
     private SftpConfig sftpConfig;
@@ -58,7 +59,7 @@ public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.
     private ConfigureGrpcClient configureGrpcClient;
 
     @Override
-    public void cfgUpdateResult(CfgResultNotifyReq cfgResultNotifyReq, StreamObserver<CfgResultNotifyResp> responseObserver)  {
+    public void cfgUpdateResult(CfgResultNotifyReq cfgResultNotifyReq, StreamObserver<CfgResultNotifyResp> responseObserver) {
         log.info("Accepted CfgResultNotifyReq request: " + cfgResultNotifyReq.getNfType() + "," + cfgResultNotifyReq.getInstanceId() + "," + cfgResultNotifyReq.getTaskId());
 
         LambdaQueryWrapper<OamVnf> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -67,20 +68,33 @@ public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.
         OamVnf oamVnf = iOamVnfSelectService.getOne(lambdaQueryWrapper);
 
         log.info("cfgUpdateResult >> config ,ip {}, port{}", oamVnf.getVnfManageIp(), Integer.parseInt(oamVnf.getVnfSignalPort()));
+
         syncConfigGrpcClient = syncConfigGrpcClient.getSyncConfigGrpcClient(oamVnf.getVnfManageIp(), Integer.parseInt(oamVnf.getVnfSignalPort()));
+
+        if (oamVnf.getVnfManageIp().contains("agent")) {
+            log.info("ip vnfSignalPort netype neid : {} , {},{} , {}", simulator_server + cfgResultNotifyReq.getInstanceId(), Integer.valueOf(oamVnf.getVnfSignalPort()), cfgResultNotifyReq.getNfType(), cfgResultNotifyReq.getInstanceId());
+            syncConfigGrpcClient = syncConfigGrpcClient.getSyncConfigGrpcClient(simulator_server + cfgResultNotifyReq.getInstanceId(), Integer.parseInt(oamVnf.getVnfSignalPort()));
+        } else {
+            log.info("ip vnfSignalPort netype neid : {} , {},{} , {}", oamVnf.getVnfManageIp(),  Integer.valueOf(oamVnf.getVnfSignalPort()), cfgResultNotifyReq.getNfType(), cfgResultNotifyReq.getInstanceId());
+            syncConfigGrpcClient = syncConfigGrpcClient.getSyncConfigGrpcClient(oamVnf.getVnfManageIp(), Integer.parseInt(oamVnf.getVnfSignalPort()));
+        }
+
         Iterator<GetFileResp> iterator = syncConfigGrpcClient.getConfigFile(cfgResultNotifyReq.getNfType(), cfgResultNotifyReq.getInstanceId(), NfConfFileName);
+        log.info("syncConfigGrpcClient.getConfigFile success !!");
 
         String filePathFile = String.format("%s/UPF/%s/%s", ReadPath, cfgResultNotifyReq.getInstanceId(), NfConfFileName);
         String filePath = String.format("%s/UPF/%s/%s", ReadPath, cfgResultNotifyReq.getInstanceId(), NfConfFileName);
-        String sftpFilePath=filePath.replaceAll("/root/sftp/","/sftp-agent/sftp/");
+        String sftpFilePath = filePath.replaceAll("/root/sftp/", "/sftp-agent/sftp/");
 
+        log.info("cfgUpdateResult sftp: ip{} port{} user{} password{}", sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
         SftpUtils sftpAgentClient = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
+
         File file = new File(filePathFile);
         try {
             sftpAgentClient.mkdir(sftpFilePath);
             Thread.sleep(5000);
         } catch (Exception e) {
-            log.info("Exception::",e);
+            log.info("Exception::", e);
         }
         while (iterator.hasNext()) {
             GetFileResp getFileResp = iterator.next();

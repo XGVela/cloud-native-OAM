@@ -26,7 +26,7 @@ The Cloud Native OAM system consists of several key services that are separately
 
 ## Compile [optional]
 
-You can complete the OAM source code compilation in the local Linux environment.  
+You can complete the OAM source code compilation in the local Linux environment.
 This guide document uses CentOS7 as an example.
  
  
@@ -56,7 +56,7 @@ OS name: "linux", version: "3.10.0-957.el7.x86_64", arch: "amd64", family: "unix
 mkdir ~/oam
 cd ~/oam
 git clone https://github.com/XGVela/cloud-native-OAM.git
-cd cloud-native-OAM
+cd ~/oam/cloud-native-OAM
 ```
 
 #### Step4: Compile use maven
@@ -115,7 +115,7 @@ The Cloud Native OAM system’s several key services use the same method to buil
  
 ####  Step2: Build OCI image
 cd ~/oam/cloud-native-OAM/docs
-/bin/sh  /image.sh
+/bin/sh  image.sh
 
 > Under normal circumstances, you will see the following output
 
@@ -152,16 +152,7 @@ kubectl -n oam-system create secret generic etcd-client-certs \
 #### Step2: Upload OAM's images to image repository
 
 ```
-docker push registry.local:9001/omc/oam-network-agent:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-alarm:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-auth:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-config:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-log:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-nftube:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-nfregister:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-performance:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-nftube:1.0-SNAPSHOT
-docker push registry.local:9001/omc/oam-network-subscribe-publish:1.0-SNAPSHOT
+
 ```
 
 #### Step3: Install basic component
@@ -169,7 +160,9 @@ docker push registry.local:9001/omc/oam-network-subscribe-publish:1.0-SNAPSHOT
 ```
 cd ~/oam/cloud-native-OAM-builder/
 kubectl create ns oam-system
+
 cd ~/oam/cloud-native-OAM-builder/oam-basic/charts/mysql
+docker pull mysql:5.7.28
 docker build . -f Dockerfile   -t mysql:5.7.28
 
 helm install oam ~/oam/cloud-native-OAM-builder/oam-basic -n oam-system
@@ -207,9 +200,6 @@ kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid002
 
 helm install simulator ~/oam/cloud-native-OAM-builder/simulator -n oam-system
 helm install simulator002 ~/oam/cloud-native-OAM-builder/simulator002 -n oam-system
-
-helm uninstall simulator -n oam-system
-helm uninstall simulator002 -n oam-system
 ```
 
 Check the installation status in inspur-xgvela1-infra-upf-upfinstanceid001 and inspur-xgvela1-infra-upf-upfinstanceid002 namespace
@@ -224,11 +214,10 @@ NAME                         READY   STATUS    RESTARTS   AGE
 simulator-6b4956b9f6-m4xbf   2/2     Running   2          23h
 ```
 
-#### Step4: Install OAM component
+#### Step5: Install OAM component
 
 ```
 cd ~/oam/cloud-native-OAM-builder/
-kubectl create ns oam-system
 helm install oam-network ~/oam/cloud-native-OAM-builder/oam-network -n oam-system
 ```
 
