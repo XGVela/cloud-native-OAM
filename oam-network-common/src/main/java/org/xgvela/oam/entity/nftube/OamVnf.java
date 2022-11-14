@@ -72,7 +72,7 @@ public class OamVnf extends Model<OamVnf> {
     @AllArgsConstructor
     @ToString
     public enum vnfStatusType {
-        ONLINE("1", "online "), OFFLINE("3"," offline ");
+        ONLINE("1", "ONLINE "), OFFLINE("3"," OFFLINE ");
         @Getter
         private final String id;
         @Getter
@@ -82,7 +82,7 @@ public class OamVnf extends Model<OamVnf> {
     @AllArgsConstructor
     @ToString
     public enum vnfManageStatusType {
-        MANAGED("1", "managed "), TUBE("0"," managed ");
+        MANAGED("1", "MANAGED "), TUBE("0"," TUBE ");
         @Getter
         private final String id;
         @Getter

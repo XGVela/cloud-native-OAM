@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: oam-network-resource
+  cloud:
+    nacos:
+      config:
+        name: oam-network-resource
+        namespace: cc2bb596-c3b5-43e2-842c-16f055efe424
+        refresh-enabled: true
+        server-addr: oam-nacos.oam-system:8848

@@ -273,7 +273,7 @@ public  final class NfTaskResp extends
               NfTaskResp.class, Builder.class);
     }
 
-    // Construct using NfTaskResp.newBuilder()
+    // Construct using org.xgvela.oam.nftask.NfTaskResp.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }

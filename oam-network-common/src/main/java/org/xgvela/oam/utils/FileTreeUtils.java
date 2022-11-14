@@ -36,9 +36,9 @@ public class FileTreeUtils {
     }
 
     // sftpAgentClient, version,sftpConfigClient
-    public static void collectFileFromSftpToLocalForVersion(String localWorkPath, String sftpPath, SftpUtils sftpAgentClient, SftpUtils sftpConfigClient,String method, String version) {
+    public static void collectFileFromSftpToLocalForVersion(String localWorkPath, String sftpPath, SftpUtils sftpAgentClient, SftpUtils sftpConfigClient, String method, String version) {
         try {
-            if(method.equals("readWithoutVersion")){
+            if (method.equals("readWithoutVersion")) {
                 Optional.ofNullable(isFileExisted(localWorkPath)).ifPresent(item -> {
                     try {
                         FileUtils.forceDelete(item);
@@ -47,7 +47,7 @@ public class FileTreeUtils {
                     }
                 });
             }
-            sftpAgentClient.downloadDir(sftpPath, localWorkPath, sftpConfigClient , version,method);
+            sftpAgentClient.downloadDir(sftpPath, localWorkPath, sftpConfigClient, version, method);
             sftpAgentClient.close();
         } catch (Exception e) {
             log.error("Exception::", e);

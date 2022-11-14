@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: oam-network-signaltrace
+  cloud:
+    nacos:
+      config:
+        name: oam-network-signaltrace
+        namespace:  de0843e9-a970-4de8-90f7-85b9caccaf17
+        refresh-enabled: true
+#        server-addr: oam-nacos.oam-system:8848
+        server-addr: 111.111.63.136:30430

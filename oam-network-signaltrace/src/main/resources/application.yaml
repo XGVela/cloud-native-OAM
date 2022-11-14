@@ -1,0 +1,13 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        namespace:  de0843e9-a970-4de8-90f7-85b9caccaf17
+#        server-addr: oam-nacos.oam-system:8848
+        server-addr: 111.111.63.136:30430

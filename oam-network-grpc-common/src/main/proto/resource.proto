@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.xgvela.oam.resource";
+option java_outer_classname = "resource";
+option objc_class_prefix = "resource";
+
+package resource;
+
+service SyncResService{
+  rpc GetResFile(GetFileReq)returns(stream GetFileResp){}
+}
+
+message GetFileResp
+{
+  string result = 1;//0succ,otherfail
+  bytes fileData = 2;//filecontents,ifsuccess
+}
+
+message GetFileReq
+{
+  string nfType = 1;
+  string neId = 2;
+  string fileName = 3;
+}

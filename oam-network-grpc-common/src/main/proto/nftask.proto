@@ -13,14 +13,16 @@ service NfTaskService{
 
 message NfTaskReq{
   uint32 taskId = 1;
-  string dataType = 2;
-  string userNumber = 3;
-  uint32 runNow = 4;
-  uint32 timeLength = 5;
-  uint64 startTime = 6;
-  uint64 endTime = 7;
-  uint32 status = 8;
-  repeated string interfaceType = 9;
+  string neId = 2;
+  string nfType = 3;
+  string dataType = 4;
+  string userNumber = 5;
+  bool runNow = 6;
+  double timeLength = 7;
+  uint64 startTime = 8;
+  uint64 endTime = 9;
+  uint32 status = 10;
+  string interfaceType = 11;
 }
 
 message NfTaskResp{
