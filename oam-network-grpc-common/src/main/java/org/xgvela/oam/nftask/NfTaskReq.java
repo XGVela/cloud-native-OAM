@@ -16,14 +16,16 @@ public  final class NfTaskReq extends
   }
   private NfTaskReq() {
     taskId_ = 0;
+    neId_ = "";
+    nfType_ = "";
     dataType_ = "";
     userNumber_ = "";
-    runNow_ = 0;
-    timeLength_ = 0;
+    runNow_ = false;
+    timeLength_ = 0D;
     startTime_ = 0L;
     endTime_ = 0L;
     status_ = 0;
-    interfaceType_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    interfaceType_ = "";
   }
 
   @Override
@@ -59,47 +61,56 @@ public  final class NfTaskReq extends
           case 18: {
             String s = input.readStringRequireUtf8();
 
-            dataType_ = s;
+            neId_ = s;
             break;
           }
           case 26: {
             String s = input.readStringRequireUtf8();
 
+            nfType_ = s;
+            break;
+          }
+          case 34: {
+            String s = input.readStringRequireUtf8();
+
+            dataType_ = s;
+            break;
+          }
+          case 42: {
+            String s = input.readStringRequireUtf8();
+
             userNumber_ = s;
-            break;
-          }
-          case 32: {
-
-            runNow_ = input.readUInt32();
-            break;
-          }
-          case 40: {
-
-            timeLength_ = input.readUInt32();
             break;
           }
           case 48: {
 
-            startTime_ = input.readUInt64();
+            runNow_ = input.readBool();
             break;
           }
-          case 56: {
+          case 57: {
 
-            endTime_ = input.readUInt64();
+            timeLength_ = input.readDouble();
             break;
           }
           case 64: {
 
+            startTime_ = input.readUInt64();
+            break;
+          }
+          case 72: {
+
+            endTime_ = input.readUInt64();
+            break;
+          }
+          case 80: {
+
             status_ = input.readUInt32();
             break;
           }
-          case 74: {
+          case 90: {
             String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
-              interfaceType_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000100;
-            }
-            interfaceType_.add(s);
+
+            interfaceType_ = s;
             break;
           }
         }
@@ -110,9 +121,6 @@ public  final class NfTaskReq extends
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
-        interfaceType_ = interfaceType_.getUnmodifiableView();
-      }
       makeExtensionsImmutable();
     }
   }
@@ -128,7 +136,6 @@ public  final class NfTaskReq extends
             NfTaskReq.class, Builder.class);
   }
 
-  private int bitField0_;
   public static final int TASKID_FIELD_NUMBER = 1;
   private int taskId_;
   /**
@@ -138,10 +145,78 @@ public  final class NfTaskReq extends
     return taskId_;
   }
 
-  public static final int DATATYPE_FIELD_NUMBER = 2;
+  public static final int NEID_FIELD_NUMBER = 2;
+  private volatile Object neId_;
+  /**
+   * <code>string neId = 2;</code>
+   */
+  public String getNeId() {
+    Object ref = neId_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      neId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string neId = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getNeIdBytes() {
+    Object ref = neId_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      neId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int NFTYPE_FIELD_NUMBER = 3;
+  private volatile Object nfType_;
+  /**
+   * <code>string nfType = 3;</code>
+   */
+  public String getNfType() {
+    Object ref = nfType_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      nfType_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string nfType = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getNfTypeBytes() {
+    Object ref = nfType_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      nfType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DATATYPE_FIELD_NUMBER = 4;
   private volatile Object dataType_;
   /**
-   * <code>string dataType = 2;</code>
+   * <code>string dataType = 4;</code>
    */
   public String getDataType() {
     Object ref = dataType_;
@@ -156,7 +231,7 @@ public  final class NfTaskReq extends
     }
   }
   /**
-   * <code>string dataType = 2;</code>
+   * <code>string dataType = 4;</code>
    */
   public com.google.protobuf.ByteString
       getDataTypeBytes() {
@@ -172,10 +247,10 @@ public  final class NfTaskReq extends
     }
   }
 
-  public static final int USERNUMBER_FIELD_NUMBER = 3;
+  public static final int USERNUMBER_FIELD_NUMBER = 5;
   private volatile Object userNumber_;
   /**
-   * <code>string userNumber = 3;</code>
+   * <code>string userNumber = 5;</code>
    */
   public String getUserNumber() {
     Object ref = userNumber_;
@@ -190,7 +265,7 @@ public  final class NfTaskReq extends
     }
   }
   /**
-   * <code>string userNumber = 3;</code>
+   * <code>string userNumber = 5;</code>
    */
   public com.google.protobuf.ByteString
       getUserNumberBytes() {
@@ -206,78 +281,83 @@ public  final class NfTaskReq extends
     }
   }
 
-  public static final int RUNNOW_FIELD_NUMBER = 4;
-  private int runNow_;
+  public static final int RUNNOW_FIELD_NUMBER = 6;
+  private boolean runNow_;
   /**
-   * <code>uint32 runNow = 4;</code>
+   * <code>bool runNow = 6;</code>
    */
-  public int getRunNow() {
+  public boolean getRunNow() {
     return runNow_;
   }
 
-  public static final int TIMELENGTH_FIELD_NUMBER = 5;
-  private int timeLength_;
+  public static final int TIMELENGTH_FIELD_NUMBER = 7;
+  private double timeLength_;
   /**
-   * <code>uint32 timeLength = 5;</code>
+   * <code>double timeLength = 7;</code>
    */
-  public int getTimeLength() {
+  public double getTimeLength() {
     return timeLength_;
   }
 
-  public static final int STARTTIME_FIELD_NUMBER = 6;
+  public static final int STARTTIME_FIELD_NUMBER = 8;
   private long startTime_;
   /**
-   * <code>uint64 startTime = 6;</code>
+   * <code>uint64 startTime = 8;</code>
    */
   public long getStartTime() {
     return startTime_;
   }
 
-  public static final int ENDTIME_FIELD_NUMBER = 7;
+  public static final int ENDTIME_FIELD_NUMBER = 9;
   private long endTime_;
   /**
-   * <code>uint64 endTime = 7;</code>
+   * <code>uint64 endTime = 9;</code>
    */
   public long getEndTime() {
     return endTime_;
   }
 
-  public static final int STATUS_FIELD_NUMBER = 8;
+  public static final int STATUS_FIELD_NUMBER = 10;
   private int status_;
   /**
-   * <code>uint32 status = 8;</code>
+   * <code>uint32 status = 10;</code>
    */
   public int getStatus() {
     return status_;
   }
 
-  public static final int INTERFACETYPE_FIELD_NUMBER = 9;
-  private com.google.protobuf.LazyStringList interfaceType_;
+  public static final int INTERFACETYPE_FIELD_NUMBER = 11;
+  private volatile Object interfaceType_;
   /**
-   * <code>repeated string interfaceType = 9;</code>
+   * <code>string interfaceType = 11;</code>
    */
-  public com.google.protobuf.ProtocolStringList
-      getInterfaceTypeList() {
-    return interfaceType_;
+  public String getInterfaceType() {
+    Object ref = interfaceType_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      interfaceType_ = s;
+      return s;
+    }
   }
   /**
-   * <code>repeated string interfaceType = 9;</code>
-   */
-  public int getInterfaceTypeCount() {
-    return interfaceType_.size();
-  }
-  /**
-   * <code>repeated string interfaceType = 9;</code>
-   */
-  public String getInterfaceType(int index) {
-    return interfaceType_.get(index);
-  }
-  /**
-   * <code>repeated string interfaceType = 9;</code>
+   * <code>string interfaceType = 11;</code>
    */
   public com.google.protobuf.ByteString
-      getInterfaceTypeBytes(int index) {
-    return interfaceType_.getByteString(index);
+      getInterfaceTypeBytes() {
+    Object ref = interfaceType_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      interfaceType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -295,29 +375,35 @@ public  final class NfTaskReq extends
     if (taskId_ != 0) {
       output.writeUInt32(1, taskId_);
     }
+    if (!getNeIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, neId_);
+    }
+    if (!getNfTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, nfType_);
+    }
     if (!getDataTypeBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, dataType_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, dataType_);
     }
     if (!getUserNumberBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, userNumber_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, userNumber_);
     }
-    if (runNow_ != 0) {
-      output.writeUInt32(4, runNow_);
+    if (runNow_ != false) {
+      output.writeBool(6, runNow_);
     }
-    if (timeLength_ != 0) {
-      output.writeUInt32(5, timeLength_);
+    if (timeLength_ != 0D) {
+      output.writeDouble(7, timeLength_);
     }
     if (startTime_ != 0L) {
-      output.writeUInt64(6, startTime_);
+      output.writeUInt64(8, startTime_);
     }
     if (endTime_ != 0L) {
-      output.writeUInt64(7, endTime_);
+      output.writeUInt64(9, endTime_);
     }
     if (status_ != 0) {
-      output.writeUInt32(8, status_);
+      output.writeUInt32(10, status_);
     }
-    for (int i = 0; i < interfaceType_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, interfaceType_.getRaw(i));
+    if (!getInterfaceTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 11, interfaceType_);
     }
   }
 
@@ -330,39 +416,40 @@ public  final class NfTaskReq extends
       size += com.google.protobuf.CodedOutputStream
         .computeUInt32Size(1, taskId_);
     }
+    if (!getNeIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, neId_);
+    }
+    if (!getNfTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, nfType_);
+    }
     if (!getDataTypeBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, dataType_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, dataType_);
     }
     if (!getUserNumberBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, userNumber_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, userNumber_);
     }
-    if (runNow_ != 0) {
+    if (runNow_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(4, runNow_);
+        .computeBoolSize(6, runNow_);
     }
-    if (timeLength_ != 0) {
+    if (timeLength_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(5, timeLength_);
+        .computeDoubleSize(7, timeLength_);
     }
     if (startTime_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(6, startTime_);
+        .computeUInt64Size(8, startTime_);
     }
     if (endTime_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(7, endTime_);
+        .computeUInt64Size(9, endTime_);
     }
     if (status_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(8, status_);
+        .computeUInt32Size(10, status_);
     }
-    {
-      int dataSize = 0;
-      for (int i = 0; i < interfaceType_.size(); i++) {
-        dataSize += computeStringSizeNoTag(interfaceType_.getRaw(i));
-      }
-      size += dataSize;
-      size += 1 * getInterfaceTypeList().size();
+    if (!getInterfaceTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, interfaceType_);
     }
     memoizedSize = size;
     return size;
@@ -382,22 +469,28 @@ public  final class NfTaskReq extends
     boolean result = true;
     result = result && (getTaskId()
         == other.getTaskId());
+    result = result && getNeId()
+        .equals(other.getNeId());
+    result = result && getNfType()
+        .equals(other.getNfType());
     result = result && getDataType()
         .equals(other.getDataType());
     result = result && getUserNumber()
         .equals(other.getUserNumber());
     result = result && (getRunNow()
         == other.getRunNow());
-    result = result && (getTimeLength()
-        == other.getTimeLength());
+    result = result && (
+        Double.doubleToLongBits(getTimeLength())
+        == Double.doubleToLongBits(
+            other.getTimeLength()));
     result = result && (getStartTime()
         == other.getStartTime());
     result = result && (getEndTime()
         == other.getEndTime());
     result = result && (getStatus()
         == other.getStatus());
-    result = result && getInterfaceTypeList()
-        .equals(other.getInterfaceTypeList());
+    result = result && getInterfaceType()
+        .equals(other.getInterfaceType());
     return result;
   }
 
@@ -410,14 +503,20 @@ public  final class NfTaskReq extends
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + TASKID_FIELD_NUMBER;
     hash = (53 * hash) + getTaskId();
+    hash = (37 * hash) + NEID_FIELD_NUMBER;
+    hash = (53 * hash) + getNeId().hashCode();
+    hash = (37 * hash) + NFTYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getNfType().hashCode();
     hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
     hash = (53 * hash) + getDataType().hashCode();
     hash = (37 * hash) + USERNUMBER_FIELD_NUMBER;
     hash = (53 * hash) + getUserNumber().hashCode();
     hash = (37 * hash) + RUNNOW_FIELD_NUMBER;
-    hash = (53 * hash) + getRunNow();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getRunNow());
     hash = (37 * hash) + TIMELENGTH_FIELD_NUMBER;
-    hash = (53 * hash) + getTimeLength();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getTimeLength()));
     hash = (37 * hash) + STARTTIME_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getStartTime());
@@ -426,10 +525,8 @@ public  final class NfTaskReq extends
         getEndTime());
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + getStatus();
-    if (getInterfaceTypeCount() > 0) {
-      hash = (37 * hash) + INTERFACETYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getInterfaceTypeList().hashCode();
-    }
+    hash = (37 * hash) + INTERFACETYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getInterfaceType().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -542,7 +639,7 @@ public  final class NfTaskReq extends
               NfTaskReq.class, Builder.class);
     }
 
-    // Construct using NfTaskReq.newBuilder()
+    // Construct using org.xgvela.oam.nftask.NfTaskReq.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -561,13 +658,17 @@ public  final class NfTaskReq extends
       super.clear();
       taskId_ = 0;
 
+      neId_ = "";
+
+      nfType_ = "";
+
       dataType_ = "";
 
       userNumber_ = "";
 
-      runNow_ = 0;
+      runNow_ = false;
 
-      timeLength_ = 0;
+      timeLength_ = 0D;
 
       startTime_ = 0L;
 
@@ -575,8 +676,8 @@ public  final class NfTaskReq extends
 
       status_ = 0;
 
-      interfaceType_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000100);
+      interfaceType_ = "";
+
       return this;
     }
 
@@ -599,9 +700,9 @@ public  final class NfTaskReq extends
 
     public NfTaskReq buildPartial() {
       NfTaskReq result = new NfTaskReq(this);
-      int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       result.taskId_ = taskId_;
+      result.neId_ = neId_;
+      result.nfType_ = nfType_;
       result.dataType_ = dataType_;
       result.userNumber_ = userNumber_;
       result.runNow_ = runNow_;
@@ -609,12 +710,7 @@ public  final class NfTaskReq extends
       result.startTime_ = startTime_;
       result.endTime_ = endTime_;
       result.status_ = status_;
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        interfaceType_ = interfaceType_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000100);
-      }
       result.interfaceType_ = interfaceType_;
-      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -659,6 +755,14 @@ public  final class NfTaskReq extends
       if (other.getTaskId() != 0) {
         setTaskId(other.getTaskId());
       }
+      if (!other.getNeId().isEmpty()) {
+        neId_ = other.neId_;
+        onChanged();
+      }
+      if (!other.getNfType().isEmpty()) {
+        nfType_ = other.nfType_;
+        onChanged();
+      }
       if (!other.getDataType().isEmpty()) {
         dataType_ = other.dataType_;
         onChanged();
@@ -667,10 +771,10 @@ public  final class NfTaskReq extends
         userNumber_ = other.userNumber_;
         onChanged();
       }
-      if (other.getRunNow() != 0) {
+      if (other.getRunNow() != false) {
         setRunNow(other.getRunNow());
       }
-      if (other.getTimeLength() != 0) {
+      if (other.getTimeLength() != 0D) {
         setTimeLength(other.getTimeLength());
       }
       if (other.getStartTime() != 0L) {
@@ -682,14 +786,8 @@ public  final class NfTaskReq extends
       if (other.getStatus() != 0) {
         setStatus(other.getStatus());
       }
-      if (!other.interfaceType_.isEmpty()) {
-        if (interfaceType_.isEmpty()) {
-          interfaceType_ = other.interfaceType_;
-          bitField0_ = (bitField0_ & ~0x00000100);
-        } else {
-          ensureInterfaceTypeIsMutable();
-          interfaceType_.addAll(other.interfaceType_);
-        }
+      if (!other.getInterfaceType().isEmpty()) {
+        interfaceType_ = other.interfaceType_;
         onChanged();
       }
       onChanged();
@@ -717,7 +815,6 @@ public  final class NfTaskReq extends
       }
       return this;
     }
-    private int bitField0_;
 
     private int taskId_ ;
     /**
@@ -745,9 +842,147 @@ public  final class NfTaskReq extends
       return this;
     }
 
+    private Object neId_ = "";
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public String getNeId() {
+      Object ref = neId_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        neId_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNeIdBytes() {
+      Object ref = neId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        neId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder setNeId(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      neId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder clearNeId() {
+      
+      neId_ = getDefaultInstance().getNeId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string neId = 2;</code>
+     */
+    public Builder setNeIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      neId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Object nfType_ = "";
+    /**
+     * <code>string nfType = 3;</code>
+     */
+    public String getNfType() {
+      Object ref = nfType_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        nfType_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <code>string nfType = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNfTypeBytes() {
+      Object ref = nfType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        nfType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string nfType = 3;</code>
+     */
+    public Builder setNfType(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      nfType_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string nfType = 3;</code>
+     */
+    public Builder clearNfType() {
+      
+      nfType_ = getDefaultInstance().getNfType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string nfType = 3;</code>
+     */
+    public Builder setNfTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      nfType_ = value;
+      onChanged();
+      return this;
+    }
+
     private Object dataType_ = "";
     /**
-     * <code>string dataType = 2;</code>
+     * <code>string dataType = 4;</code>
      */
     public String getDataType() {
       Object ref = dataType_;
@@ -762,7 +997,7 @@ public  final class NfTaskReq extends
       }
     }
     /**
-     * <code>string dataType = 2;</code>
+     * <code>string dataType = 4;</code>
      */
     public com.google.protobuf.ByteString
         getDataTypeBytes() {
@@ -778,7 +1013,7 @@ public  final class NfTaskReq extends
       }
     }
     /**
-     * <code>string dataType = 2;</code>
+     * <code>string dataType = 4;</code>
      */
     public Builder setDataType(
         String value) {
@@ -791,7 +1026,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>string dataType = 2;</code>
+     * <code>string dataType = 4;</code>
      */
     public Builder clearDataType() {
       
@@ -800,7 +1035,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>string dataType = 2;</code>
+     * <code>string dataType = 4;</code>
      */
     public Builder setDataTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -816,7 +1051,7 @@ public  final class NfTaskReq extends
 
     private Object userNumber_ = "";
     /**
-     * <code>string userNumber = 3;</code>
+     * <code>string userNumber = 5;</code>
      */
     public String getUserNumber() {
       Object ref = userNumber_;
@@ -831,7 +1066,7 @@ public  final class NfTaskReq extends
       }
     }
     /**
-     * <code>string userNumber = 3;</code>
+     * <code>string userNumber = 5;</code>
      */
     public com.google.protobuf.ByteString
         getUserNumberBytes() {
@@ -847,7 +1082,7 @@ public  final class NfTaskReq extends
       }
     }
     /**
-     * <code>string userNumber = 3;</code>
+     * <code>string userNumber = 5;</code>
      */
     public Builder setUserNumber(
         String value) {
@@ -860,7 +1095,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>string userNumber = 3;</code>
+     * <code>string userNumber = 5;</code>
      */
     public Builder clearUserNumber() {
       
@@ -869,7 +1104,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>string userNumber = 3;</code>
+     * <code>string userNumber = 5;</code>
      */
     public Builder setUserNumberBytes(
         com.google.protobuf.ByteString value) {
@@ -883,67 +1118,67 @@ public  final class NfTaskReq extends
       return this;
     }
 
-    private int runNow_ ;
+    private boolean runNow_ ;
     /**
-     * <code>uint32 runNow = 4;</code>
+     * <code>bool runNow = 6;</code>
      */
-    public int getRunNow() {
+    public boolean getRunNow() {
       return runNow_;
     }
     /**
-     * <code>uint32 runNow = 4;</code>
+     * <code>bool runNow = 6;</code>
      */
-    public Builder setRunNow(int value) {
+    public Builder setRunNow(boolean value) {
       
       runNow_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 runNow = 4;</code>
+     * <code>bool runNow = 6;</code>
      */
     public Builder clearRunNow() {
       
-      runNow_ = 0;
+      runNow_ = false;
       onChanged();
       return this;
     }
 
-    private int timeLength_ ;
+    private double timeLength_ ;
     /**
-     * <code>uint32 timeLength = 5;</code>
+     * <code>double timeLength = 7;</code>
      */
-    public int getTimeLength() {
+    public double getTimeLength() {
       return timeLength_;
     }
     /**
-     * <code>uint32 timeLength = 5;</code>
+     * <code>double timeLength = 7;</code>
      */
-    public Builder setTimeLength(int value) {
+    public Builder setTimeLength(double value) {
       
       timeLength_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 timeLength = 5;</code>
+     * <code>double timeLength = 7;</code>
      */
     public Builder clearTimeLength() {
       
-      timeLength_ = 0;
+      timeLength_ = 0D;
       onChanged();
       return this;
     }
 
     private long startTime_ ;
     /**
-     * <code>uint64 startTime = 6;</code>
+     * <code>uint64 startTime = 8;</code>
      */
     public long getStartTime() {
       return startTime_;
     }
     /**
-     * <code>uint64 startTime = 6;</code>
+     * <code>uint64 startTime = 8;</code>
      */
     public Builder setStartTime(long value) {
       
@@ -952,7 +1187,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>uint64 startTime = 6;</code>
+     * <code>uint64 startTime = 8;</code>
      */
     public Builder clearStartTime() {
       
@@ -963,13 +1198,13 @@ public  final class NfTaskReq extends
 
     private long endTime_ ;
     /**
-     * <code>uint64 endTime = 7;</code>
+     * <code>uint64 endTime = 9;</code>
      */
     public long getEndTime() {
       return endTime_;
     }
     /**
-     * <code>uint64 endTime = 7;</code>
+     * <code>uint64 endTime = 9;</code>
      */
     public Builder setEndTime(long value) {
       
@@ -978,7 +1213,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>uint64 endTime = 7;</code>
+     * <code>uint64 endTime = 9;</code>
      */
     public Builder clearEndTime() {
       
@@ -989,13 +1224,13 @@ public  final class NfTaskReq extends
 
     private int status_ ;
     /**
-     * <code>uint32 status = 8;</code>
+     * <code>uint32 status = 10;</code>
      */
     public int getStatus() {
       return status_;
     }
     /**
-     * <code>uint32 status = 8;</code>
+     * <code>uint32 status = 10;</code>
      */
     public Builder setStatus(int value) {
       
@@ -1004,7 +1239,7 @@ public  final class NfTaskReq extends
       return this;
     }
     /**
-     * <code>uint32 status = 8;</code>
+     * <code>uint32 status = 10;</code>
      */
     public Builder clearStatus() {
       
@@ -1013,96 +1248,71 @@ public  final class NfTaskReq extends
       return this;
     }
 
-    private com.google.protobuf.LazyStringList interfaceType_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    private void ensureInterfaceTypeIsMutable() {
-      if (!((bitField0_ & 0x00000100) == 0x00000100)) {
-        interfaceType_ = new com.google.protobuf.LazyStringArrayList(interfaceType_);
-        bitField0_ |= 0x00000100;
-       }
-    }
+    private Object interfaceType_ = "";
     /**
-     * <code>repeated string interfaceType = 9;</code>
+     * <code>string interfaceType = 11;</code>
      */
-    public com.google.protobuf.ProtocolStringList
-        getInterfaceTypeList() {
-      return interfaceType_.getUnmodifiableView();
+    public String getInterfaceType() {
+      Object ref = interfaceType_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        interfaceType_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
     }
     /**
-     * <code>repeated string interfaceType = 9;</code>
-     */
-    public int getInterfaceTypeCount() {
-      return interfaceType_.size();
-    }
-    /**
-     * <code>repeated string interfaceType = 9;</code>
-     */
-    public String getInterfaceType(int index) {
-      return interfaceType_.get(index);
-    }
-    /**
-     * <code>repeated string interfaceType = 9;</code>
+     * <code>string interfaceType = 11;</code>
      */
     public com.google.protobuf.ByteString
-        getInterfaceTypeBytes(int index) {
-      return interfaceType_.getByteString(index);
+        getInterfaceTypeBytes() {
+      Object ref = interfaceType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        interfaceType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
     /**
-     * <code>repeated string interfaceType = 9;</code>
+     * <code>string interfaceType = 11;</code>
      */
     public Builder setInterfaceType(
-        int index, String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureInterfaceTypeIsMutable();
-      interfaceType_.set(index, value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string interfaceType = 9;</code>
-     */
-    public Builder addInterfaceType(
         String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  ensureInterfaceTypeIsMutable();
-      interfaceType_.add(value);
+  
+      interfaceType_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>repeated string interfaceType = 9;</code>
-     */
-    public Builder addAllInterfaceType(
-        Iterable<String> values) {
-      ensureInterfaceTypeIsMutable();
-      com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, interfaceType_);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string interfaceType = 9;</code>
+     * <code>string interfaceType = 11;</code>
      */
     public Builder clearInterfaceType() {
-      interfaceType_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000100);
+      
+      interfaceType_ = getDefaultInstance().getInterfaceType();
       onChanged();
       return this;
     }
     /**
-     * <code>repeated string interfaceType = 9;</code>
+     * <code>string interfaceType = 11;</code>
      */
-    public Builder addInterfaceTypeBytes(
+    public Builder setInterfaceTypeBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      ensureInterfaceTypeIsMutable();
-      interfaceType_.add(value);
+      
+      interfaceType_ = value;
       onChanged();
       return this;
     }

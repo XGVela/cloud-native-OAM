@@ -103,7 +103,6 @@ public class SftpUtils {
         }
     }
 
-
     public void downloadDir(String sftpPathAndName, String localPath, SftpUtils sftpConfigClient, String version, String method) throws IOException {
         try {
             try {
@@ -116,9 +115,11 @@ public class SftpUtils {
                     } else {
                         if (ObjectUtils.isNotEmpty(version)) {
                             log.info("version: {}", version);
-                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, version + "_" + rri.getName())), sftpConfigClient);
+                            log.info("sftpPathAndName: {}",sftpPathAndName);
+                            log.info("local file: {}", String.format("%s%s", localPath, version + "_" + rri.getName()));
+                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s%s", localPath, version + "_" + rri.getName())), sftpConfigClient);
                         } else {
-                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s/%s", localPath, rri.getName())), sftpConfigClient);
+                            downloadFileAndMkdir(String.format("%s/%s", sftpPathAndName, rri.getName()), new File(String.format("%s%s", localPath, rri.getName())), sftpConfigClient);
                         }
                     }
                 }
@@ -128,23 +129,20 @@ public class SftpUtils {
         }
     }
 
-
     public void downloadFileAndMkdir(String sftpPathAndName, File file, SftpUtils sftpConfigClient) throws IOException {
         if (ObjectUtils.isNotEmpty(sftpConfigClient)) {
             File fileParent = file.getParentFile();
             log.info("fileParent path {}", fileParent.getPath());
             if (!fileParent.exists() && ObjectUtils.isNotEmpty(sftpConfigClient)) {
-//                "/root/sftp/read/UPF/upfinstanceid001"
-//                "/sftp-agent/sftp/read/UPF/upfinstanceid001/"
                 String configPath = fileParent.getPath().replaceAll("/root/sftp/", "/sftp-conf/sftp/");
                 log.info("sftp mkdir configPath: {}", configPath);
                 sftpConfigClient.mkdir(configPath);
-                sftpConfigClient.close();
                 try {
                     Thread.sleep(5000);
                 } catch (Exception e) {
                     log.error("Exception:: ", e);
                 }
+                sftpConfigClient.close();
             }
         }
         sftpClient.get(sftpPathAndName, new FileSystemFile(file));

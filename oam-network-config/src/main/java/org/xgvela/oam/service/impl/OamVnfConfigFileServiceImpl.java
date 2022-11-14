@@ -85,10 +85,10 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
         String neType = request.getNeType();
         String neId = request.getNeId();
         String version = String.valueOf(new Date().getTime());
-        String configReadPath = format("/root/sftp/read/%s/%s/", neType, neId);
-        String configWritePath = format("/root/sftp/write/%s/%s/", neType, neId);
-        String sftpReadPath = format("%s/read/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
-        String sftpWritePath = format("%s/write/%s/%s/", sftpConfig.getSftpConfigPath(), neType, neId);
+        String configReadPath = format("/root/sftp/read/conf/%s/%s/", neType, neId);
+        String configWritePath = format("/root/sftp/write/conf/%s/%s/", neType, neId);
+        String sftpReadPath = format("%s/read/conf/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
+        String sftpWritePath = format("%s/write/conf/%s/%s/", sftpConfig.getSftpConfigPath(), neType, neId);
         log.info("notifyDownLoadFiles ,configReadPath {}, configWritePath {},sftpReadPath {}", configReadPath, configWritePath, sftpReadPath);
         log.info("notifyDownLoadFiles: sftpConfigClient download file for config read path");
         SftpUtils sftpAgentClient = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
@@ -110,10 +110,11 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
 
     @Override
     public boolean cfgUpdateResultNotify(OamVnfConfigFile.VnfRequest request) {
+
         SftpUtils sftp = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
-        String sftpAgentReadPath = String.format("%s/read/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNeType(), request.getNeId());
-        String localWriteDir = String.format("/root/config/write/%s/%s/", request.getNeType(), request.getNeId());
-        String sftpAgentWritePath = String.format("%s/write/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNeType(), request.getNeId());
+        String sftpAgentReadPath = String.format("%s/read/conf/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNeType(), request.getNeId());
+        String localWriteDir = String.format("/root/sftp/write/conf/%s/%s/", request.getNeType(), request.getNeId());
+        String sftpAgentWritePath = String.format("%s/conf/write/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNeType(), request.getNeId());
 
         FileTreeUtils.collectFileFromSftpToLocal(localWriteDir, sftpAgentReadPath, sftp);
         try {
@@ -180,7 +181,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
             fileName = Optional.ofNullable(oamVnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getCfVersion, deliveryRequest.getFile().getVersion()))).map(OamVnfConfigFile::getCfName).orElse("");
         }
 
-        String sftpWriteAgentPath = String.format("%s/write/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
+        String sftpWriteAgentPath = String.format("%s/write/conf/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
 
         oamVnfConfigTaskMapper.insert(OamVnfConfigTask.builder()
                 .neId(neId)
@@ -195,7 +196,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
                 .vnfSignalPort(vnf.getVnfManagePort()).build()
         );
 
-        String localtestDir = String.format("/root/sftp/write/%s/%s/", neType, neId);
+        String localtestDir = String.format("/root/sftp/write/conf/%s/%s/", neType, neId);
         log.info("localtestDir  {}", localtestDir);
         log.info("upload file {}", String.format("%s%s", localtestDir, fileName));
 

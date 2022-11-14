@@ -13,66 +13,77 @@ public interface NfTaskReqOrBuilder extends
   int getTaskId();
 
   /**
-   * <code>string dataType = 2;</code>
+   * <code>string neId = 2;</code>
+   */
+  String getNeId();
+  /**
+   * <code>string neId = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getNeIdBytes();
+
+  /**
+   * <code>string nfType = 3;</code>
+   */
+  String getNfType();
+  /**
+   * <code>string nfType = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getNfTypeBytes();
+
+  /**
+   * <code>string dataType = 4;</code>
    */
   String getDataType();
   /**
-   * <code>string dataType = 2;</code>
+   * <code>string dataType = 4;</code>
    */
   com.google.protobuf.ByteString
       getDataTypeBytes();
 
   /**
-   * <code>string userNumber = 3;</code>
+   * <code>string userNumber = 5;</code>
    */
   String getUserNumber();
   /**
-   * <code>string userNumber = 3;</code>
+   * <code>string userNumber = 5;</code>
    */
   com.google.protobuf.ByteString
       getUserNumberBytes();
 
   /**
-   * <code>uint32 runNow = 4;</code>
+   * <code>bool runNow = 6;</code>
    */
-  int getRunNow();
+  boolean getRunNow();
 
   /**
-   * <code>uint32 timeLength = 5;</code>
+   * <code>double timeLength = 7;</code>
    */
-  int getTimeLength();
+  double getTimeLength();
 
   /**
-   * <code>uint64 startTime = 6;</code>
+   * <code>uint64 startTime = 8;</code>
    */
   long getStartTime();
 
   /**
-   * <code>uint64 endTime = 7;</code>
+   * <code>uint64 endTime = 9;</code>
    */
   long getEndTime();
 
   /**
-   * <code>uint32 status = 8;</code>
+   * <code>uint32 status = 10;</code>
    */
   int getStatus();
 
   /**
-   * <code>repeated string interfaceType = 9;</code>
+   * <code>string interfaceType = 11;</code>
    */
-  java.util.List<String>
-      getInterfaceTypeList();
+  String getInterfaceType();
   /**
-   * <code>repeated string interfaceType = 9;</code>
-   */
-  int getInterfaceTypeCount();
-  /**
-   * <code>repeated string interfaceType = 9;</code>
-   */
-  String getInterfaceType(int index);
-  /**
-   * <code>repeated string interfaceType = 9;</code>
+   * <code>string interfaceType = 11;</code>
    */
   com.google.protobuf.ByteString
-      getInterfaceTypeBytes(int index);
+      getInterfaceTypeBytes();
 }
