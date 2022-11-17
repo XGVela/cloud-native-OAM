@@ -21,12 +21,12 @@ public class OamVnfConfigFileControllerImpl implements IOamVnfConfigFileControll
     }
 
     @Override
-    public Response<Boolean> confDelivery(OamVnfConfigFile.VnfConfigDeliveryRequest deliveryRequest) {
+    public Response<Boolean> confDelivery(OamVnfConfigFile deliveryRequest) {
         return ResponseFactory.getSuccessData(oamVnfConfigFileService.confDelivery(deliveryRequest));
     }
 
     @Override
-    public Response<Boolean> confSwitch(OamVnfConfigFile.VnfConfigDeliveryRequest request) {
+    public Response<Boolean> confSwitch(OamVnfConfigFile request) {
         return ResponseFactory.getSuccessData(oamVnfConfigFileService.confSwitch(request));
     }
 

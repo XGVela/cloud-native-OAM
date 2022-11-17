@@ -58,7 +58,7 @@ public class AlarmService extends AlarmReportServiceGrpc.AlarmReportServiceImplB
         activeAlarm.setSyncType(0);
         activeAlarm.setOffLine(0);
         activeAlarm.setSource(request.getSource());
-        Set<String> vnfInstanceIdsSet = oamVnfMapper.selectList(new LambdaQueryWrapper<OamVnf>().eq(OamVnf::getVnfManageStatus, 1)).stream().map(OamVnf::getNeId).collect(Collectors.toSet());
+        Set<String> vnfInstanceIdsSet = oamVnfMapper.selectList(new LambdaQueryWrapper<OamVnf>().eq(OamVnf::getVnfManageStatus, "1")).stream().map(OamVnf::getNeId).collect(Collectors.toSet());
         if (vnfInstanceIdsSet.contains(activeAlarm.getNeId())) {
             log.info("agent push alarm message: " + JsonUtils.o2js(activeAlarm));
             Boolean sendResult = kafkaProducerService.send(AlarmTopicName,  JSON.toJSONStringWithDateFormat(activeAlarm, "yyyy-MM-dd HH:mm:ss"));

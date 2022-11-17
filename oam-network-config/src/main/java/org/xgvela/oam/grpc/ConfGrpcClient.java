@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class ConfGrpcClient {
     @Resource
     private ConfigConfiguration configConfiguration;
-    private static final int deadlineTime = 20;
+    private static final int deadlineTime = 1000;
     private ManagedChannel channel;
     private ConfigUpdateResultServiceGrpc.ConfigUpdateResultServiceBlockingStub configUpdateResultServiceBlockingStub;
     private ConfigureManagerServiceGrpc.ConfigureManagerServiceBlockingStub configureManagerServiceBlockingStub;

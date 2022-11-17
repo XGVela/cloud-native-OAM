@@ -1,5 +1,6 @@
 package org.xgvela.oam.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.xgvela.oam.config.SftpConfig;
@@ -65,12 +66,12 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
     }
 
     @Override
-    public boolean confDelivery(OamVnfConfigFile.VnfConfigDeliveryRequest request) {
+    public boolean confDelivery(OamVnfConfigFile request) {
         return createTask(request, CONF_DELIVERY);
     }
 
     @Override
-    public boolean confSwitch(OamVnfConfigFile.VnfConfigDeliveryRequest request) {
+    public boolean confSwitch(OamVnfConfigFile request) {
         return createTask(request, CONF_SWITCH);
     }
 
@@ -118,7 +119,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
 
         FileTreeUtils.collectFileFromSftpToLocal(localWriteDir, sftpAgentReadPath, sftp);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (Exception e) {
             log.error("Exception:: ", e);
         }
@@ -130,7 +131,7 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
             OamVnfConfigFile oamVnfConfigFile = oamVnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getIsUse, true).like(OamVnfConfigFile::getCfName, tree.getName()));
             List<OamVnfConfigFile> oamVnfConfigFiles = oamVnfConfigFileMapper.selectList(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getIsUse, false).like(OamVnfConfigFile::getCfName, tree.getName()).orderByDesc(OamVnfConfigFile::getCfUpdatetime));
             try {
-                OamVnfConfigTask task = oamVnfConfigTaskMapper.selectById(request.getTaskId());
+                OamVnfConfigTask task = oamVnfConfigTaskMapper.selectById(Long.parseLong(request.getTaskId()));
 
                 String fileName = Arrays.asList(tree.getName().split("_")).get(0);
                 newFileContent = FileUtils.readFileToString(new File(String.format("%s%s", localWriteDir, fileName)), Charset.defaultCharset());
@@ -169,16 +170,20 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
         return true;
     }
 
-    private boolean createTask(OamVnfConfigFile.VnfConfigDeliveryRequest deliveryRequest, String method) {
-        OamVnf vnf = oamVnfMapper.selectById(deliveryRequest.getNeId());
+    private boolean createTask(OamVnfConfigFile request, String method) {
+        OamVnf vnf = oamVnfMapper.selectById(request.getNeId());
         String neId = vnf.getNeId();
         String neType = vnf.getNeType();
         String fileName = null;
+        log.info("createTask method  : {}  ", method);
 
         if (method.equals(CONF_DELIVERY)) {
-            fileName = deliveryRequest.getFile().getCfName();
+            fileName = request.getCfName();
         } else if (method.equals(CONF_SWITCH)) {
-            fileName = Optional.ofNullable(oamVnfConfigFileMapper.selectOne(Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getCfVersion, deliveryRequest.getFile().getVersion()))).map(OamVnfConfigFile::getCfName).orElse("");
+            log.info("switch  cfVersion: {}  ", request.getCfVersion());
+            List<OamVnfConfigFile> files = oamVnfConfigFileMapper.selectList(new QueryWrapper<OamVnfConfigFile>().eq("cf_version", request.getCfVersion()));
+            log.info("cfName  : {}  ", files.get(0).getCfName());
+            fileName = ObjectUtils.isNotEmpty(files) ? files.get(0).getCfName() : "";
         }
 
         String sftpWriteAgentPath = String.format("%s/write/conf/%s/%s/", sftpConfig.getSftpAgentPath(), neType, neId);
@@ -188,19 +193,20 @@ public class OamVnfConfigFileServiceImpl extends ServiceImpl<OamVnfConfigFileMap
                 .neType(neType)
                 .vnfName(vnf.getVnfName())
                 .vnfManageIp(vnf.getVnfManageIp())
-                .callbackUrl(deliveryRequest.getCallbackUrl())
+                .callbackUrl(request.getCallbackUrl())
                 .status(OamVnfConfigTask.statusType.UNDO.getName())
                 .createTime(new Date())
                 .type(method)
-                .version(deliveryRequest.getFile().getVersion())
+                .version(request.getCfVersion())
                 .vnfSignalPort(vnf.getVnfManagePort()).build()
         );
 
         String localtestDir = String.format("/root/sftp/write/conf/%s/%s/", neType, neId);
         log.info("localtestDir  {}", localtestDir);
-        log.info("upload file {}", String.format("%s%s", localtestDir, fileName));
 
         SftpUtils sftp = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
+
+        log.info("configUploadAgent file {}, sftpWriteAgentPath {}", String.format("%s%s", localtestDir, fileName), sftpWriteAgentPath);
         configUploadAgent(String.format("%s%s", localtestDir, fileName), sftp, sftpWriteAgentPath);
         String updateRsp;
 

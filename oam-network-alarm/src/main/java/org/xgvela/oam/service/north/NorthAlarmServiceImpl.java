@@ -75,12 +75,12 @@ public class NorthAlarmServiceImpl implements INorthAlarmService {
 
         activeAlarmQueryWrapper.eq(StringUtils.isNotEmpty(neId), ActiveAlarm::getNeId, neId)
                 .eq(StringUtils.isNotEmpty(neType), ActiveAlarm::getNeType, neType)
-                .eq(StringUtils.isNotEmpty(alarmLevel), ActiveAlarm::getAlarmLevel, alarmLevel)
+                .eq(StringUtils.isNotEmpty(alarmLevel), ActiveAlarm::getAlarmLevel, Integer.parseInt(alarmLevel))
                 .like(StringUtils.isNotEmpty(alarmTitle), ActiveAlarm::getAlarmName, alarmTitle);
 
         historyAlarmQueryWrapper.eq(StringUtils.isNotEmpty(neId), HistoryAlarm::getNeId, neId)
                 .eq(StringUtils.isNotEmpty(neType), HistoryAlarm::getNeType, neType)
-                .eq(StringUtils.isNotEmpty(alarmLevel), HistoryAlarm::getAlarmLevel, alarmLevel)
+                .eq(StringUtils.isNotEmpty(alarmLevel), HistoryAlarm::getAlarmLevel, Integer.parseInt(alarmLevel))
                 .like(StringUtils.isNotEmpty(alarmTitle), HistoryAlarm::getAlarmName, alarmTitle);
 
 

@@ -26,11 +26,11 @@ public interface IOamVnfConfigFileController {
 
     @PostMapping("/confDelivery")
     @ApiOperation(value = "Configuration delivered ")
-    Response<Boolean> confDelivery(@RequestBody OamVnfConfigFile.VnfConfigDeliveryRequest request);
+    Response<Boolean> confDelivery(@RequestBody OamVnfConfigFile request);
 
     @PostMapping("/switch")
     @ApiOperation(value = "Configuration version switch ")
-    Response<Boolean> confSwitch(@RequestBody OamVnfConfigFile.VnfConfigDeliveryRequest request);
+    Response<Boolean> confSwitch(@RequestBody OamVnfConfigFile request);
 
     @PostMapping("/confResult")
     @ApiOperation(value = "Report configuration update result ")
