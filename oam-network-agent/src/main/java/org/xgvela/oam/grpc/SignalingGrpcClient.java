@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class SignalingGrpcClient {
 
-    private static final int deadlineTime = 50;
+    private static final int deadlineTime = 1000;
     private ManagedChannel channel;
     private NfTaskServiceGrpc.NfTaskServiceBlockingStub nfTaskServiceBlockingStub;
     private TraceInfoServiceGrpc.TraceInfoServiceBlockingStub traceInfoServiceBlockingStub;

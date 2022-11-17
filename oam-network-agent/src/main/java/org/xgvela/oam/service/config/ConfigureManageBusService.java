@@ -32,7 +32,7 @@ public class ConfigureManageBusService extends ConfigureManagerServiceGrpc.Confi
     ////    /sftp-agent/sftp/read/UPF/upfinstanceid001
     ///root/sftp/read/UPF/upfinstanceid001
     ////   D:\test\write
-    private static final String WritePath = "/root/sftp/write";
+    private static final String WritePath = "/root/sftp/write/conf";
     private static final String UpdateCfgWithFileSucceed = "0";
     private static final String simulator_server = "simulator.inspur-xgvela1-infra-upf-";
     @Autowired

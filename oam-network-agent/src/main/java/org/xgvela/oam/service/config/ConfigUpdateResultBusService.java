@@ -35,7 +35,7 @@ public class ConfigUpdateResultBusService extends ConfigUpdateResultServiceGrpc.
     //    /sftp-agent/sftp/read/UPF/upfinstanceid001
 //    D:\test\read
 //    private static final String ReadPath = "/sftp-config/read"; //data/conf/read/AMF/amfinstanceid002/text.xml
-    private static final String ReadPath = "/root/sftp/read"; //data/conf/read/AMF/amfinstanceid002/text.xml
+    private static final String ReadPath = "/root/sftp/read/conf"; //data/conf/read/AMF/amfinstanceid002/text.xml
     private static final String UpdateConfigFileSucceed = "0";
     private static final String UpdateConfigFileFailed = "1";
 

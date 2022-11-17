@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class ConfigureGrpcClient {
 
-    private static final int deadlineTime = 50;
+    private static final int deadlineTime = 1000;
     private ManagedChannel channel;
     /**
      * oam-network-agent -> grpc -> oam-network-simulator

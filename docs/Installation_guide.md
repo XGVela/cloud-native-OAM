@@ -165,6 +165,10 @@ cd ~/oam/cloud-native-OAM-builder/oam-basic/charts/mysql
 docker pull mysql:5.7.28
 docker build . -f Dockerfile   -t mysql:5.7.28
 
+cd ~/oam/cloud-native-OAM-builder/oam-basic/charts/postgresql
+docker pull docker.io/bitnami/postgresql:15.1.0-debian-11-r0
+docker build . -f Dockerfile   -t docker.io/bitnami/postgresql:15.1.0-debian-11-r0
+
 helm install oam ~/oam/cloud-native-OAM-builder/oam-basic -n oam-system
 ```
 
@@ -181,6 +185,7 @@ oam-kube-prometheus-stack-operator-9d4b89f64-9hc6h   1/1     Running   0        
 oam-kube-state-metrics-9674b86f4-wc9m8               1/1     Running   0          6d7h
 oam-logstash-0                                       1/1     Running   0          2d13h
 oam-mysql-8687f65cb7-q4v5p                           1/1     Running   0          5d2h
+oam-postgresql-0                                     1/1     Running   0          3h30m
 oam-nacos-0                                          1/1     Running   0          5d2h
 oam-prometheus-adapter-5656f6755d-bprh6              1/1     Running   0          7d8h
 oam-prometheus-blackbox-exporter-f945954cc-tgp2r     1/1     Running   0          5d2h
@@ -229,7 +234,6 @@ oam-network-agent-7775bc47c9-454l5                   1/1     Running   0        
 oam-network-alarm-7ddf68766c-l75bx                   1/1     Running   0          28m
 oam-network-auth-6bc4fd4f97-v8xtm                    1/1     Running   0          28m
 oam-network-config-66964b4758-5k686                  1/1     Running   0          28m
-oam-network-heartbeat-755d54f465-n8926               1/1     Running   0          28m
 oam-network-log-7965b97645-2ghgg                     1/1     Running   0          28m
 oam-network-nfregister-bdbb55cbc-7k46s               1/1     Running   0          28m
 oam-network-nftube-b47c85757-gjmfz                   1/1     Running   0          28m

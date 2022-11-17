@@ -1,0 +1,12 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        namespace: cc2bb596-c3b5-43e2-842c-16f055efe424
+        server-addr: 111.111.63.136:30430

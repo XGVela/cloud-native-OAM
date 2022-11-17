@@ -10,9 +10,9 @@ public interface IOamVnfConfigFileService extends IService<OamVnfConfigFile> {
 
     List<OamVnfConfigFile> confInfo(String neId, String neType, String vnfName);
 
-    boolean confDelivery(OamVnfConfigFile.VnfConfigDeliveryRequest request);
+    boolean confDelivery(OamVnfConfigFile request);
 
-    boolean confSwitch(OamVnfConfigFile.VnfConfigDeliveryRequest request);
+    boolean confSwitch(OamVnfConfigFile request);
 
     boolean confResult(OamVnfConfigFile.ConfUpdateRequest request);
 
@@ -21,5 +21,4 @@ public interface IOamVnfConfigFileService extends IService<OamVnfConfigFile> {
     boolean cfgUpdateResultNotify(OamVnfConfigFile.VnfRequest request);
 
     boolean deleteFileAndTask(String id);
-
 }

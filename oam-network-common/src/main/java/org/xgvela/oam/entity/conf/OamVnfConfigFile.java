@@ -1,6 +1,7 @@
 package org.xgvela.oam.entity.conf;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,6 +16,8 @@ import java.util.Date;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value = "OamVnfConfigFile entity ", description = "OamVnfConfigFile entity ")
@@ -54,26 +57,17 @@ public class OamVnfConfigFile extends Model<OamVnfConfigFile> {
     @ApiModelProperty(value = "config file contents ")
     private String fileContent;
 
+    @TableField(exist = false)
+    private String callbackUrl;
+
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class VnfConfigDeliveryRequest implements Serializable {
-        String neType;
-        String neId;
-        String vnfName;
-        String callbackUrl;
-        public ConfFile file;
-
-        @Data
-        @Builder
-        @NoArgsConstructor
-        @AllArgsConstructor
-        public static class ConfFile implements Serializable {
-            String cfName;
-            String cfPath;
-            String version;
-        }
+         String cfName;
+         String cfPath;
+         String version;
     }
 
     @Data

@@ -37,12 +37,14 @@ import static java.lang.String.format;
 @Component
 @GrpcService
 @Slf4j
-public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.ConfigUpdateResultServiceImplBase {
+public class
+
+ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.ConfigUpdateResultServiceImplBase {
     @Resource
     private SftpConfig sftpConfig;
-    @Autowired
+    @Resource
     private OamVnfConfigFileMapper vnfConfigFileMapper;
-    @Autowired
+    @Resource
     private OamVnfConfigTaskMapper vnfConfigTaskMapper;
 
     @Override
@@ -57,27 +59,28 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
         responseObserver.onNext(cfgResultNotifyResp);
         responseObserver.onCompleted();
 
-        String sftpAgentReadPath = String.format("%s/read/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNfType(), request.getInstanceId());
-        String localConfigWriteDir = String.format("/root/sftp/write/%s/%s", request.getNfType(), request.getInstanceId());
-        String localConfigReadDir = String.format("/root/sftp/read/%s/%s", request.getNfType(), request.getInstanceId());
-        String sftpAgentWritePath = String.format("%s/write/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNfType(), request.getInstanceId());
+        String sftpAgentReadPath = String.format("%s/read/conf/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNfType(), request.getInstanceId());
+        String localConfigWriteDir = String.format("/root/sftp/write/conf/%s/%s", request.getNfType(), request.getInstanceId());
+        String localConfigReadDir = String.format("/root/sftp/read/conf/%s/%s", request.getNfType(), request.getInstanceId());
+        String sftpAgentWritePath = String.format("%s/write/conf/%s/%s/", sftpConfig.getSftpAgentPath(), request.getNfType(), request.getInstanceId());
 
         String sftpWritePath = format("%s/write/%s/%s/", sftpConfig.getSftpConfigPath(), neType, neId);
         String version = String.valueOf(new Date().getTime());
-        String configReadPath = format("/root/sftp/read/%s/%s/", neType, neId);
+        String configReadPath = format("/root/sftp/read/conf/%s/%s/", neType, neId);
 
         log.info("sftpAgentReadPath: {},localConfigWriteDir: {},localConfigReadDir: {},sftpAgentWritePath: {}", sftpAgentReadPath, localConfigWriteDir, localConfigReadDir, sftpAgentWritePath);
 
         log.info("cfgUpdateResult :sftpConfigClient download file for config read path");
         SftpUtils sftpAgentClient = new SftpUtils(sftpConfig.getSftpAgentSeverIp(), Integer.parseInt(sftpConfig.getSftpAgentPort()), sftpConfig.getSftpAgentUser(), sftpConfig.getSftpAgentPasswd());
         SftpUtils sftpConfigClient = new SftpUtils(sftpConfig.getSftpConfSeverIp(), Integer.parseInt(sftpConfig.getSftpConfigPort()), sftpConfig.getSftpConfigUser(), sftpConfig.getSftpConfigPasswd());
+
         FileTreeUtils.collectFileFromSftpToLocalForVersion(localConfigReadDir, sftpAgentReadPath, sftpAgentClient, sftpConfigClient, "", "");
 
         log.info("cfgUpdateResult :sftpConfigClient download file for config write path");
         collect(sftpAgentReadPath, localConfigWriteDir, version, sftpConfig);
         List<FileTree> fileTrees = FileTreeUtils.getLocalDirectory(localConfigReadDir);
 
-        OamVnfConfigTask task = vnfConfigTaskMapper.selectById(taskId);
+        OamVnfConfigTask task = vnfConfigTaskMapper.selectById(Long.parseLong(taskId));
 
         if (task.getType().equals(OamVnfConfigFileServiceImpl.CONF_SWITCH)) {
 
@@ -85,7 +88,6 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
             OamVnfConfigFile source = OamVnfConfigFile.builder().isUse(false).build();
             log.info("switch other files false");
             vnfConfigFileMapper.update(source, Wrappers.<OamVnfConfigFile>lambdaQuery().eq(OamVnfConfigFile::getNeId, vnfConfigFile.getNeId()));
-            vnfConfigFile.setIsUse(true);
             vnfConfigFileMapper.updateById(vnfConfigFile);
             log.info("switch file {} true", vnfConfigFile.getCfVersion());
 
@@ -99,8 +101,8 @@ public class ConfigUpdateResultService extends ConfigUpdateResultServiceGrpc.Con
             String newFileContent = "";
             String inUseFileContent = "";
 
-            String configReadPathFile = String.format("/root/sftp/read/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
-            String configWritePathFile = String.format("/root/sftp/write/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
+            String configReadPathFile = String.format("/root/sftp/read/conf/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
+            String configWritePathFile = String.format("/root/sftp/write/conf/%s/%s/%s", request.getNfType(), request.getInstanceId(), fileName);
 
             try {
                 log.info("inUseFileContent {}", configReadPathFile);
