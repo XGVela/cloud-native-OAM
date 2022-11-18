@@ -114,6 +114,7 @@ systemctl start docker
 The Cloud Native OAM system’s several key services use the same method to build OCI image.This guide document uses oam-network-log as an example.After compile oam-network-log source code, You can find the jar file in ~/oam/cloud-native-OAM/oam-network-log/target/oam-network-log-1.0-SNAPSHOT.jar
  
 ####  Step2: Build OCI image
+#when you download oam-network-nfregister-1.0-SNAPSHOT.jar and from google-driver
 cd ~/oam/cloud-native-OAM/docs
 /bin/sh  image.sh
 
