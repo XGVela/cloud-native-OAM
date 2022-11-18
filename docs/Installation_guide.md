@@ -2,9 +2,9 @@
 
 ## Abstract
 
-The Cloud Native OAM system consists of several key services that are separately installed. These services work together depending on your needs and include the Auth, Alarm, Config, Log,  Performance and Agent services. You can install any of these projects separately and configure them stand-alone or as connected entities.  
+The Cloud Native OAM system consists of several key services that are separately installed. These services work together depending on your needs and include the Auth, Alarm, Config, Log,  Performance and Agent services. You can install any of these projects separately and configure them stand-alone or as connected entities.
 
- This guide documents the installation of 2022.11 Release.
+This guide documents the installation of 2022.11 Release.
 
 ## Prerequisites
 
@@ -12,16 +12,16 @@ The Cloud Native OAM system consists of several key services that are separately
 * The Kubernetes cluster API endpoint should be reachable from the machine you are running helm.
 * Authenticate the cluster using kubectl and it should have cluster-admin permissions.
 * The Kubernetes cluster should has free resources more then:
-    * 16 CPUs
-    * 32 Gb Memroy
-    * 200Gb disk space
+  * 16 CPUs
+  * 32 Gb Memroy
+  * 200Gb disk space
 * If you want to repackage this services jar:
-    * Linux 3.10.0+
-    * OpenJDK 1.8+/Oracle JDK 11+
-    * Apache Maven 3.0.0+
+  * Linux 3.10.0+
+  * OpenJDK 1.8+/Oracle JDK 11+
+  * Apache Maven 3.0.0+
 * If you want to rebuild this services OCI image:
-    * Linux 3.10.0+
-    * Docker 20.10.0+ or other imagemaker tools
+  * Linux 3.10.0+
+  * Docker 20.10.0+ or other imagemaker tools
 
 
 ## Compile
@@ -106,6 +106,7 @@ systemctl start docker
 The Cloud Native OAM system’s several key services use the same method to build OCI image.This guide document uses oam-network-log as an example.After compile oam-network-log source code, You can find the jar file in ~/oam/cloud-native-OAM/oam-network-log/target/oam-network-log-1.0-SNAPSHOT.jar
 
 ####  Step2: Build OCI image
+### when you downloaded oam-network-nfregister-1.0-SNAPSHOT.jar from google-driver
 ```
 cd ~/oam/cloud-native-OAM/docs
 /bin/sh  image.sh
@@ -262,9 +263,12 @@ oam-zookeeper-0                                      1/1     Running   0        
 prometheus-oam-kube-prometheus-stack-prometheus-0    2/2     Running   1          6d3h
 ```
 #### Step4: Install OAM simulator component
-
+### when you downloaded simulator.tar.gz  from google-driver url: https://drive.google.com/file/d/199o0v2tPcLMIms4wHg7JAMrB-D9Atw9s/view?usp=sharing to ~/oam/cloud-native-OAM-builder/
 ```
 cd ~/oam/cloud-native-OAM-builder/
+docker load < simulator.tar.gz 
+docker push registry.local:9001/omc/oam-network-simulator:1.0-SNAPSHOT
+
 kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid001
 kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid002
 
