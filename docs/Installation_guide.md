@@ -151,7 +151,7 @@ EOF
 
 
 cat <<EOF | kubectl apply -f - 
-kind: Role 
+kind: ClusterRole 
 apiVersion: rbac.authorization.k8s.io/v1 
 metadata: 
   name: xgvela-cr 
@@ -229,6 +229,8 @@ docker pull docker.io/bitnami/postgresql:15.1.0-debian-11-r0
 docker build . -f Dockerfile   -t docker.io/bitnami/postgresql:15.1.0-debian-11-r0
 
 helm install oam ~/oam/cloud-native-OAM-builder/oam-basic -n oam-system
+
+kubectl label <host> mgmt=true
 
 helm install tmaas ~/oam/tmaas/charts/topo-engine
 helm install tmaas-gw ~/oam/tmaas-gw/charts/topo-gw
