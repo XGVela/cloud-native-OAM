@@ -2,34 +2,34 @@
 
 ## Abstract
 
-The Cloud Native OAM system consists of several key services that are separately installed. These services work together depending on your needs and include the Auth, Alarm, Config, Log,  Performance and Agent services. You can install any of these projects separately and configure them stand-alone or as connected entities.  
+The Cloud Native OAM system consists of several key services that are separately installed. These services work together depending on your needs and include the Auth, Alarm, Config, Log,  Performance and Agent services. You can install any of these projects separately and configure them stand-alone or as connected entities.
 
- This guide documents the installation of 2022.11 Release.
- 
+This guide documents the installation of 2022.11 Release.
+
 ## Prerequisites
 
-* Kubernetes 1.20+
+* Kubernetes 1.20+ <1.25(PSP issue)
 * The Kubernetes cluster API endpoint should be reachable from the machine you are running helm.
 * Authenticate the cluster using kubectl and it should have cluster-admin permissions.
 * The Kubernetes cluster should has free resources more then:
-    * 16 CPUs
-    * 32 Gb Memroy
-    * 200Gb disk space
+  * 16 CPUs
+  * 32 Gb Memroy
+  * 200Gb disk space
 * If you want to repackage this services jar:
-    * Linux 3.10.0+
-    * JDK 1.8+
-    * Apache Maven 3.0.0+
+  * Linux 3.10.0+
+  * OpenJDK 1.8+/Oracle JDK 11+
+  * Apache Maven 3.0.0+
 * If you want to rebuild this services OCI image:
-    * Linux 3.10.0+
-    * Docker 20.10.0+ or other imagemaker tools
+  * Linux 3.10.0+
+  * Docker 20.10.0+ or other imagemaker tools
 
 
-## Compile [optional]
+## Compile
 
 You can complete the OAM source code compilation in the local Linux environment.
 This guide document uses CentOS7 as an example.
- 
- 
+
+
 #### Step1: Install build tools:
 ```
 yum install git maven
@@ -38,7 +38,7 @@ yum install git maven
 #### Step2: Check build tools version
 ```
 [root@cmcc cloud-native-OAM]# java -version
-openjdk version "1.8.0_345" 
+openjdk version "1.8.0_345"
 OpenJDK Runtime Environment (build 1.8.0_345-b01)
 OpenJDK 64-Bit Server VM (build 25.345-b01, mixed mode)
 
@@ -64,7 +64,6 @@ cd ~/oam/cloud-native-OAM
 ```
 mvn package
 ```
-
 >Under normal circumstances, you will see the following output indicating that the compilation was successful
 ```
 [INFO] Reactor Summary:
@@ -86,21 +85,14 @@ mvn package
 [INFO] Total time: 17.320s
 [INFO] Finished at: Tue Nov 01 15:32:53 CST 2022
 [INFO] Final Memory: 112M/1327M
-[INFO] ------------------------------------------------------------------------
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 25.875s[INFO] Finished at: Tue Oct 11 17:58:06 CST 2022
-[INFO] Final Memory: 71M/214M
-[INFO] ------------------------------------------------------------------------
 ```
 
 >You can find the jar file in ~/oam/cloud-native-OAM/<servicename>/target/
 
->*Please download oam-network-nfregister-1.0-SNAPSHOT.jar binary from google drive https://drive.google.com/file/d/1uWPO5jQqh3rSkudZJrCjI3DIRmGkqzEx/view?usp=sharing*
+>*Please download oam-network-nfregister-1.0-SNAPSHOT.jar binary from google drive https://drive.google.com/file/d/1H-oH7A-GZ_IRc7D5c1KM1q-UO0V6-oJJ/view?usp=sharing
+>md5:e66b39adee8d859eb2dfe7760e56fda9*
 
-
-## Build OCI images [optional]
+## Build OCI images
 
 You can build Cloud Native OAM’s OCI images in the local Linux environment.This guide document uses CentOS7 as an example.
 
@@ -112,28 +104,28 @@ systemctl start docker
 ```
 
 The Cloud Native OAM system’s several key services use the same method to build OCI image.This guide document uses oam-network-log as an example.After compile oam-network-log source code, You can find the jar file in ~/oam/cloud-native-OAM/oam-network-log/target/oam-network-log-1.0-SNAPSHOT.jar
- 
+
 ####  Step2: Build OCI image
+#when you download oam-network-nfregister-1.0-SNAPSHOT.jar and from google-driver
+```
 cd ~/oam/cloud-native-OAM/docs
 /bin/sh  image.sh
-
-> Under normal circumstances, you will see the following output
-
-```
-Successfully built 3f1103058de1
 ```
 
-> You can find the OCI image in the local image repo.
+####  Step3: Build tmaas/tmaas-gw image
+```
+cd  ~/oam
+git clone https://github.com/XGVela/tmaas.git
+cd  ~/oam/tmaas
+/bin/sh buildall.sh 1.0
 
+cd  ~/oam
+git clone https://github.com/XGVela/tmaas-gw.git
+cd  ~/oam/tmaas-gw
+/bin/sh buildall.sh 1.0
 ```
-[root@cmcc oam-network-log]# docker image ls |grep 3f1103058de1<none>                            <none>     3f1103058de1  19 minutes ago  271MB
-```
-
-#### Step3: Export OCI image to tar
-
-```
-docker save 3f1103058de1 > oam-network-log.tar
-```
+>You can find image file in ~/oam/tmaas/artifacts/images/
+>~/oam/tmaas-gw/artifacts/images/
 
 ## Installation
 #### Step1: Prepare
@@ -147,6 +139,75 @@ kubectl -n oam-system create secret generic etcd-client-certs \
 --from-file=/etc/ssl/etcd/ssl/ca.pem \
 --from-file=/etc/ssl/etcd/ssl/member-b5g-iepnm-vm01.pem \
 --from-file=/etc/ssl/etcd/ssl/member-b5g-iepnm-vm01-key.pem
+
+kubectl create ns oam-system
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: xgvela-sa
+  namespace: oam-system
+EOF
+
+
+cat <<EOF | kubectl apply -f - 
+kind: ClusterRole 
+apiVersion: rbac.authorization.k8s.io/v1 
+metadata: 
+  name: xgvela-cr 
+  namespace: oam-system
+rules:
+- apiGroups: ["extensions", "apps"]
+  resources: ["deployments","statefulsets", "daemonsets"]
+  verbs: ["get", "list", "patch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "watch", "list", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["get", "watch"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["clusterroles"]
+  verbs: ["get", "list"]
+- apiGroups: ["admissionregistration.k8s.io"]
+  resources: ["mutatingwebhookconfigurations"]
+  verbs: ["create", "update", "get"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list"]
+- apiGroups: ["monitoring.coreos.com"]
+  resources: ["prometheusrules"]
+  verbs: ["get", "create", "list", "delete", "update", "patch"]
+- apiGroups: ["monitoring.coreos.com"]
+  resources: ["podmonitors"]
+  verbs: ["get", "create", "list", "update"]
+- apiGroups: ["monitoring.coreos.com"]
+  resources: ["prometheuses"]
+  verbs: ["get" ]
+EOF
+
+cat <<EOF | kubectl apply -f -
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: xgvela-crb 
+  namespace: oam-system
+subjects:
+- kind: ServiceAccount
+  name: xgvela-sa
+  namespace: oam-system
+roleRef:
+  kind: ClusterRole
+  name: xgvela-cr
+  apiGroup: rbac.authorization.k8s.io
+EOF
 ```
 
 #### Step2: Upload OAM's images to image repository
@@ -159,7 +220,6 @@ kubectl -n oam-system create secret generic etcd-client-certs \
 
 ```
 cd ~/oam/cloud-native-OAM-builder/
-kubectl create ns oam-system
 
 cd ~/oam/cloud-native-OAM-builder/oam-basic/charts/mysql
 docker pull mysql:5.7.28
@@ -170,6 +230,11 @@ docker pull docker.io/bitnami/postgresql:15.1.0-debian-11-r0
 docker build . -f Dockerfile   -t docker.io/bitnami/postgresql:15.1.0-debian-11-r0
 
 helm install oam ~/oam/cloud-native-OAM-builder/oam-basic -n oam-system
+
+kubectl label <host> mgmt=true
+
+helm install tmaas ~/oam/tmaas/charts/topo-engine
+helm install tmaas-gw ~/oam/tmaas-gw/charts/topo-gw
 ```
 
 Check the installation status
@@ -190,12 +255,13 @@ oam-nacos-0                                          1/1     Running   0        
 oam-prometheus-adapter-5656f6755d-bprh6              1/1     Running   0          7d8h
 oam-prometheus-blackbox-exporter-f945954cc-tgp2r     1/1     Running   0          5d2h
 oam-redis-master-0                                   1/1     Running   0          5d2h
+topo-engine-7b76d78d49-gx6wf                         1/1     Running   0          3d
+topo-gw-6f977cdd74-8z92f                             1/1     Running   0          5d
 oam-sftp-agent-b5dd77967-bf68l                       1/1     Running   0          4d9h
 oam-sftp-conf-f8f454466-hhf26                        1/1     Running   0          4d8h
 oam-zookeeper-0                                      1/1     Running   0          7d8h
 prometheus-oam-kube-prometheus-stack-prometheus-0    2/2     Running   1          6d3h
 ```
-
 #### Step4: Install OAM simulator component
 
 ```
@@ -218,7 +284,6 @@ kubectl get pods -n inspur-xgvela1-infra-upf-upfinstanceid002
 NAME                         READY   STATUS    RESTARTS   AGE
 simulator-6b4956b9f6-m4xbf   2/2     Running   2          23h
 ```
-
 #### Step5: Install OAM component
 
 ```
