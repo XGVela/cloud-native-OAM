@@ -106,7 +106,7 @@ systemctl start docker
 The Cloud Native OAM system’s several key services use the same method to build OCI image.This guide document uses oam-network-log as an example.After compile oam-network-log source code, You can find the jar file in ~/oam/cloud-native-OAM/oam-network-log/target/oam-network-log-1.0-SNAPSHOT.jar
 
 ####  Step2: Build OCI image
-#when you download oam-network-nfregister-1.0-SNAPSHOT.jar and from google-driver
+### when you downloaded oam-network-nfregister-1.0-SNAPSHOT.jar from google-driver
 ```
 cd ~/oam/cloud-native-OAM/docs
 /bin/sh  image.sh
@@ -263,9 +263,12 @@ oam-zookeeper-0                                      1/1     Running   0        
 prometheus-oam-kube-prometheus-stack-prometheus-0    2/2     Running   1          6d3h
 ```
 #### Step4: Install OAM simulator component
-
+### when you downloaded simulator.tar.gz  from google-driver url: https://drive.google.com/file/d/199o0v2tPcLMIms4wHg7JAMrB-D9Atw9s/view?usp=sharing to ~/oam/cloud-native-OAM-builder/
 ```
 cd ~/oam/cloud-native-OAM-builder/
+docker load < simulator.tar.gz 
+docker push registry.local:9001/omc/oam-network-simulator:1.0-SNAPSHOT
+
 kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid001
 kubectl create ns inspur-xgvela1-infra-upf-upfinstanceid002
 
